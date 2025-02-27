@@ -19,7 +19,9 @@ class LoginController {
     public static function resetPassword() {
         echo "Reset Password";
     }
-    public static function createAccount() {
-        echo "Create Account";
+    public static function createAccount(Router $router) {
+        $router->render('auth/createAccount', [
+            
+        ]);
     }
 }
