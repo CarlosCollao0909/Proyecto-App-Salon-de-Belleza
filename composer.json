@@ -1,0 +1,23 @@
+{
+    "name": "usuario/appsalon_mvc",
+    "description": "Proyecto de App de Salón de Belleza",
+    "version": "1.0.0",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Juan Carlos Collao Mamani",
+            "email": "jccm0909@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Classes\\": "./classes",
+            "MVC\\": "./",
+            "Model\\": "./models",
+            "Controllers\\": "./controllers"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

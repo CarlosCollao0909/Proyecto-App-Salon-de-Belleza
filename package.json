@@ -1,0 +1,33 @@
+{
+    "name": "appsalon_mvc",
+    "version": "1.0.0",
+    "description": "Proyecto de App de Salón de Belleza",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "sass": "sass --watch src/scss:build/css",
+        "dev": "gulp"
+    },
+    "keywords": [
+        "SASS",
+        "Gulp",
+        "NPM",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "PHP",
+        "MySQL"
+    ],
+    "author": "Juan Carlos Collao Mamani",
+    "license": "ISC",
+    "devDependencies": {
+        "glob": "^11.0.1",
+        "gulp": "^5.0.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-sass": "^6.0.0",
+        "gulp-terser": "^2.1.0",
+        "sass": "^1.83.0",
+        "sharp": "^0.33.5"
+    }
+}
