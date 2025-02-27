@@ -13,8 +13,10 @@ class LoginController {
     public static function logout() {
         echo "Logout";
     }
-    public static function forgotPassword() {
-        echo "Forgot Password";
+    public static function forgotPassword(Router $router) {
+        $router->render('auth/forgotPassword', [
+            
+        ]);
     }
     public static function resetPassword() {
         echo "Reset Password";
