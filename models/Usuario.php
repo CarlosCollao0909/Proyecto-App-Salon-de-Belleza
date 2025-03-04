@@ -25,8 +25,8 @@ class Usuario extends ActiveRecord {
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
-        $this->admin = $args['admin'] ?? '0';
-        $this->confirmado = $args['confirmado'] ?? '0';
+        $this->admin = $args['admin'] ?? 0;
+        $this->confirmado = $args['confirmado'] ?? 0;
         $this->token = $args['token'] ?? '';
     }
 
@@ -57,6 +57,17 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    //validar login
+    public function validarLogin() {
+        if(!$this->email) {
+            self::$alertas['error'][] = 'El email es obligatorio';
+        }
+        if(!$this->password) {
+            self::$alertas['error'][] = 'La contraseña es obligatoria';
+        }
+        return self::$alertas;
+    }
+
     //verificar si el usuario existe
     public function userExist() {
         $query = "SELECT * FROM " . self::$tabla . " WHERE email = '" . $this->email . "' LIMIT 1";
@@ -77,5 +88,15 @@ class Usuario extends ActiveRecord {
     //generar token
     public function createToken() {
         $this->token = uniqid();
+    }
+
+    //comprobar el password y si esta confirmado
+    public function checkPasswordAndVerified($password) {
+        $resultado = password_verify($password, $this->password);
+        if(!$resultado || !$this->confirmado) {
+            self::$alertas['error'][] = 'Contraseña incorrecta o tu cuenta no se encuentra confirmada';
+        } else {
+            return true;
+        }
     }
 }
