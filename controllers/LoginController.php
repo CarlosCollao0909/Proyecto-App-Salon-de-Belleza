@@ -50,12 +50,70 @@ class LoginController {
         echo "Logout";
     }
     public static function forgotPassword(Router $router) {
+        $alertas = [];
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $auth = new Usuario($_POST);
+            $alertas = $auth->validarEmail();
+
+            if(empty($alertas)) {
+                $usuario = Usuario::where('email', $auth->email);
+
+                if($usuario && $usuario->confirmado === '1') {
+                    //Generar token
+                    $usuario->createToken();
+                    $usuario->update();
+                    $email = new Email($usuario->nombre, $usuario->email, $usuario->token);
+                    $email->sendInstructions();
+                    Usuario::setAlerta('exito', 'Revisa tu email');
+                } else {
+                    Usuario::setAlerta('error', 'El usuario no existe o no esta confirmado');
+                }
+            }
+        }
+
+        $alertas = Usuario::getAlertas();
+
         $router->render('auth/forgotPassword', [
-            
+            'alertas' => $alertas
         ]);
     }
-    public static function resetPassword() {
-        echo "Reset Password";
+    public static function resetPassword(Router $router) {
+        $alertas = [];
+        $error = false;
+
+        $token = s($_GET['token']);
+        //buscar usuario por token
+        $usuario = Usuario::where('token', $token);
+
+        if(empty($usuario)) {
+            Usuario::setAlerta('error', 'Token no valido');
+            $error = true;
+        }
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //leer el nuevo password y guardarlo
+            $password = new Usuario($_POST);
+            $alertas = $password->validarPassword();
+
+            if(empty($alertas)) {
+                $usuario->password = null;
+                $usuario->password = $password->password;
+                $usuario->hashPassword();
+                $usuario->token = '';
+                $resultado = $usuario->update();
+
+                if($resultado) {
+                    header('Location: /');
+                }
+            }
+        }
+
+        $alertas = Usuario::getAlertas();
+        $router->render('auth/resetPassword', [
+            'alertas' => $alertas,
+            'error' => $error
+        ]);
     }
     public static function createAccount(Router $router) {
 
@@ -89,8 +147,6 @@ class LoginController {
                     if($resultado) {
                         header('Location: /message');
                     }
-
-                    debug($usuario);
                 }
             }
         }
@@ -114,7 +170,7 @@ class LoginController {
             Usuario::setAlerta('error', 'Token no valido');
         } else {
             //modificar a usuario confirmado
-            $usuario->token = "";
+            $usuario->token = '';
             $usuario->confirmado = 1;
             $usuario->update();
             Usuario::setAlerta('exito', 'Cuenta Confirmada Correctamente');

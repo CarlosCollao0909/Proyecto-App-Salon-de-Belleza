@@ -48,10 +48,10 @@ class Usuario extends ActiveRecord {
             self::$alertas['error'][] = 'El Email es Obligatorio';
         }
         if (!$this->password) {
-            self::$alertas['error'][] = 'El password es Obligatorio';
+            self::$alertas['error'][] = 'La contraseña es Obligatoria';
         }
         if (strlen($this->password) < 8) {
-            self::$alertas['error'][] = 'El password debe tener al menos 8 caracteres';
+            self::$alertas['error'][] = 'La contraseña debe tener al menos 8 caracteres';
         }
 
         return self::$alertas;
@@ -64,6 +64,25 @@ class Usuario extends ActiveRecord {
         }
         if(!$this->password) {
             self::$alertas['error'][] = 'La contraseña es obligatoria';
+        }
+        return self::$alertas;
+    }
+
+    //validar email
+    public function validarEmail() {
+        if (!$this->email) {
+            self::$alertas['error'][] = 'El Email es Obligatorio';
+        }
+        return self::$alertas;
+    }
+
+    //validar password
+    public function validarPassword() {
+        if (!$this->password) {
+            self::$alertas['error'][] = 'La Contraseña es Obligatoria';
+        }
+        if (strlen($this->password) < 8) {
+            self::$alertas['error'][] = 'La Contraseña debe tener al menos 8 caracteres';
         }
         return self::$alertas;
     }
