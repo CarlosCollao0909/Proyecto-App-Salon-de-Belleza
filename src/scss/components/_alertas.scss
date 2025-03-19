@@ -1,0 +1,25 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.alerta {
+    border-radius: .5rem;
+    padding: calc(v.$separacion / 4);
+    color: v.$blanco;
+    font-weight: v.$bold;
+    text-align: center;
+    width: 95%;
+    text-transform: uppercase;
+    margin: 0 auto calc(v.$separacion / 4) auto;
+
+    @include m.tablet {
+        width: 80%;
+    }
+
+    &.error {
+        background-color: v.$rojo;
+    }
+
+    &.exito {
+        background-color: v.$verde;
+    }
+}

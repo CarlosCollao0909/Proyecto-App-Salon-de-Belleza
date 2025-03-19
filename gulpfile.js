@@ -11,19 +11,18 @@ import concat from 'gulp-concat';
 const sass = gulpSass(dartSass)
 
 export const css = (done) => {
-    src('src/scss/app.scss', {sourcemaps: true})
+    src('src/scss/app.scss', { sourcemaps: true })
         .pipe(sass({
             style: 'compressed'
         }).on('error', sass.logError))
-        .pipe(dest('./public/build/css', {sourcemaps: '.'}));
+        .pipe(dest('./public/build/css', { sourcemaps: '.' }));
     done();
 };
 
 export const js = (done) => {
-    return src('src/js/**/*.js', { sourcemaps: true })
-        .pipe(concat('bundle.js'))
+    return src('src/js/**/*.js')
         .pipe(terser())
-        .pipe(dest('./public/build/js', { sourcemaps: '.' }));
+        .pipe(dest('./public/build/js'));
     done();
 }
 

@@ -15,6 +15,6 @@
         </div>
     </div>
 
-    <script src="build/js/bundle.js"></script>
+    <?php echo $script ?? ''; ?>
 </body>
 </html>
