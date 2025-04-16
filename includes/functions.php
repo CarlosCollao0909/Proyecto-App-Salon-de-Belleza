@@ -14,8 +14,13 @@ function s($html) : string {
 }
 
 // comprobar si se ha iniciado sesion
-function isStartSession() : void {
+function isStartedSession() : void {
     if(!isset($_SESSION)) {
         session_start();
+    }
+}
+function isAuth() : void {
+    if(!isset($_SESSION['login'])) {
+        header('Location: /');
     }
 }

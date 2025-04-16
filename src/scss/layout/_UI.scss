@@ -1,5 +1,6 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
+@use 'sass:color';
 
 .contenedor-app {
     @include m.tablet {
@@ -21,5 +22,38 @@
         width: 95%;
         margin: 0 auto;
         padding: 3rem 0;
+        @include m.tablet {
+            overflow: scroll;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+}
+
+.barra {
+    margin: v.$separacion 0;
+    text-align: center;
+
+    @include m.tablet {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+
+    .logout-icon {
+        margin-right: .5rem;
+        i {
+            color: v.$blanco;
+            transition: color .4s ease-in-out;
+
+            &:hover {
+                cursor: pointer;
+                color: v.$rojo;
+                transform: scale(1.05);
+            }
+        }
     }
 }

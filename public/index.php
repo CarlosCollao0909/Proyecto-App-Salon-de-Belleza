@@ -17,7 +17,6 @@ $router->post('/', [LoginController::class, 'login']);
 
 //logout
 $router->get('/logout', [LoginController::class, 'logout']);
-$router->post('/logout', [LoginController::class, 'logout']);
 
 //recuperar password
 $router->get('/forgot-password', [LoginController::class, 'forgotPassword']);
@@ -38,6 +37,7 @@ $router->get('/appointment', [CitaController::class, 'index']);
 
 //API de citas
 $router->get('/api/services', [APIController::class, 'index']);
+$router->post('/api/appointments', [APIController::class, 'create']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

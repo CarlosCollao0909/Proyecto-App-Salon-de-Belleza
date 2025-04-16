@@ -22,7 +22,7 @@ class LoginController {
                     //verificar si el usuario esta confirmado
                     if($usuario->checkPasswordAndVerified($auth->password)) {
                         //autenticar el usuario
-                        session_start();
+                        isStartedSession();
                         $_SESSION['id'] = $usuario->id;
                         $_SESSION['nombre'] = $usuario->nombre . ' ' . $usuario->apellido;
                         $_SESSION['email'] = $usuario->email;
@@ -47,7 +47,10 @@ class LoginController {
         ]);
     }
     public static function logout() {
-        echo "Logout";
+        isStartedSession();
+        $_SESSION = [];
+        session_destroy();
+        header('Location: /');
     }
     public static function forgotPassword(Router $router) {
         $alertas = [];

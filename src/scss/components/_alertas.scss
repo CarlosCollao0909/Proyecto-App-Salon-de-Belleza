@@ -23,3 +23,56 @@
         background-color: v.$verde;
     }
 }
+
+//arreglo de fallas de sweetalert2 por el archivo globales.scss
+// Reset completo 
+.swal2-container {
+    // Forzar tamaño original de fuente para el contenedor
+    font-size: 16px !important; 
+    
+    .swal2-popup {
+      // Aumentar el tamaño para que coincida con el original
+      font-size: 16px !important;
+      width: 32em !important; // Ancho estándar
+      max-width: 90% !important; // Responsive
+      padding: 1.25em !important;
+      
+      // Círculo de éxito/error
+      .swal2-icon {
+        width: 5em !important;
+        height: 5em !important;
+        border-width: 0.25em !important;
+        margin: 1em auto 1em !important;
+        
+        // El check/x dentro del círculo
+        .swal2-icon-content {
+          font-size: 3.75em !important;
+        }
+      }
+      
+      // Título "Cita creada"
+      .swal2-title {
+        font-size: 1.875em !important; // ~30px
+        font-weight: 600 !important;
+        margin: 0 0 0.1em !important;
+        padding: 0.5em 0 0 !important;
+      }
+      
+      // Texto "La cita se ha creado correctamente"
+      .swal2-html-container {
+        font-size: 1.125em !important; // ~18px
+        margin: 0.5em 1.6em 0.3em !important;
+      }
+      
+      // Botón OK
+      .swal2-actions {
+        margin: 1.25em auto 0 !important;
+        
+        .swal2-confirm {
+          font-size: 1.0625em !important; // ~17px
+          padding: 0.625em 2em !important;
+          min-width: 8em !important;
+        }
+      }
+    }
+  }

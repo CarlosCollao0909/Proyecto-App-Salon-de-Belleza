@@ -4,6 +4,7 @@ const pasoFinal = 3;
 
 //objeto para almacenar los datos de la cita
 const cita = {
+    usuarioID: '',
     nombre: '',
     fecha: '',
     hora: '',
@@ -22,6 +23,7 @@ const iniciarApp = () => {
     paginaSiguiente();
     paginaAnterior();
     consultarAPI(); //consulta la API en el backend (PHP)
+    obtenerIDCliente(); //añade el id del cliente al objeto cita
     obtenerNombreCliente(); //añade el nombre del cliente al objeto cita
     seleccionarFecha(); //añade la fecha de la cita al objeto
     seleccionarHora(); //añade la hora de la cita al objeto
@@ -155,6 +157,11 @@ const seleccionarServicio = (servicio) => {
     console.log(cita);
 }
 
+const obtenerIDCliente = () => {
+    const idInput = document.querySelector('#id').value;
+    cita.usuarioID = idInput;
+}
+
 const obtenerNombreCliente = () => {
     const nombreInput = document.querySelector('#nombre').value;
     cita.nombre = nombreInput;
@@ -181,7 +188,7 @@ const seleccionarHora = () => {
     horaInput.addEventListener('input', (e) => {
         const horaCita = e.target.value;
         const hora = horaCita.split(':')[0];
-        if (hora < 9 || hora > 21) {
+        if (hora < 9 || hora >= 21) {
             e.target.value = '';
             mostrarAlerta('Hora no válida', 'error', '.formulario');
         } else {
@@ -268,7 +275,7 @@ const mostrarResumen = () => {
 
         const precioServicio = document.createElement('P');
         precioServicio.innerHTML = `<span>Precio:</span> Bs.${precio}`
-        
+
         contenedorServicio.appendChild(nombreServicio);
         contenedorServicio.appendChild(precioServicio);
 
@@ -320,6 +327,49 @@ const mostrarResumen = () => {
     resumen.appendChild(botonReservar);
 }
 
-const reservarCita = () => {
-    console.log('creando cita...');
+const reservarCita = async () => {
+    const { usuarioID, fecha, hora, servicios } = cita;
+
+    //obtener los id de los servicios seleccionados
+    const ServiciosID = servicios.map(servicio => servicio.id);
+
+    const datos = new FormData();
+    datos.append('usuarioID', usuarioID);
+    datos.append('fecha', fecha);
+    datos.append('hora', hora);
+    datos.append('servicios', ServiciosID);
+
+    try {
+        //peticion hacia la api
+        const url = 'http://localhost:3000/api/appointments';
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            body: datos
+        });
+
+        const resultado = await respuesta.json();
+        console.log(resultado.resultado);
+
+        //mostrar alerta de confirmacion de cita
+        if (resultado.resultado) {
+            Swal.fire({
+                icon: "success",
+                title: "Cita creada",
+                text: "La cita se ha creado correctamente",
+            }).then(() => {
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            });
+        }
+
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Error...",
+            text: "Hubo un error al guardar la cita",
+        });
+    }
+
+    // console.log([...datos]);
 }

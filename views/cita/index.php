@@ -1,6 +1,13 @@
 <h1 class="nombre-pagina">Crear Nueva Cita</h1>
 <p class="descripcion-pagina">Elige tus servicios y coloca tus datos</p>
 
+<div class="barra">
+    <p>Hola! <?php echo $nombre ?? ''; ?></p>
+    <a class="logout-icon" href="/logout">
+        <i class="fa-solid fa-right-from-bracket fa-2x"></i>
+    </a>
+</div>
+
 <div id="app">
     <nav class="tabs">
         <button type="button" data-paso="1" class="activo">Servicios</button>
@@ -30,6 +37,7 @@
                 <label for="hora">Hora</label>
                 <input type="time" id="hora" name="hora">
             </div>
+            <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
         </form>
     </div>
     
@@ -44,4 +52,10 @@
     </div>
 </div>
 
-<?php $script = "<script src='build/js/app.js'></script>" ?>
+<?php 
+    $script = "
+        <script src='build/js/app.js'></script>
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script src='https://kit.fontawesome.com/6a521e9758.js' crossorigin='anonymous'></script>
+    ";
+?>
