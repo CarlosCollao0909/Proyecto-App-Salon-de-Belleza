@@ -1,6 +1,6 @@
 let paso = 1;
 const pasoInicial = 1;
-const pasoFinal = 3;
+const pasoFinal = 5;
 
 //objeto para almacenar los datos de la cita
 const cita = {
@@ -102,7 +102,7 @@ const paginaAnterior = () => {
 
 const consultarAPI = async () => {
     try {
-        const url = 'http://localhost:3000/api/services';
+        const url = 'http://localhost:3000/api/servicios';
         const resultado = await fetch(url);
         const servicios = await resultado.json();
         mostrarServicios(servicios);
@@ -341,7 +341,7 @@ const reservarCita = async () => {
 
     try {
         //peticion hacia la api
-        const url = 'http://localhost:3000/api/appointments';
+        const url = 'http://localhost:3000/api/citas';
         const respuesta = await fetch(url, {
             method: 'POST',
             body: datos
@@ -359,7 +359,7 @@ const reservarCita = async () => {
             }).then(() => {
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1000);
             });
         }
 

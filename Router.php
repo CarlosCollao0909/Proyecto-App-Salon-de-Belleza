@@ -54,6 +54,14 @@ class Router {
         // entonces incluimos la vista en el layout
         include_once __DIR__ . "/views/$view.php";
         $contenido = ob_get_clean(); // Limpia el Buffer
-        include_once __DIR__ . '/views/layout.php';
+
+        //utilizar un layout diferente dependiendo el tipo de usuario (cliente o admin)
+        $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
+        
+        if(str_contains($currentUrl, '/admin')) {
+            include_once __DIR__ . '/views/adminLayout.php';
+        } else {
+            include_once __DIR__ . '/views/layout.php';
+        }
     }
 }

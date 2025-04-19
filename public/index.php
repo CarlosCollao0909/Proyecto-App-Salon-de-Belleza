@@ -2,11 +2,18 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\AdminController;
 use Controllers\APIController;
 use Controllers\CitaController;
+use Controllers\CitasController;
+use Controllers\ClientesController;
+use Controllers\DashboardController;
+use Controllers\HorariosController;
 use MVC\Router;
 
 use Controllers\LoginController;
+use Controllers\PagosController;
+use Controllers\ServiciosController;
 
 $router = new Router();
 
@@ -33,11 +40,19 @@ $router->get('/confirm-account', [LoginController::class, 'confirmAccount']);
 $router->get('/message', [LoginController::class, 'message']);
 
 //area privada
-$router->get('/appointment', [CitaController::class, 'index']);
+$router->get('/cita', [CitaController::class, 'index']);
 
 //API de citas
-$router->get('/api/services', [APIController::class, 'index']);
-$router->post('/api/appointments', [APIController::class, 'create']);
+$router->get('/api/servicios', [APIController::class, 'index']);
+$router->post('/api/citas', [APIController::class, 'create']);
+
+//area de administracion
+$router->get('/admin/dashboard', [DashboardController::class, 'index']);
+$router->get('/admin/citas', [CitasController::class, 'index']);
+$router->get('/admin/clientes', [ClientesController::class, 'index']);
+$router->get('/admin/horarios', [HorariosController::class, 'index']);
+$router->get('/admin/pagos', [PagosController::class, 'index']);
+$router->get('/admin/servicios', [ServiciosController::class, 'index']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

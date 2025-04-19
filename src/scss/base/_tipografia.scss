@@ -32,3 +32,19 @@ p {
 .descripcion-pagina {
     text-align: center;
 }
+
+.nombre-pagina-admin {
+    text-align: center;
+    margin: 5rem 0;
+    font-weight: v.$black;
+    color: v.$negro;
+}
+
+.descripcion-pagina-admin {
+    text-align: center;
+    color: v.$negro;
+}
+
+.parrafo-admin {
+    color: v.$negro;
+}

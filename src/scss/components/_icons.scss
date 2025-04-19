@@ -1,0 +1,15 @@
+@use 'base/variables' as v;
+
+.logout-icon {
+    margin-right: .5rem;
+    i {
+        color: v.$blanco;
+        transition: color .4s ease-in-out;
+
+        &:hover {
+            cursor: pointer;
+            color: v.$rojo;
+            transform: scale(1.05);
+        }
+    }
+}
