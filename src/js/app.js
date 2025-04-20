@@ -8,7 +8,7 @@ const cita = {
     nombre: '',
     fecha: '',
     hora: '',
-    servicios: []
+    servicioID: ''
 }
 
 
@@ -140,22 +140,26 @@ const mostrarServicios = (servicios) => {
 
 const seleccionarServicio = (servicio) => {
     const { id } = servicio;
-    const { servicios } = cita;
-    //identificar el div del servicio que fue clickeado
+    // Identificar el div del servicio que fue clickeado
     const divServicio = document.querySelector(`[data-id-servicio="${id}"]`);
-
-    if (servicios.some(servicioAgregado => servicioAgregado.id === id)) {
-        //eliminar el servicio
-        cita.servicios = servicios.filter(servicioAgregado => servicioAgregado.id !== id);
+    // Si el servicio clickeado ya está seleccionado, deseleccionarlo
+    if (cita.servicioID === id) {
+        cita.servicioID = ''; // Limpiar el servicio seleccionado
         divServicio.classList.remove('seleccionado');
-
     } else {
-        cita.servicios = [...servicios, servicio];
+        // Eliminar la selección de cualquier servicio previamente seleccionado
+        if (cita.servicioID) {
+            const divServicioPrevio = document.querySelector(`[data-id-servicio="${cita.servicioID}"]`);
+            if (divServicioPrevio) {
+                divServicioPrevio.classList.remove('seleccionado');
+            }
+        }
+        // Seleccionar el nuevo servicio
+        cita.servicioID = id;
         divServicio.classList.add('seleccionado');
     }
-
     console.log(cita);
-}
+};
 
 const obtenerIDCliente = () => {
     const idInput = document.querySelector('#id').value;
