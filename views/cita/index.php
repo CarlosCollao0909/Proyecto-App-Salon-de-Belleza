@@ -12,7 +12,8 @@
     <nav class="tabs">
         <button type="button" data-paso="1" class="activo">Servicios</button>
         <button type="button" data-paso="2">Información Cita</button>
-        <button type="button" data-paso="3">Resumen</button>
+        <button type="button" data-paso="3">Forma de Pago</button>
+        <button type="button" data-paso="4">Resumen</button>
     </nav>
 
     <div id="paso-1" class="seccion">
@@ -40,8 +41,26 @@
             <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
         </form>
     </div>
-    
-    <div id="paso-3" class="seccion contenido-resumen">
+
+    <div id="paso-3" class="seccion">
+        <h2>Forma de Pago</h2>
+        <p class="text-center">Elige tu forma de pago</p>
+        <div class="pagos">
+            <div class="pagos__metodo">
+                <div class="pagos__metodo-radio">
+                    <label for="efectivo">Pago en Efectivo</label>
+                    <input type="radio" name="pago" value="efectivo" id="efectivo">
+                </div>
+                <div class="pagos__metodo-radio">
+                    <label for="qr">Pago por QR</label>
+                    <input type="radio" name="pago" value="qr" id="qr">
+                </div>
+            </div>
+        </div>
+        <div class="pagos__qr" id="pagos__qr"></div>
+    </div>
+
+    <div id="paso-4" class="seccion contenido-resumen">
         <h2>Resumen</h2>
         <p class="text-center">Verifica que la información sea correcta</p>
     </div>
@@ -52,8 +71,8 @@
     </div>
 </div>
 
-<?php 
-    $script = "
+<?php
+$script = "
         <script src='build/js/app.js'></script>
         <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
         <script src='https://kit.fontawesome.com/6a521e9758.js' crossorigin='anonymous'></script>

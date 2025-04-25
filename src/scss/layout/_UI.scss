@@ -9,12 +9,27 @@
     }
 
     .imagen {
-        background-image: url(../img/1.webp);
+        background-image: url(../img/salonBG.webp);
         height: 22rem;
         background-position: center center;
         background-size: cover;
+        position: relative;
         @include m.tablet {
             height: auto;
+        }
+        &::before {
+            content: "Salón de Belleza LIZMAR";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2); // Overlay semitransparente
+            color: v.$blanco;
+            padding: 1rem;
+            font-size: 3.5rem;
+            font-weight: v.$black;
+            text-align: center;
+            font-style: italic;
         }
     }
 

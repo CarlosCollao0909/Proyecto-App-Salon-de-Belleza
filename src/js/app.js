@@ -1,6 +1,6 @@
 let paso = 1;
 const pasoInicial = 1;
-const pasoFinal = 5;
+const pasoFinal = 4;
 
 //objeto para almacenar los datos de la cita
 const cita = {
@@ -27,6 +27,7 @@ const iniciarApp = () => {
     obtenerNombreCliente(); //añade el nombre del cliente al objeto cita
     seleccionarFecha(); //añade la fecha de la cita al objeto
     seleccionarHora(); //añade la hora de la cita al objeto
+    mostrarOcultarMetodoPago(); //muestra o oculta el codigo QR o el total a pagar
     mostrarResumen(); //mostrar el resumen de la cita
 }
 
@@ -70,7 +71,7 @@ const botonesPaginador = () => {
     if (paso === 1) {
         anterior.classList.add('ocultarBoton');
         siguiente.classList.remove('ocultarBoton');
-    } else if (paso === 3) {
+    } else if (paso === 4) {
         anterior.classList.remove('ocultarBoton');
         siguiente.classList.add('ocultarBoton');
         mostrarResumen(); //validar que los datos del objeto cita esten llenos (para el resumen)
@@ -246,6 +247,22 @@ const mostrarAlerta = (mensaje, tipo, elemento, desapareceAlerta = true) => {
     }
 }
 
+const mostrarOcultarMetodoPago = () => {
+    const metodoPago = document.querySelectorAll('input[name="pago"]');
+    const qrDiv = document.querySelector('#pagos__qr');
+    console.log(qrDiv)
+
+    metodoPago.forEach((metodo) => {
+        metodo.addEventListener('click', (e) => {
+            if (e.target.value === 'efectivo') {
+                qrDiv.innerHTML = '<p class="text-center">Presiona el boton siguiente para continuar</p>';
+            } else {
+                qrDiv.innerHTML = '<img src="https://imgs.search.brave.com/D50OptkHpIjaXVvVNkXV_aQvQ3YojODOJWBnmL_OT-4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/NzUzNzQyNS9lcy9m/b3RvL3FyLWJhcmNv/ZGUtZm9yLWRhdGEt/bGFiZWxpbmcuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPUlI/dlFsZ1l6em5maUFC/QnlCU3NoRE9VRjZu/NTlqZzNFUVh4bnhj/SE55SjA9" alt="QR">';
+            }
+        })
+    })
+}
+
 const mostrarResumen = () => {
     const resumen = document.querySelector('.contenido-resumen');
     //limpiar el contenido del resumen
@@ -254,7 +271,7 @@ const mostrarResumen = () => {
     }
 
     //validar campos vacios (object.values) muestra y accede a los campos del objeto
-    if (Object.values(cita).includes('') || cita.servicios.length === 0) {
+    if (Object.values(cita).includes('')) {
         // console.log('faltan datos o servicios');
         mostrarAlerta('Faltan datos de los servicios, fecha u hora', 'error', '.contenido-resumen', false);
         return;
