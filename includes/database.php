@@ -1,7 +1,7 @@
 <?php
 
 function connectDB() {
-    $db = new mysqli('localhost', 'root', 'root', 'appsalon_mvc');
+    $db = new mysqli('localhost', 'root', 'root', 'appsalon_refactor');
     if (!$db) {
         echo "Error no se pudo conectar";
         exit;
