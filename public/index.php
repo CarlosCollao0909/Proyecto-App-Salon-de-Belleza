@@ -44,6 +44,7 @@ $router->get('/cita', [CitaController::class, 'index']);
 
 //API de citas
 $router->get('/api/servicios', [APIController::class, 'index']);
+$router->get('/api/horarios', [APIController::class, 'showHorarios']);
 $router->post('/api/citas', [APIController::class, 'create']);
 
 //area de administracion

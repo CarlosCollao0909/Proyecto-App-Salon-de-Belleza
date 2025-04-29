@@ -8,7 +8,11 @@ const cita = {
     nombre: '',
     fecha: '',
     hora: '',
-    servicioID: ''
+    servicio: {
+        id: '',
+        nombre: '',
+        precio: ''
+    }
 }
 
 
@@ -22,11 +26,11 @@ const iniciarApp = () => {
     botonesPaginador(); //agrega o quita los botones del paginador
     paginaSiguiente();
     paginaAnterior();
-    consultarAPI(); //consulta la API en el backend (PHP)
+    consultarAPIServicios(); //consulta la API para obtener los servicios
+    consultarAPIHorarios(); //consulta la API para obtener los horarios
     obtenerIDCliente(); //añade el id del cliente al objeto cita
     obtenerNombreCliente(); //añade el nombre del cliente al objeto cita
     seleccionarFecha(); //añade la fecha de la cita al objeto
-    seleccionarHora(); //añade la hora de la cita al objeto
     mostrarOcultarMetodoPago(); //muestra o oculta el codigo QR o el total a pagar
     mostrarResumen(); //mostrar el resumen de la cita
 }
@@ -101,7 +105,7 @@ const paginaAnterior = () => {
     });
 }
 
-const consultarAPI = async () => {
+const consultarAPIServicios = async () => {
     try {
         const url = 'http://localhost:3000/api/servicios';
         const resultado = await fetch(url);
@@ -126,7 +130,7 @@ const mostrarServicios = (servicios) => {
 
         const servicioDiv = document.createElement('DIV');
         servicioDiv.classList.add('servicio');
-        servicioDiv.dataset.idServicio = id;
+        servicioDiv.dataset.idServicio = id; //resultado: data-id-servicio=id
         servicioDiv.onclick = () => {
             seleccionarServicio(servicio);
         };
@@ -140,27 +144,51 @@ const mostrarServicios = (servicios) => {
 }
 
 const seleccionarServicio = (servicio) => {
-    const { id } = servicio;
+    // console.log(servicio);
+    const { id, nombre, precio } = servicio;
     // Identificar el div del servicio que fue clickeado
     const divServicio = document.querySelector(`[data-id-servicio="${id}"]`);
     // Si el servicio clickeado ya está seleccionado, deseleccionarlo
-    if (cita.servicioID === id) {
-        cita.servicioID = ''; // Limpiar el servicio seleccionado
+    if (cita.servicio.id === id) {
+        cita.servicio.id = ''; // Limpiar el servicio seleccionado
         divServicio.classList.remove('seleccionado');
     } else {
         // Eliminar la selección de cualquier servicio previamente seleccionado
-        if (cita.servicioID) {
-            const divServicioPrevio = document.querySelector(`[data-id-servicio="${cita.servicioID}"]`);
+        if (cita.servicio.id) {
+            const divServicioPrevio = document.querySelector(`[data-id-servicio="${cita.servicio.id}"]`);
             if (divServicioPrevio) {
                 divServicioPrevio.classList.remove('seleccionado');
             }
         }
         // Seleccionar el nuevo servicio
-        cita.servicioID = id;
+        cita.servicio.id = id;
+        cita.servicio.nombre = nombre;
+        cita.servicio.precio = precio;
         divServicio.classList.add('seleccionado');
     }
     console.log(cita);
 };
+
+const consultarAPIHorarios = async () => {
+    try {
+        const url = 'http://localhost:3000/api/horarios';
+        const resultado = await fetch(url);
+        const horarios = await resultado.json();
+        mostrarHorarios(horarios);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const mostrarHorarios = (horarios) => {
+    horarios.forEach(horario => {
+        const { id, horaInicio, horaFin } = horario;
+        const opcion = document.createElement('OPTION');
+        opcion.value = id;
+        opcion.textContent = `${horaInicio} - ${horaFin}`;
+        document.querySelector('#horarios').appendChild(opcion);
+    });
+}
 
 const obtenerIDCliente = () => {
     const idInput = document.querySelector('#id').value;
@@ -188,20 +216,20 @@ const seleccionarFecha = () => {
     })
 }
 
-const seleccionarHora = () => {
-    const horaInput = document.querySelector('#hora');
-    horaInput.addEventListener('input', (e) => {
-        const horaCita = e.target.value;
-        const hora = horaCita.split(':')[0];
-        if (hora < 9 || hora >= 21) {
-            e.target.value = '';
-            mostrarAlerta('Hora no válida', 'error', '.formulario');
-        } else {
-            cita.hora = e.target.value;
-            console.log(cita);
-        }
-    });
-}
+// const seleccionarHora = () => {
+//     const horaInput = document.querySelector('#hora');
+//     horaInput.addEventListener('input', (e) => {
+//         const horaCita = e.target.value;
+//         const hora = horaCita.split(':')[0];
+//         if (hora < 9 || hora >= 21) {
+//             e.target.value = '';
+//             mostrarAlerta('Hora no válida', 'error', '.formulario');
+//         } else {
+//             cita.hora = e.target.value;
+//             console.log(cita);
+//         }
+//     });
+// }
 
 /* const validarFecha = () => {
     const fechaInput = document.querySelector('#fecha');
@@ -277,31 +305,27 @@ const mostrarResumen = () => {
         return;
     }
     //formatear el div de resumen
-    const { nombre, fecha, hora, servicios } = cita; //destructuring a cita
+    const { nombre, fecha, hora, servicio } = cita; //destructuring a cita
 
-    //headin para el resumen (servicios)
+    //headin para el resumen (servicio)
     const headingServicios = document.createElement('H3');
-    headingServicios.textContent = 'Resumen de Servicios'
+    headingServicios.textContent = 'Servicio'
     resumen.appendChild(headingServicios);
 
-    //iterar y mostrar los servicios
-    servicios.forEach((servicio) => {
-        const { id, nombre, precio } = servicio;
+    const contenedorServicio = document.createElement('DIV');
+    contenedorServicio.classList.add('contenedor-servicio');
 
-        const contenedorServicio = document.createElement('DIV');
-        contenedorServicio.classList.add('contenedor-servicio');
+    const nombreServicio = document.createElement('P');
+    nombreServicio.innerHTML = `<span>Servicio Solicitado:</span> ${servicio.nombre}`;
 
-        const nombreServicio = document.createElement('P');
-        nombreServicio.textContent = nombre;
+    const precioServicio = document.createElement('P');
+    precioServicio.innerHTML = `<span>Precio:</span> Bs.${servicio.precio}`
 
-        const precioServicio = document.createElement('P');
-        precioServicio.innerHTML = `<span>Precio:</span> Bs.${precio}`
+    contenedorServicio.appendChild(nombreServicio);
+    contenedorServicio.appendChild(precioServicio);
 
-        contenedorServicio.appendChild(nombreServicio);
-        contenedorServicio.appendChild(precioServicio);
+    resumen.appendChild(contenedorServicio);
 
-        resumen.appendChild(contenedorServicio);
-    });
 
     //headin para el resumen (datos de la cita)
     const headingCita = document.createElement('H3');

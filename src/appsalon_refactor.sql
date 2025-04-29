@@ -23,22 +23,22 @@ DROP TABLE IF EXISTS `citas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `citas` (
-  `citaID` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `fecha` date DEFAULT NULL,
   `estado` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `horarioID` int DEFAULT NULL,
   `usuarioID` int DEFAULT NULL,
   `servicioID` int DEFAULT NULL,
   `formaPagoID` int DEFAULT NULL,
-  PRIMARY KEY (`citaID`),
+  PRIMARY KEY (`id`),
   KEY `citas_usuarios_FK` (`usuarioID`),
   KEY `citas_horarios_FK` (`horarioID`),
   KEY `citas_servicios_FK` (`servicioID`),
   KEY `citas_formapagos_FK` (`formaPagoID`),
-  CONSTRAINT `citas_formapagos_FK` FOREIGN KEY (`formaPagoID`) REFERENCES `formapagos` (`formaPagoID`),
-  CONSTRAINT `citas_horarios_FK` FOREIGN KEY (`horarioID`) REFERENCES `horarios` (`horarioID`),
-  CONSTRAINT `citas_servicios_FK` FOREIGN KEY (`servicioID`) REFERENCES `servicios` (`servicioID`),
-  CONSTRAINT `citas_usuarios_FK` FOREIGN KEY (`usuarioID`) REFERENCES `usuarios` (`usuarioID`)
+  CONSTRAINT `citas_formapagos_FK` FOREIGN KEY (`formaPagoID`) REFERENCES `formapagos` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
+  CONSTRAINT `citas_horarios_FK` FOREIGN KEY (`horarioID`) REFERENCES `horarios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
+  CONSTRAINT `citas_servicios_FK` FOREIGN KEY (`servicioID`) REFERENCES `servicios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
+  CONSTRAINT `citas_usuarios_FK` FOREIGN KEY (`usuarioID`) REFERENCES `usuarios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,13 +59,13 @@ DROP TABLE IF EXISTS `comprobantepagos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comprobantepagos` (
-  `comprobantePagoID` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `imagenComprobante` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `fechaSubida` timestamp NULL DEFAULT NULL,
   `citaID` int DEFAULT NULL,
-  PRIMARY KEY (`comprobantePagoID`),
-  KEY `comprobantePagos_citas_FK` (`citaID`),
-  CONSTRAINT `comprobantePagos_citas_FK` FOREIGN KEY (`citaID`) REFERENCES `citas` (`citaID`)
+  PRIMARY KEY (`id`),
+  KEY `comprobantepagos_citas_FK` (`citaID`),
+  CONSTRAINT `comprobantepagos_citas_FK` FOREIGN KEY (`citaID`) REFERENCES `citas` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -86,11 +86,11 @@ DROP TABLE IF EXISTS `formapagos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `formapagos` (
-  `formaPagoID` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `tipo` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `imagenQR` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`formaPagoID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,6 +99,7 @@ CREATE TABLE `formapagos` (
 
 LOCK TABLES `formapagos` WRITE;
 /*!40000 ALTER TABLE `formapagos` DISABLE KEYS */;
+INSERT INTO `formapagos` VALUES (1,'Efectivo','No corresponde'),(2,'QR',NULL);
 /*!40000 ALTER TABLE `formapagos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,11 +111,11 @@ DROP TABLE IF EXISTS `horarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `horarios` (
-  `horarioID` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `horaInicio` time DEFAULT NULL,
   `horaFin` time DEFAULT NULL,
-  PRIMARY KEY (`horarioID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,6 +124,7 @@ CREATE TABLE `horarios` (
 
 LOCK TABLES `horarios` WRITE;
 /*!40000 ALTER TABLE `horarios` DISABLE KEYS */;
+INSERT INTO `horarios` VALUES (1,'09:00:00','10:00:00'),(2,'10:00:00','11:00:00'),(3,'11:00:00','12:00:00'),(4,'15:00:00','16:00:00'),(5,'16:00:00','17:00:00'),(6,'17:00:00','18:00:00'),(7,'18:00:00','19:00:00'),(8,'19:00:00','20:00:00'),(9,'20:00:00','21:00:00');
 /*!40000 ALTER TABLE `horarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,10 +136,10 @@ DROP TABLE IF EXISTS `servicios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `servicios` (
-  `servicioID` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `precio` decimal(5,2) DEFAULT NULL,
-  PRIMARY KEY (`servicioID`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -159,17 +161,17 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
-  `usuarioID` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `apellido` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `email` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `password` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `telefono` varchar(8) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `rol` tinyint DEFAULT NULL,
+  `admin` tinyint DEFAULT NULL,
   `confirmado` tinyint DEFAULT NULL,
   `token` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`usuarioID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,6 +180,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'Juan Carlos','Collao Mamani','carloscollao3@gmail.com','$2y$10$73ifbBYHLI48BUenrETYUOGCvP2IEEQ0VbXW7uAqT/Jtqn7skEUEi','69575687',1,1,''),(2,'test','test','test@test.com','$2y$10$i47DLu2fBWaT..ZAS7VoFesBYhr4DLY0zkWfH5cUGRgwART7N2z9.','12345678',0,1,'');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-24 20:01:38
+-- Dump completed on 2025-04-29 12:11:34

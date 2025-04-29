@@ -24,7 +24,7 @@
 
     <div id="paso-2" class="seccion">
         <h2>Información de la Cita</h2>
-        <p class="text-center">Coloca tus datos y fecha de la cita</p>
+        <p class="text-center">Coloca la información de tu cita</p>
         <form class="formulario">
             <div class="campo">
                 <label for="nombre">Nombre</label>
@@ -35,8 +35,10 @@
                 <input type="date" id="fecha" name="fecha" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>">
             </div>
             <div class="campo">
-                <label for="hora">Hora</label>
-                <input type="time" id="hora" name="hora">
+                <label for="horarios">Horarios Disponibles</label>
+                <select id="horarios" name="horarios">
+                    <option value=""> -- Selecciona un Horario -- </option>
+                </select>
             </div>
             <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
         </form>
