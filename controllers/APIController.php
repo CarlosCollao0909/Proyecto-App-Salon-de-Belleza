@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use Model\Cita;
-use Model\CitaServicio;
 use Model\Horario;
 use Model\Servicio;
 
@@ -22,20 +21,6 @@ class APIController {
         // Almacenar la cita y devolver el id
         $cita = new Cita($_POST);
         $resultado = $cita->create();
-
-        //almacenar la cita y los servicios
-        $citaID = $resultado['id'];
-        $serviciosID = explode(',', $_POST['servicios']);
-
-        foreach($serviciosID as $servicioID) {
-            $args = [
-                'citaID' => $citaID,
-                'servicioID' => $servicioID
-            ];
-
-            $citaServicio = new CitaServicio($args);
-            $citaServicio->create();
-        };
 
         $respuesta = [
             'resultado' => $resultado

@@ -3,7 +3,7 @@
 namespace Model;
 
 class FormaPago extends ActiveRecord {
-    protected static $tabla = 'formas_pago';
+    protected static $tabla = 'formaPagos';
     protected static $columnasDB = ['id', 'tipo', 'imagenQR'];
 
     public $id;

@@ -7,11 +7,15 @@ const cita = {
     usuarioID: '',
     nombre: '',
     fecha: '',
-    hora: '',
+    formaPago: '',
     servicio: {
         id: '',
         nombre: '',
         precio: ''
+    },
+    horario: {
+        id: '',
+        horarioSeleccionado: ''
     }
 }
 
@@ -31,7 +35,8 @@ const iniciarApp = () => {
     obtenerIDCliente(); //añade el id del cliente al objeto cita
     obtenerNombreCliente(); //añade el nombre del cliente al objeto cita
     seleccionarFecha(); //añade la fecha de la cita al objeto
-    mostrarOcultarMetodoPago(); //muestra o oculta el codigo QR o el total a pagar
+    seleccionarHorario(); //añade el id del horario al objeto cita
+    mostrarOcultarFormaPago(); //muestra o oculta el codigo QR o el total a pagar
     mostrarResumen(); //mostrar el resumen de la cita
 }
 
@@ -190,6 +195,14 @@ const mostrarHorarios = (horarios) => {
     });
 }
 
+const seleccionarHorario = () => {
+    const horariosSelect = document.querySelector('#horarios');
+    horariosSelect.addEventListener('change', (e) => {
+        cita.horario.id = parseInt(e.target.selectedOptions[0].value);
+        cita.horario.horarioSeleccionado = e.target.selectedOptions[0].text;
+    });
+}
+
 const obtenerIDCliente = () => {
     const idInput = document.querySelector('#id').value;
     cita.usuarioID = idInput;
@@ -215,21 +228,6 @@ const seleccionarFecha = () => {
         }
     })
 }
-
-// const seleccionarHora = () => {
-//     const horaInput = document.querySelector('#hora');
-//     horaInput.addEventListener('input', (e) => {
-//         const horaCita = e.target.value;
-//         const hora = horaCita.split(':')[0];
-//         if (hora < 9 || hora >= 21) {
-//             e.target.value = '';
-//             mostrarAlerta('Hora no válida', 'error', '.formulario');
-//         } else {
-//             cita.hora = e.target.value;
-//             console.log(cita);
-//         }
-//     });
-// }
 
 /* const validarFecha = () => {
     const fechaInput = document.querySelector('#fecha');
@@ -275,17 +273,20 @@ const mostrarAlerta = (mensaje, tipo, elemento, desapareceAlerta = true) => {
     }
 }
 
-const mostrarOcultarMetodoPago = () => {
+const mostrarOcultarFormaPago = () => {
     const metodoPago = document.querySelectorAll('input[name="pago"]');
     const qrDiv = document.querySelector('#pagos__qr');
-    console.log(qrDiv)
+    const urlQr = qrDiv.dataset.qrUrl; 
 
     metodoPago.forEach((metodo) => {
         metodo.addEventListener('click', (e) => {
-            if (e.target.value === 'efectivo') {
+            console.log(e.target.value);
+            if (e.target.value === '1') {
+                cita.formaPago = e.target.value;
                 qrDiv.innerHTML = '<p class="text-center">Presiona el boton siguiente para continuar</p>';
-            } else {
-                qrDiv.innerHTML = '<img src="https://imgs.search.brave.com/D50OptkHpIjaXVvVNkXV_aQvQ3YojODOJWBnmL_OT-4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/NzUzNzQyNS9lcy9m/b3RvL3FyLWJhcmNv/ZGUtZm9yLWRhdGEt/bGFiZWxpbmcuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPUlI/dlFsZ1l6em5maUFC/QnlCU3NoRE9VRjZu/NTlqZzNFUVh4bnhj/SE55SjA9" alt="QR">';
+            } else if (e.target.value === '2') {
+                cita.formaPago = e.target.value;
+                qrDiv.innerHTML = `<img src="${urlQr}" alt="QR">`;
             }
         })
     })
@@ -300,40 +301,12 @@ const mostrarResumen = () => {
 
     //validar campos vacios (object.values) muestra y accede a los campos del objeto
     if (Object.values(cita).includes('')) {
-        // console.log('faltan datos o servicios');
-        mostrarAlerta('Faltan datos de los servicios, fecha u hora', 'error', '.contenido-resumen', false);
+        mostrarAlerta('Faltan datos de los servicios, fecha, horario o forma de pago', 'error', '.contenido-resumen', false);
         return;
     }
+    
     //formatear el div de resumen
-    const { nombre, fecha, hora, servicio } = cita; //destructuring a cita
-
-    //headin para el resumen (servicio)
-    const headingServicios = document.createElement('H3');
-    headingServicios.textContent = 'Servicio'
-    resumen.appendChild(headingServicios);
-
-    const contenedorServicio = document.createElement('DIV');
-    contenedorServicio.classList.add('contenedor-servicio');
-
-    const nombreServicio = document.createElement('P');
-    nombreServicio.innerHTML = `<span>Servicio Solicitado:</span> ${servicio.nombre}`;
-
-    const precioServicio = document.createElement('P');
-    precioServicio.innerHTML = `<span>Precio:</span> Bs.${servicio.precio}`
-
-    contenedorServicio.appendChild(nombreServicio);
-    contenedorServicio.appendChild(precioServicio);
-
-    resumen.appendChild(contenedorServicio);
-
-
-    //headin para el resumen (datos de la cita)
-    const headingCita = document.createElement('H3');
-    headingCita.textContent = 'Resumen de los Datos de la Cita'
-    resumen.appendChild(headingCita);
-
-    const nombreCliente = document.createElement('P');
-    nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`
+    const { nombre, fecha, horario, servicio } = cita; //destructuring a cita
 
     //formatear la fecha en español
     const fechaObj = new Date(fecha);
@@ -342,7 +315,6 @@ const mostrarResumen = () => {
     const year = fechaObj.getFullYear();
 
     const fechaUTC = new Date(Date.UTC(year, mes, dia));
-    // console.log(fechaUTC)
 
     const opciones = {
         weekday: 'long',
@@ -351,38 +323,123 @@ const mostrarResumen = () => {
         day: 'numeric'
     }
     const fechaFormateada = fechaUTC.toLocaleDateString('es-BO', opciones);
-    // console.log(fechaFormateada);
 
-    const fechaCita = document.createElement('P');
-    fechaCita.innerHTML = `<span>Fecha:</span> ${fechaFormateada}`
+    // Heading para el resumen 
+    const headingCita = document.createElement('H3');
+    headingCita.textContent = 'Resumen de los Datos de la Cita';
+    headingCita.classList.add('resumen-heading');
+    resumen.appendChild(headingCita);
+    
+    // línea debajo del título
+    const decorador = document.createElement('DIV');
+    decorador.classList.add('resumen-decorador');
+    resumen.appendChild(decorador);
 
-    const horaCita = document.createElement('P');
-    horaCita.innerHTML = `<span>Hora:</span> ${hora}`
+    const contenedorResumen = document.createElement('DIV');
+    contenedorResumen.classList.add('contenedor-resumen');
+    resumen.appendChild(contenedorResumen);
 
-    //boton para crear nueva cita
+    // información personal
+    const infoPersonal = document.createElement('DIV');
+    infoPersonal.classList.add('resumen-seccion');
+    
+    const nombreCliente = document.createElement('DIV');
+    nombreCliente.classList.add('resumen-campo');
+    nombreCliente.innerHTML = `
+        <div class="resumen-icono resumen-icono-usuario"></div>
+        <div class="resumen-info">
+            <span class="resumen-etiqueta">Nombre:</span>
+            <p class="resumen-valor">${nombre}</p>
+        </div>
+    `;
+    
+    const fechaCita = document.createElement('DIV');
+    fechaCita.classList.add('resumen-campo');
+    fechaCita.innerHTML = `
+        <div class="resumen-icono resumen-icono-calendario"></div>
+        <div class="resumen-info">
+            <span class="resumen-etiqueta">Fecha:</span>
+            <p class="resumen-valor">${fechaFormateada}</p>
+        </div>
+    `;
+
+    const horarioCita = document.createElement('DIV');
+    horarioCita.classList.add('resumen-campo');
+    horarioCita.innerHTML = `
+        <div class="resumen-icono resumen-icono-reloj"></div>
+        <div class="resumen-info">
+            <span class="resumen-etiqueta">Hora:</span>
+            <p class="resumen-valor">${horario.horarioSeleccionado}</p>
+        </div>
+    `;
+
+    infoPersonal.appendChild(nombreCliente);
+    infoPersonal.appendChild(fechaCita);
+    infoPersonal.appendChild(horarioCita);
+    contenedorResumen.appendChild(infoPersonal);
+    
+    // separador
+    const separador = document.createElement('DIV');
+    separador.classList.add('resumen-separador');
+    contenedorResumen.appendChild(separador);
+    
+    // servicios
+    const infoServicio = document.createElement('DIV');
+    infoServicio.classList.add('resumen-seccion');
+    
+    const servicioCita = document.createElement('DIV');
+    servicioCita.classList.add('resumen-campo');
+    servicioCita.innerHTML = `
+        <div class="resumen-icono resumen-icono-tijeras"></div>
+        <div class="resumen-info">
+            <span class="resumen-etiqueta">Servicio:</span>
+            <p class="resumen-valor">${servicio.nombre}</p>
+        </div>
+    `;
+    
+    const infoPago = document.createElement('DIV');
+    infoPago.classList.add('resumen-campo', 'resumen-pago');
+    infoPago.innerHTML = `
+        <div class="resumen-icono resumen-icono-tarjeta"></div>
+        <div class="resumen-info-contenedor">
+            <div class="resumen-info-pago">
+                <span class="resumen-etiqueta">Total:</span>
+                <p class="resumen-valor resumen-valor-precio">Bs. ${servicio.precio}</p>
+            </div>
+            <div class="resumen-info-pago">
+                <span class="resumen-etiqueta">Forma de Pago:</span>
+                <p class="resumen-valor">${cita.formaPago === '1' ? 'Efectivo' : 'QR'}</p>
+            </div>
+        </div>
+    `;
+    
+    infoServicio.appendChild(servicioCita);
+    infoServicio.appendChild(infoPago);
+    contenedorResumen.appendChild(infoServicio);
+    
+    // Contenedor de botón
+    const contenedorAcciones = document.createElement('DIV');
+    contenedorAcciones.classList.add('resumen-acciones');
+    
+    // Botón para crear nueva cita
     const botonReservar = document.createElement('BUTTON');
-    botonReservar.classList.add('boton');
+    botonReservar.classList.add('boton', 'boton-confirmar');
     botonReservar.textContent = 'Confirmar Cita';
     botonReservar.onclick = reservarCita;
-
-    resumen.appendChild(nombreCliente);
-    resumen.appendChild(fechaCita);
-    resumen.appendChild(horaCita);
-
-    resumen.appendChild(botonReservar);
+    contenedorAcciones.appendChild(botonReservar);
+    
+    resumen.appendChild(contenedorAcciones);
 }
 
 const reservarCita = async () => {
-    const { usuarioID, fecha, hora, servicios } = cita;
-
-    //obtener los id de los servicios seleccionados
-    const ServiciosID = servicios.map(servicio => servicio.id);
+    const { usuarioID, fecha, horario, servicio, formaPago } = cita;
 
     const datos = new FormData();
     datos.append('usuarioID', usuarioID);
     datos.append('fecha', fecha);
-    datos.append('hora', hora);
-    datos.append('servicios', ServiciosID);
+    datos.append('horarioID', horario.id);
+    datos.append('servicioID', servicio.id);
+    datos.append('formaPagoID', formaPago);
 
     try {
         //peticion hacia la api
@@ -414,6 +471,7 @@ const reservarCita = async () => {
             title: "Error...",
             text: "Hubo un error al guardar la cita",
         });
+        console.log(error);
     }
 
     // console.log([...datos]);

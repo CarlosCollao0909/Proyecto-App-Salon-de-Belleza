@@ -1,23 +1,147 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
+@use 'sass:color';
 
 .contenido-resumen {
-    p {
-        margin-bottom: 1rem;
-    }
-
-    span {
-        color: v.$azul;
-        font-weight: v.$bold;
+    color: v.$blanco;
+    padding: 3rem;
+    border-radius: 1rem;
+    max-width: 60rem;
+    margin: 0 auto;
+    
+    // Título principal
+    .resumen-heading {
         font-size: 2.4rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        font-weight: v.$bold;
     }
-}
-
-.contenedor-servicio {
-    padding: 3rem 0;
-    border-bottom: .1rem solid v.$gris;
-
-    &:last-of-type {
-        margin-bottom: v.$separacion;
+    
+    // Decorador bajo el título
+    .resumen-decorador {
+        width: 6rem;
+        height: 0.4rem;
+        background-color: color.adjust(v.$azul, $lightness: 10%);
+        margin: 0 auto 2rem auto;
+    }
+    
+    // Contenedor principal
+    .contenedor-resumen {
+        margin-bottom: 2rem;
+    }
+    
+    // Secciones
+    .resumen-seccion {
+        margin-bottom: 1.5rem;
+    }
+    
+    // Cada campo individual
+    .resumen-campo {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+    }
+    
+    // Iconos
+    .resumen-icono {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin-right: 1.5rem;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        
+        // Diferentes iconos (usando SVG en data URLs)
+        &.resumen-icono-usuario {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
+        }
+        
+        &.resumen-icono-calendario {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E");
+        }
+        
+        &.resumen-icono-reloj {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
+        }
+        
+        &.resumen-icono-tijeras {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='6' cy='6' r='3'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Cline x1='20' y1='4' x2='8.12' y2='15.88'/%3E%3Cline x1='14.47' y1='14.48' x2='20' y2='20'/%3E%3Cline x1='8.12' y1='8.12' x2='12' y2='12'/%3E%3C/svg%3E");
+        }
+        
+        &.resumen-icono-tarjeta {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='1' y='4' width='22' height='16' rx='2' ry='2'/%3E%3Cline x1='1' y1='10' x2='23' y2='10'/%3E%3C/svg%3E");
+        }
+    }
+    
+    // Información
+    .resumen-info {
+        flex: 1;
+    }
+    
+    // Para el campo de pago que tiene dos partes
+    .resumen-info-contenedor {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        flex-wrap: wrap;
+        
+        .resumen-info-pago {
+            margin-right: 1rem;
+            
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+    
+    // Etiquetas y valores
+    .resumen-etiqueta {
+        color: v.$azul;
+        font-size: 1.4rem;
+        display: block;
+        font-weight: v.$bold;
+        margin-bottom: 0.5rem;
+    }
+    
+    .resumen-valor {
+        font-size: 1.8rem;
+        margin: 0;
+        
+        &.resumen-valor-precio {
+            font-weight: v.$bold;
+        }
+    }
+    
+    // Separador
+    .resumen-separador {
+        border-bottom: .1rem solid v.$gris-medio;
+        margin: 2rem 0;
+    }
+    
+    // Contenedor de acciones
+    .resumen-acciones {
+        display: flex;
+        align-items: center;
+        margin-top: 3rem;
+        justify-content: space-between;
+    }
+    
+    // Botón confirmar
+    .boton-confirmar {
+        background-color: v.$azul;
+        color: white;
+        padding: 1.5rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: v.$bold;
+        font-size: 1.6rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        flex: 1;
+        margin-left: 1.5rem;
+        
+        &:hover {
+            background-color: color.adjust(v.$azul, $lightness: -10%);
+        }
     }
 }

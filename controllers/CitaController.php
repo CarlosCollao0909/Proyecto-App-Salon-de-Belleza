@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\FormaPago;
 use MVC\Router;
 
 class CitaController {
@@ -10,10 +11,12 @@ class CitaController {
         isAuth();
         $id = $_SESSION['id'];
         $nombre = $_SESSION['nombre'];
+        $formasPago = FormaPago::all();
         
         $router->render('cita/index', [
             'nombre' => $nombre,
-            'id' => $id
+            'id' => $id,
+            'formasPago' => $formasPago
         ]);
     }
 }
