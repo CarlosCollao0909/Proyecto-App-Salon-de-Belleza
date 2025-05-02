@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salón de Belleza LIZMAR - Administración</title>
+    <script src="https://kit.fontawesome.com/6a521e9758.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/build/css/app.css">
 </head>
 
@@ -18,8 +19,6 @@
         </main>
     </div>
 
-    <script src="https://kit.fontawesome.com/6a521e9758.js" crossorigin="anonymous"></script>
-     <script src="/build/js/fontAwesome.js"></script>
     <?php echo $script ?? ''; ?>
 </body>
 

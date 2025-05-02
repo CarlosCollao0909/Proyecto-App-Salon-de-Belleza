@@ -39,7 +39,7 @@ CREATE TABLE `citas` (
   CONSTRAINT `citas_horarios_FK` FOREIGN KEY (`horarioID`) REFERENCES `horarios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
   CONSTRAINT `citas_servicios_FK` FOREIGN KEY (`servicioID`) REFERENCES `servicios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
   CONSTRAINT `citas_usuarios_FK` FOREIGN KEY (`usuarioID`) REFERENCES `usuarios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,6 +48,7 @@ CREATE TABLE `citas` (
 
 LOCK TABLES `citas` WRITE;
 /*!40000 ALTER TABLE `citas` DISABLE KEYS */;
+INSERT INTO `citas` VALUES (1,'2025-05-01','Confirmada',1,2,2,1),(2,'2025-05-02','Confirmada',9,2,7,2),(3,'2025-05-03','Confirmada',5,3,11,1),(4,'2025-05-22','Confirmada',4,3,1,1),(5,'2025-05-05','Confirmada',4,2,2,1);
 /*!40000 ALTER TABLE `citas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +172,7 @@ CREATE TABLE `usuarios` (
   `confirmado` tinyint DEFAULT NULL,
   `token` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +181,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Juan Carlos','Collao Mamani','carloscollao3@gmail.com','$2y$10$73ifbBYHLI48BUenrETYUOGCvP2IEEQ0VbXW7uAqT/Jtqn7skEUEi','69575687',1,1,''),(2,'test','test','test@test.com','$2y$10$i47DLu2fBWaT..ZAS7VoFesBYhr4DLY0zkWfH5cUGRgwART7N2z9.','12345678',0,1,'');
+INSERT INTO `usuarios` VALUES (1,'Juan Carlos','Collao Mamani','carloscollao3@gmail.com','$2y$10$73ifbBYHLI48BUenrETYUOGCvP2IEEQ0VbXW7uAqT/Jtqn7skEUEi','69575687',1,1,''),(2,'test','test','test@test.com','$2y$10$i47DLu2fBWaT..ZAS7VoFesBYhr4DLY0zkWfH5cUGRgwART7N2z9.','12345678',0,1,''),(3,'Juan','Test2','juan@test.com','$2y$10$E90FH.zrlFi1G7qYpKjPuujjtvVaO7BFTO.a0Dxr0IBqHFFUL0Qyu','69575687',0,1,'');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +198,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-29 12:11:34
+-- Dump completed on 2025-05-02 12:16:31
