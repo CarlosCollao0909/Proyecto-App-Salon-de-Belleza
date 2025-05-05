@@ -59,7 +59,7 @@
                 <?php endforeach; ?>
             </div>
         </div>
-        <div class="pagos__qr" id="pagos__qr" data-qr-url="<?php echo $urlQr; ?>"></div>
+        <div class="informacion__pago" id="informacion__pago" data-qr-url="<?php echo $urlQr; ?>"></div>
     </div>
 
     <div id="paso-4" class="seccion contenido-resumen">

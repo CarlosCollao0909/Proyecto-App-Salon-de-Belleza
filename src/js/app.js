@@ -309,18 +309,34 @@ const mostrarAlerta = (mensaje, tipo, elemento, desapareceAlerta = true) => {
 
 const mostrarOcultarFormaPago = () => {
     const metodoPago = document.querySelectorAll('input[name="pago"]');
-    const qrDiv = document.querySelector('#pagos__qr');
-    const urlQr = qrDiv.dataset.qrUrl; 
+    const infoDiv = document.querySelector('#informacion__pago');
+    const urlQr = infoDiv.dataset.qrUrl;
 
     metodoPago.forEach((metodo) => {
         metodo.addEventListener('click', (e) => {
-            console.log(e.target.value);
+            infoDiv.innerHTML = '';
             if (e.target.value === '1') {
                 cita.formaPago = e.target.value;
-                qrDiv.innerHTML = '<p class="text-center">Presiona el boton siguiente para continuar</p>';
+                const parrafoIndicativo = document.createElement('P');
+                parrafoIndicativo.classList.add('text-center');
+                parrafoIndicativo.textContent = 'Presiona el boton siguiente para continuar';
+                infoDiv.appendChild(parrafoIndicativo);
             } else if (e.target.value === '2') {
                 cita.formaPago = e.target.value;
-                qrDiv.innerHTML = `<img src="${urlQr}" alt="QR">`;
+                const imagenQr = document.createElement('IMG');
+                imagenQr.src = urlQr;
+                infoDiv.appendChild(imagenQr);
+
+                const formularioQr = document.createElement('FORM');
+                formularioQr.classList.add('formulario')
+
+                const inputFile = document.createElement('INPUT');
+                inputFile.type = 'file';
+                inputFile.accept = 'image/jpg, image/jpeg, image/png';
+                inputFile.name = 'qr';
+
+                formularioQr.appendChild(inputFile);
+                infoDiv.appendChild(formularioQr);
             }
         })
     })
