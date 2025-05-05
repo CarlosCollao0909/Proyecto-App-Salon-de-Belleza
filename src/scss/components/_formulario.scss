@@ -11,20 +11,32 @@
     display: flex;
     margin-bottom: 2rem;
     align-items: center;
-
-    label {
-        flex: 0 0 10rem;
+    flex-direction: column;
+    
+    @include m.tablet {
+        flex-direction: row;
     }
-
+    
+    label {
+        
+        margin-bottom: 1rem;
+        
+        @include m.tablet {
+            margin-bottom: 0;
+            flex: 0 0 10rem;
+        }
+    }
+    
     input,
     select {
         flex: 1;
         border: none;
         padding: calc(v.$separacion / 4);
         border-radius: 1rem;
-
+        width: 100%;
+        
         &:disabled {
-            background-color: color.adjust(v.$negro, $lightness: 30%);
+            background-color: color.adjust(v.$gris-oscuro, $lightness: 40%);
             color: v.$blanco;
             cursor: not-allowed;
         }
