@@ -31,7 +31,6 @@ const iniciarApp = () => {
     paginaSiguiente();
     paginaAnterior();
     consultarAPIServicios(); //consulta la API para obtener los servicios
-    consultarAPIHorarios(); //consulta la API para obtener los horarios
     obtenerIDCliente(); //añade el id del cliente al objeto cita
     obtenerNombreCliente(); //añade el nombre del cliente al objeto cita
     seleccionarFecha(); //añade la fecha de la cita al objeto
@@ -175,8 +174,9 @@ const seleccionarServicio = (servicio) => {
 };
 
 const consultarAPIHorarios = async () => {
+    console.log(cita.fecha)
     try {
-        const url = 'http://localhost:3000/api/horarios';
+        const url = `http://localhost:3000/api/horarios?fecha=${cita.fecha}`;
         const resultado = await fetch(url);
         const horarios = await resultado.json();
         mostrarHorarios(horarios);
@@ -186,14 +186,39 @@ const consultarAPIHorarios = async () => {
 }
 
 const mostrarHorarios = (horarios) => {
+    const select = document.querySelector('#horarios');
+    
+    // Limpiar opciones anteriores
+    while (select.firstChild) {
+        select.removeChild(select.firstChild);
+    }
+
+    // Si no hay horarios disponibles
+    if (horarios.length === 0) {
+        const opcion = document.createElement('OPTION');
+        opcion.textContent = 'No hay horarios disponibles';
+        opcion.disabled = true;
+        select.appendChild(opcion);
+        return;
+    }
+
+    // Agregar opción por defecto
+    const opcionDefault = document.createElement('OPTION');
+    opcionDefault.textContent = '-- Selecciona un horario --';
+    opcionDefault.disabled = true;
+    opcionDefault.selected = true;
+    select.appendChild(opcionDefault);
+
+    // Agregar los nuevos horarios
     horarios.forEach(horario => {
         const { id, horaInicio, horaFin } = horario;
         const opcion = document.createElement('OPTION');
         opcion.value = id;
         opcion.textContent = `${horaInicio} - ${horaFin}`;
-        document.querySelector('#horarios').appendChild(opcion);
+        select.appendChild(opcion);
     });
-}
+};
+
 
 const seleccionarHorario = () => {
     const horariosSelect = document.querySelector('#horarios');
@@ -225,8 +250,17 @@ const seleccionarFecha = () => {
         } else {
             // console.log(e.target.value);
             cita.fecha = e.target.value;
+            consultarAPIHorarios(); //consulta la API para obtener los horarios
         }
-    })
+    });
+
+    const selectHorarios = document.querySelector('#horarios');
+    if (!cita.fecha) {
+        const opcionMensaje = document.createElement('OPTION');
+        opcionMensaje.textContent = 'Selecciona una fecha para ver los horarios disponibles';
+        opcionMensaje.disabled = true;
+        selectHorarios.appendChild(opcionMensaje);
+    }
 }
 
 /* const validarFecha = () => {
@@ -300,7 +334,7 @@ const mostrarResumen = () => {
     }
 
     //validar campos vacios (object.values) muestra y accede a los campos del objeto
-    if (Object.values(cita).includes('')) {
+    if (Object.values(cita).includes('') || Object.values(cita.servicio).includes('') || Object.values(cita.horario).includes('')) {
         mostrarAlerta('Faltan datos de los servicios, fecha, horario o forma de pago', 'error', '.contenido-resumen', false);
         return;
     }

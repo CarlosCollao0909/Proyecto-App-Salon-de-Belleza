@@ -13,8 +13,23 @@ class APIController {
     }
 
     public static function showHorarios() {
+        $fecha = $_GET['fecha'] ?? '';
+        //validar la fecha
+        if (!$fecha) {
+            echo json_encode(['error' => 'Seleccione una fecha']);
+            return;
+        }
+        $citas = Cita::pluckColumn('horarioID', 'fecha', $fecha);
         $horarios = Horario::all();
-        echo json_encode($horarios);
+        
+        // filtrar los horarios que no esten ocupados
+        $horariosDisponibles = [];
+        foreach ($horarios as $horario) {
+            if (!in_array($horario->id, $citas)) {
+                $horariosDisponibles[] = $horario;
+            }
+        }
+        echo json_encode($horariosDisponibles);
     }
 
     public static function create() {

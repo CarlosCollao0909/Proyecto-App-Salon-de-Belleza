@@ -49,6 +49,12 @@ class ActiveRecord {
         return $array;
     }
 
+    // consultas sql personalizadas
+    public static function customQuery($query) {
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
     // Crea el objeto en memoria que es igual al de la BD
     protected static function crearObjeto($registro) {
         $objeto = new static;
@@ -123,6 +129,28 @@ class ActiveRecord {
         $query = "SELECT * FROM " . static::$tabla . " WHERE $columna = '$valor'";
         $resultado = self::consultarSQL($query);
         return array_shift($resultado);
+    }
+
+    // Buscar un registro por un campo en especifico, obteniendo todos los registros
+    public static function whereAll($columna, $valor, $campo = '*') {
+        $query = "SELECT $campo FROM " . static::$tabla . " WHERE $columna = '$valor'";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
+    //obtener una columna de una consulta con where
+    public static function pluckColumn($campo, $columna, $valor) {
+        $query = "SELECT $campo FROM " . static::$tabla . " WHERE $columna = '$valor'";
+        $resultado = self::$db->query($query);
+        
+        $array = [];
+        while ($registro = $resultado->fetch_assoc()) {
+            $array[] = $registro[$campo];
+        }
+
+        $resultado->free();
+
+        return $array;
     }
 
     // Obtener Registros con cierta cantidad
