@@ -16,7 +16,8 @@ const cita = {
     horario: {
         id: '',
         horarioSeleccionado: ''
-    }
+    },
+    comprobante: null
 }
 
 
@@ -193,6 +194,13 @@ const mostrarHorarios = (horarios) => {
         select.removeChild(select.firstChild);
     }
 
+    // Agregar opción por defecto
+    const opcionDefault = document.createElement('OPTION');
+    opcionDefault.textContent = '-- Selecciona un horario --';
+    opcionDefault.disabled = true;
+    opcionDefault.selected = true;
+    select.appendChild(opcionDefault);
+
     // Si no hay horarios disponibles
     if (horarios.length === 0) {
         const opcion = document.createElement('OPTION');
@@ -201,13 +209,6 @@ const mostrarHorarios = (horarios) => {
         select.appendChild(opcion);
         return;
     }
-
-    // Agregar opción por defecto
-    const opcionDefault = document.createElement('OPTION');
-    opcionDefault.textContent = '-- Selecciona un horario --';
-    opcionDefault.disabled = true;
-    opcionDefault.selected = true;
-    select.appendChild(opcionDefault);
 
     // Agregar los nuevos horarios
     horarios.forEach(horario => {
@@ -334,11 +335,17 @@ const mostrarOcultarFormaPago = () => {
                 inputFile.type = 'file';
                 inputFile.accept = 'image/jpg, image/jpeg, image/png';
                 inputFile.name = 'qr';
-
+                inputFile.id = 'comprobante';
+                inputFile.classList.add('formulario__input');
                 formularioQr.appendChild(inputFile);
                 infoDiv.appendChild(formularioQr);
+                inputFile.addEventListener('change', (e) => {
+                    console.log(e.target.files[0]);
+                    cita.comprobante = e.target.files[0];
+                });
             }
         })
+
     })
 }
 
@@ -353,6 +360,13 @@ const mostrarResumen = () => {
     if (Object.values(cita).includes('') || Object.values(cita.servicio).includes('') || Object.values(cita.horario).includes('')) {
         mostrarAlerta('Faltan datos de los servicios, fecha, horario o forma de pago', 'error', '.contenido-resumen', false);
         return;
+    }
+
+    if (cita.formaPago === '2') {
+        if (!cita.comprobante) {
+            mostrarAlerta('Falta el comprobante de pago', 'error', '.contenido-resumen', false);
+            return;
+        }
     }
     
     //formatear el div de resumen
