@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\Cita;
+use Model\ComprobantePago;
 use Model\Horario;
 use Model\Servicio;
 
@@ -36,7 +37,17 @@ class APIController {
         // Almacenar la cita y devolver el id
         $cita = new Cita($_POST);
         $resultado = $cita->create();
-        debug($resultado['id']);
+        
+        //verificar si existe una imagen en la global
+        if (isset($_FILES['imagenComprobante'])) {
+            $comprobantePago = new ComprobantePago;
+            $comprobantePago->setCitaID($resultado['id']);
+            $comprobantePago->setImagenComprobante('prueba.jpg');
+            $comprobantePago->setFechaSubida(date('Y-m-d'));
+            $resultadoComprobante = $comprobantePago->create();
+            debug($resultadoComprobante);
+        }
+        
         /* $respuesta = [
             'resultado' => $resultado
         ];

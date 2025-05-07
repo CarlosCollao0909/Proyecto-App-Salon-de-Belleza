@@ -26,4 +26,8 @@ class ComprobantePago extends ActiveRecord {
     public function setImagenComprobante($imagenComprobante) {
         $this->imagenComprobante = $imagenComprobante;
     }
+
+    public function setFechaSubida($fechaSubida) {
+        $this->fechaSubida = $fechaSubida;
+    }
 }
