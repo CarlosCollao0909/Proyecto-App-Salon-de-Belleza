@@ -33,9 +33,50 @@
     align-items: center;
     justify-content: center;
 
+    .parrafo__indicativo {
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+
+        span {
+            font-weight: v.$bold;
+        }
+    }
+
     img {
         width: 75%;
         height: 75%;
         border-radius: 1rem;
+    }
+}
+
+.campo__file {
+    margin-bottom: 3rem;
+    background-color: color.adjust(v.$azul, $lightness: -25%);
+    padding: 1.2rem;
+    border-radius: 1rem 0 1rem 0;
+    transform: background-color .5s ease-in-out, scale .5s ease-in-out;
+
+    &:hover {
+        scale: 1.05;
+        background-color: color.adjust(v.$azul, $lightness: -30%);
+    }
+
+    .label__file {
+        color: v.$blanco;
+        font-weight: v.$bold;
+        font-size: 2rem;
+        padding: 1.2rem;
+
+        i {
+            margin-left: 1.5rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .input__file {
+        display: none;
     }
 }

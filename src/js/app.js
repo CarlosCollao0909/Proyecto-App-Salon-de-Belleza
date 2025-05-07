@@ -188,7 +188,7 @@ const consultarAPIHorarios = async () => {
 
 const mostrarHorarios = (horarios) => {
     const select = document.querySelector('#horarios');
-    
+
     // Limpiar opciones anteriores
     while (select.firstChild) {
         select.removeChild(select.firstChild);
@@ -324,25 +324,51 @@ const mostrarOcultarFormaPago = () => {
                 infoDiv.appendChild(parrafoIndicativo);
             } else if (e.target.value === '2') {
                 cita.formaPago = e.target.value;
-                const imagenQr = document.createElement('IMG');
-                imagenQr.src = urlQr;
-                infoDiv.appendChild(imagenQr);
 
-                const formularioQr = document.createElement('FORM');
-                formularioQr.classList.add('formulario')
+                const parrafoIndicativo = document.createElement('P');
+                parrafoIndicativo.classList.add('text-center', 'parrafo__indicativo');
+                parrafoIndicativo.textContent = '';
+                if (Object.values(cita.servicio).includes('')) {
+                    mostrarAlerta('Por favor selecciona un servicio para visualizar el código QR', 'error', '.informacion__pago', false);
+                    e.target.checked = false;
+                } else {
+                    parrafoIndicativo.textContent = 'Escanea el codigo QR desde tu aplicacion del banco para pagar el costo del servicio: ';
+                    const span = document.createElement('SPAN');
+                    span.textContent = `Bs. ${cita.servicio.precio}`;
+                    parrafoIndicativo.appendChild(span);
+                    infoDiv.appendChild(parrafoIndicativo);
 
-                const inputFile = document.createElement('INPUT');
-                inputFile.type = 'file';
-                inputFile.accept = 'image/jpg, image/jpeg, image/png';
-                inputFile.name = 'qr';
-                inputFile.id = 'comprobante';
-                inputFile.classList.add('formulario__input');
-                formularioQr.appendChild(inputFile);
-                infoDiv.appendChild(formularioQr);
-                inputFile.addEventListener('change', (e) => {
-                    console.log(e.target.files[0]);
-                    cita.comprobante = e.target.files[0];
-                });
+                    const campoFileDiv = document.createElement('DIV');
+                    campoFileDiv.classList.add('campo__file');
+
+                    const labelInputFile = document.createElement('LABEL');
+                    labelInputFile.setAttribute('for', 'comprobante');
+                    labelInputFile.classList.add('label__file');
+                    labelInputFile.textContent = 'Subir el comprobante';
+
+                    const iconoUpload = document.createElement('I');
+                    iconoUpload.classList.add('fa-solid', 'fa-upload');
+                    labelInputFile.appendChild(iconoUpload);
+
+                    campoFileDiv.appendChild(labelInputFile);
+
+                    const inputFile = document.createElement('INPUT');
+                    inputFile.type = 'file';
+                    inputFile.accept = 'image/jpg, image/jpeg, image/png';
+                    inputFile.name = 'qr';
+                    inputFile.id = 'comprobante';
+                    inputFile.classList.add('input__file');
+                    inputFile.addEventListener('change', (e) => {
+                        console.log(e.target.files[0]);
+                        cita.comprobante = e.target.files[0];
+                    });
+
+                    campoFileDiv.appendChild(inputFile);
+                    infoDiv.appendChild(campoFileDiv);
+                    const imagenQr = document.createElement('IMG');
+                    imagenQr.src = urlQr;
+                    infoDiv.appendChild(imagenQr);
+                }
             }
         })
 
@@ -368,7 +394,7 @@ const mostrarResumen = () => {
             return;
         }
     }
-    
+
     //formatear el div de resumen
     const { nombre, fecha, horario, servicio } = cita; //destructuring a cita
 
@@ -393,7 +419,7 @@ const mostrarResumen = () => {
     headingCita.textContent = 'Resumen de los Datos de la Cita';
     headingCita.classList.add('resumen-heading');
     resumen.appendChild(headingCita);
-    
+
     // línea debajo del título
     const decorador = document.createElement('DIV');
     decorador.classList.add('resumen-decorador');
@@ -406,7 +432,7 @@ const mostrarResumen = () => {
     // información personal
     const infoPersonal = document.createElement('DIV');
     infoPersonal.classList.add('resumen-seccion');
-    
+
     const nombreCliente = document.createElement('DIV');
     nombreCliente.classList.add('resumen-campo');
     nombreCliente.innerHTML = `
@@ -416,7 +442,7 @@ const mostrarResumen = () => {
             <p class="resumen-valor">${nombre}</p>
         </div>
     `;
-    
+
     const fechaCita = document.createElement('DIV');
     fechaCita.classList.add('resumen-campo');
     fechaCita.innerHTML = `
@@ -441,16 +467,16 @@ const mostrarResumen = () => {
     infoPersonal.appendChild(fechaCita);
     infoPersonal.appendChild(horarioCita);
     contenedorResumen.appendChild(infoPersonal);
-    
+
     // separador
     const separador = document.createElement('DIV');
     separador.classList.add('resumen-separador');
     contenedorResumen.appendChild(separador);
-    
+
     // servicios
     const infoServicio = document.createElement('DIV');
     infoServicio.classList.add('resumen-seccion');
-    
+
     const servicioCita = document.createElement('DIV');
     servicioCita.classList.add('resumen-campo');
     servicioCita.innerHTML = `
@@ -460,7 +486,7 @@ const mostrarResumen = () => {
             <p class="resumen-valor">${servicio.nombre}</p>
         </div>
     `;
-    
+
     const infoPago = document.createElement('DIV');
     infoPago.classList.add('resumen-campo', 'resumen-pago');
     infoPago.innerHTML = `
@@ -476,22 +502,22 @@ const mostrarResumen = () => {
             </div>
         </div>
     `;
-    
+
     infoServicio.appendChild(servicioCita);
     infoServicio.appendChild(infoPago);
     contenedorResumen.appendChild(infoServicio);
-    
+
     // Contenedor de botón
     const contenedorAcciones = document.createElement('DIV');
     contenedorAcciones.classList.add('resumen-acciones');
-    
+
     // Botón para crear nueva cita
     const botonReservar = document.createElement('BUTTON');
     botonReservar.classList.add('boton', 'boton-confirmar');
     botonReservar.textContent = 'Confirmar Cita';
     botonReservar.onclick = reservarCita;
     contenedorAcciones.appendChild(botonReservar);
-    
+
     resumen.appendChild(contenedorAcciones);
 }
 
