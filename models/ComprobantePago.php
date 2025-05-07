@@ -18,4 +18,12 @@ class ComprobantePago extends ActiveRecord {
         $this->fechaSubida = $args['fechaSubida'] ?? '';
         $this->citaID = $args['citaID'] ?? '';
     }
+
+    public function setCitaID($citaID) {
+        $this->citaID = $citaID;
+    }
+
+    public function setImagenComprobante($imagenComprobante) {
+        $this->imagenComprobante = $imagenComprobante;
+    }
 }

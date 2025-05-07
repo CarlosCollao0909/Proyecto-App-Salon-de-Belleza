@@ -37,7 +37,6 @@ const iniciarApp = () => {
     seleccionarFecha(); //añade la fecha de la cita al objeto
     seleccionarHorario(); //añade el id del horario al objeto cita
     mostrarOcultarFormaPago(); //muestra o oculta el codigo QR o el total a pagar
-    mostrarResumen(); //mostrar el resumen de la cita
 }
 
 const mostrarSeccion = () => {
@@ -171,7 +170,6 @@ const seleccionarServicio = (servicio) => {
         cita.servicio.precio = precio;
         divServicio.classList.add('seleccionado');
     }
-    console.log(cita);
 };
 
 const consultarAPIHorarios = async () => {
@@ -324,7 +322,7 @@ const mostrarOcultarFormaPago = () => {
                 infoDiv.appendChild(parrafoIndicativo);
             } else if (e.target.value === '2') {
                 cita.formaPago = e.target.value;
-
+                
                 const parrafoIndicativo = document.createElement('P');
                 parrafoIndicativo.classList.add('text-center', 'parrafo__indicativo');
                 parrafoIndicativo.textContent = '';
@@ -334,6 +332,7 @@ const mostrarOcultarFormaPago = () => {
                 } else {
                     parrafoIndicativo.textContent = 'Escanea el codigo QR desde tu aplicacion del banco para pagar el costo del servicio: ';
                     const span = document.createElement('SPAN');
+                    // TODO: ver la manera de actualizar el precio si el servicio cambia
                     span.textContent = `Bs. ${cita.servicio.precio}`;
                     parrafoIndicativo.appendChild(span);
                     infoDiv.appendChild(parrafoIndicativo);
@@ -376,6 +375,7 @@ const mostrarOcultarFormaPago = () => {
 }
 
 const mostrarResumen = () => {
+    console.log(cita);
     const resumen = document.querySelector('.contenido-resumen');
     //limpiar el contenido del resumen
     while (resumen.firstChild) {
@@ -530,6 +530,10 @@ const reservarCita = async () => {
     datos.append('horarioID', horario.id);
     datos.append('servicioID', servicio.id);
     datos.append('formaPagoID', formaPago);
+
+    if (formaPago === '2') {
+        datos.append('imagenComprobante', cita.comprobante);
+    }
 
     try {
         //peticion hacia la api

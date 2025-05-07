@@ -36,11 +36,11 @@ class APIController {
         // Almacenar la cita y devolver el id
         $cita = new Cita($_POST);
         $resultado = $cita->create();
-
-        $respuesta = [
+        debug($resultado['id']);
+        /* $respuesta = [
             'resultado' => $resultado
         ];
 
-        echo json_encode($respuesta);
+        echo json_encode($respuesta); */
     }
 }
