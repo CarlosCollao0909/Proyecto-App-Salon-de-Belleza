@@ -1,5 +1,8 @@
 <?php
 
+define('CARPETA_IMAGENES_COMPROBANTES', $_SERVER['DOCUMENT_ROOT'] . '/images/comprobantes/');
+define('CARPETA_IMAGENES_QR', $_SERVER['DOCUMENT_ROOT'] . '/images/QR/');
+
 function debug($variable) : string {
     echo "<pre>";
     var_dump($variable);

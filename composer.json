@@ -18,6 +18,7 @@
         }
     },
     "require": {
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.10",
+        "intervention/image": "^3.11"
     }
 }

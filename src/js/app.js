@@ -365,7 +365,7 @@ const mostrarOcultarFormaPago = () => {
                     campoFileDiv.appendChild(inputFile);
                     infoDiv.appendChild(campoFileDiv);
                     const imagenQr = document.createElement('IMG');
-                    imagenQr.src = urlQr;
+                    imagenQr.src = `../../images/QR/${urlQr}`;
                     infoDiv.appendChild(imagenQr);
                 }
             }

@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use Intervention\Image\Drivers\Gd\Driver as GdDriver;
+use Intervention\Image\ImageManager as Image;
 use Model\Cita;
 use Model\ComprobantePago;
 use Model\Horario;
@@ -41,17 +43,33 @@ class APIController {
         //verificar si existe una imagen en la global
         if (isset($_FILES['imagenComprobante'])) {
             $comprobantePago = new ComprobantePago;
+
+            //generar un nombre unico para la imagen
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+            
+            if ($_FILES['imagenComprobante']['tmp_name']) {
+                $manager = new Image(GdDriver::class);
+                $imagen = $manager->read($_FILES['imagenComprobante']['tmp_name'])->cover(800, 600);
+                $comprobantePago->setImagenComprobante($nombreImagen);
+            }
+
+            //comprobar si la carpeta existe
+            if (!is_dir(CARPETA_IMAGENES_COMPROBANTES)) {
+                mkdir(CARPETA_IMAGENES_COMPROBANTES);
+            }
+            
+            //guardar la imagen en la carpeta
+            $imagen->save(CARPETA_IMAGENES_COMPROBANTES . $nombreImagen);
+
             $comprobantePago->setCitaID($resultado['id']);
-            $comprobantePago->setImagenComprobante('prueba.jpg');
-            $comprobantePago->setFechaSubida(date('Y-m-d'));
+            $comprobantePago->setFechaSubida(date('Y-m-d H:i:s'));
             $resultadoComprobante = $comprobantePago->create();
-            debug($resultadoComprobante);
         }
         
-        /* $respuesta = [
+        $respuesta = [
             'resultado' => $resultado
         ];
 
-        echo json_encode($respuesta); */
+        echo json_encode($respuesta); 
     }
 }

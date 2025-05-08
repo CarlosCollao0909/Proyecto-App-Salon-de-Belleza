@@ -1,4 +1,4 @@
-<?php $urlQr = 'https://imgs.search.brave.com/D50OptkHpIjaXVvVNkXV_aQvQ3YojODOJWBnmL_OT-4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/NzUzNzQyNS9lcy9m/b3RvL3FyLWJhcmNv/ZGUtZm9yLWRhdGEt/bGFiZWxpbmcuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPUlI/dlFsZ1l6em5maUFC/QnlCU3NoRE9VRjZu/NTlqZzNFUVh4bnhj/SE55SjA9'; ?>
+<?php $imagenQR = '' ?>
 <h1 class="nombre-pagina">Crear Nueva Cita</h1>
 <p class="descripcion-pagina">Elige tus servicios y coloca tus datos</p>
 
@@ -33,7 +33,7 @@
             </div>
             <div class="campo">
                 <label for="fecha">Fecha</label>
-                <input type="date" id="fecha" name="fecha" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>">
+                <input type="date" id="fecha" name="fecha" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" onkeydown="return false">
             </div>
             <div class="campo">
                 <label for="horarios">Horarios Disponibles</label>
@@ -55,11 +55,16 @@
                         <label for="<?php echo $formaPago->tipo ?>">Pago <?php echo $formaPago->tipo; ?> </label>
                         <input type="radio" name="pago" value="<?php echo $formaPago->id; ?>" id="<?php echo $formaPago->tipo ?>">
                         <input type="hidden" name="formaPago" value="<?php echo $formaPago->id; ?>">
+                        <?php 
+                            if ($formaPago->id === '2') {
+                                $imagenQR = $formaPago->imagenQR;
+                            }
+                        ?>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
-        <div class="informacion__pago" id="informacion__pago" data-qr-url="<?php echo $urlQr; ?>"></div>
+        <div class="informacion__pago" id="informacion__pago" data-qr-url="<?php echo $imagenQR; ?>"></div>
     </div>
 
     <div id="paso-4" class="seccion contenido-resumen">
