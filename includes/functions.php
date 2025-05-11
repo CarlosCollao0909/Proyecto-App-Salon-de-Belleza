@@ -16,14 +16,23 @@ function s($html) : string {
     return $s;
 }
 
-// comprobar si se ha iniciado sesion
+// comprobar si se ha iniciado la global SESSION
 function isStartedSession() : void {
     if(!isset($_SESSION)) {
         session_start();
     }
 }
+
+// comprobar si el usuario esta autenticado
 function isAuth() : void {
     if(!isset($_SESSION['login'])) {
+        header('Location: /');
+    }
+}
+
+// comprobar si el usuario es admin
+function isAdmin() : void {
+    if(!isset($_SESSION['admin'])) {
         header('Location: /');
     }
 }

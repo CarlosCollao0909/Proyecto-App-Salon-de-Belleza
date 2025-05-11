@@ -51,8 +51,13 @@ class ActiveRecord {
 
     // consultas sql personalizadas
     public static function customQuery($query) {
-        $resultado = self::consultarSQL($query);
-        return $resultado;
+        $resultado = self::$db->query($query);
+        $array = [];
+        while ($registro = $resultado->fetch_assoc()) {
+            $array[] = $registro;
+        }
+        $resultado->free();
+        return $array;
     }
 
     // Crea el objeto en memoria que es igual al de la BD

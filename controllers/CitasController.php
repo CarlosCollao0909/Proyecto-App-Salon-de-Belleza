@@ -10,4 +10,10 @@ class CitasController {
         isAuth();
         $router->render('admin/citas/index');
     }
+
+    public static function showHistorial(Router $router) {
+        isStartedSession();
+        isAuth();
+        $router->render('cita/historial');
+    }
 }

@@ -1,11 +1,13 @@
 <?php $imagenQR = '' ?>
 <h1 class="nombre-pagina">Crear Nueva Cita</h1>
 <p class="descripcion-pagina">Elige tus servicios y coloca tus datos</p>
+<a href="/historial" class="historial"><p>¿Ya tienes una cita? Ir al Historial</p></a>
 
 <div class="barra">
     <p>Hola! <?php echo $nombre ?? ''; ?></p>
     <a class="logout-icon" href="/logout">
         <i class="fa-solid fa-right-from-bracket fa-2x"></i>
+        Cerrar Sesión
     </a>
 </div>
 
