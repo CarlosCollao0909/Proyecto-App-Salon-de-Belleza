@@ -66,15 +66,26 @@ const mostrarConfirmacionEliminar = () => {
     });
 }
 
-$(document).ready( function () {
+$(document).ready(function () {
     $('#myTable').DataTable({
         columns: [
-            null,
-            { 
+            {
                 type: 'string',
             },
-            null
+            {
+                type: 'string',
+            },
+            {
+                type: 'string',
+            }
         ],
-        responsive: true
+        responsive: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/2.3.0/i18n/es-ES.json',
+            lengthLabels: {
+                '-1': 'Todos'
+            }
+        },
+        lengthMenu: [5, 10, 15, 25, 30, -1]
     });
-} );
+});

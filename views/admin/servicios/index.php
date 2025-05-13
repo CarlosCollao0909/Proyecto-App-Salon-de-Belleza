@@ -47,9 +47,3 @@
             <p class="text-center">No hay servicios registrados</p>
     <?php endif; ?>
 </div>
-
-<?php 
-    $script = '
-        <script src="/build/js/alertas.js"></script>
-    ';
-?>
