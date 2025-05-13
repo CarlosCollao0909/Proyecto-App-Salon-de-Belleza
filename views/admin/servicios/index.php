@@ -24,7 +24,7 @@
                             <?php echo $servicio->nombre; ?>
                         </td>
                         <td class="table__td">
-                            <?php echo $servicio->precio; ?>
+                            Bs. <?php echo $servicio->precio; ?>
                         </td>
                         <td class="table__td--acciones">
                             <a href="/admin/servicios/editar?id=<?php echo $servicio->id; ?>" class="table__accion table__accion--editar">
