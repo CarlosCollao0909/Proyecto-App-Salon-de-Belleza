@@ -3,7 +3,7 @@
 @use 'sass:color';
 
 .dashboard {
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: v.$gris-claro;
@@ -11,6 +11,7 @@
     &__header {
         background-color: v.$gris-oscuro;
         padding: 2rem;
+        flex-shrink: 0;
     }
 
     &__header-flex {
@@ -25,6 +26,7 @@
     }
 
     &__logo {
+        color: v.$blanco !important;
         @include m.logo;
         &{@include m.texto-fluido(2rem, 3rem);}
     }
@@ -32,11 +34,14 @@
     &__grid {
         display: flex;
         flex: 1;
+        overflow: hidden;
     }
 
     &__sidebar {
         background-color: color.adjust(v.$gris-oscuro, $lightness: 10%,);
         width: 10rem;
+        flex-shrink: 0; // Evita que el sidebar se achique
+        overflow-y: auto; // Permite scroll en el sidebar si es necesario
     }
 
     &__menu {
@@ -74,8 +79,43 @@
     &__contenido {
         width: 100%;
         padding: 1rem 1rem 3rem 1rem;
+        flex-grow: 1; 
+        overflow-y: auto;
+
         @include m.tablet {
             padding: 1rem 3.5rem 3rem 3.5rem;
+            &::-webkit-scrollbar {
+                width: 1rem;
+            }
         }
+    }
+
+    &__contenedor-boton {
+        @include m.tablet {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__boton {
+        @include m.botonAdmin(v.$azul-oscuro, v.$blanco);
+        text-transform: uppercase;
+        font-size: 1.4rem;
+        @include m.tablet {
+            width: auto;
+        }
+    }
+
+    &__contenedor {
+        @include m.shadow;
+        background-color: v.$blanco;
+        padding: 2rem;
+        border-radius: 1rem;
+    }
+
+    &__formulario {
+        @extend .dashboard__contenedor;
+        @include m.contenedor-md;
     }
 }

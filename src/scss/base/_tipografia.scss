@@ -33,18 +33,17 @@ p {
     text-align: center;
 }
 
-.nombre-pagina-admin {
-    text-align: center;
-    margin: 5rem 0;
-    font-weight: v.$black;
-    color: v.$negro;
+.body-admin {
+    h1, h2, h3 {
+        color: v.$negro;
+        font-weight: v.$black;
+    }
+
+    p {
+        color: v.$negro;
+    }
 }
 
-.descripcion-pagina-admin {
+.text-center {
     text-align: center;
-    color: v.$negro;
-}
-
-.parrafo-admin {
-    color: v.$negro;
 }

@@ -1,1 +1,1 @@
-<h1 class="nombre-pagina-admin">Formas de Pago</h1>
+<h1 class="nombre-pagina">Formas de Pago</h1>

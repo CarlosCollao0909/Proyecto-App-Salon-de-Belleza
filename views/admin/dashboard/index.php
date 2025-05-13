@@ -1,2 +1,3 @@
-<h1 class="nombre-pagina-admin">Panel de Control</h1>
+<h1 class="nombre-pagina">Panel de Control</h1>
 
+<div class="dashboard__contenedor"></div>

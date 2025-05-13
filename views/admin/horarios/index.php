@@ -1,1 +1,1 @@
-<h1 class="nombre-pagina-admin">Horarios de Atención</h1>
+<h1 class="nombre-pagina">Horarios de Atención</h1>

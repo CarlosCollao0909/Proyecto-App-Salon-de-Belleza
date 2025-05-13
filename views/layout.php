@@ -6,7 +6,7 @@
     <title>Salón de Belleza LIZMAR</title>
     <link rel="stylesheet" href="/build/css/app.css">
 </head>
-<body>
+<body class="body-cliente">
 
     <div class="contenedor-app">
         <div class="imagen"></div>

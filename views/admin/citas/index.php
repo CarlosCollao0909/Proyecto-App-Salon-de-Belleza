@@ -1,1 +1,1 @@
-<h1 class="nombre-pagina-admin">Citas Registradas</h1>
+<h1 class="nombre-pagina">Citas Registradas</h1>

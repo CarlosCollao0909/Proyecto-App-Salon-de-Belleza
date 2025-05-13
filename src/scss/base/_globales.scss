@@ -12,13 +12,21 @@ body {
     display: flex;
     flex-direction: column;
     background-color: color.adjust(v.$gris-oscuro, $lightness: 5%);
-    color: v.$blanco;
     font-family: v.$fuente_principal;
     font-size: 1.6rem;
     @include m.tablet {
         height: 100%;
     }
 }
+
+.body-cliente {
+    color: v.$blanco;
+}
+
+.body-admin {
+    color: v.$negro;
+}
+
 *, *:before, *:after {
     box-sizing: inherit;
 }

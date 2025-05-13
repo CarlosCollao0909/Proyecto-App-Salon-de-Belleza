@@ -1,1 +1,1 @@
-<h1 class="nombre-pagina-admin">Clientes Registrados</h1>
+<h1 class="nombre-pagina">Clientes Registrados</h1>

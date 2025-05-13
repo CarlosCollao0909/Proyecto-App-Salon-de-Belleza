@@ -54,7 +54,13 @@ $router->get('/admin/citas', [CitasController::class, 'index']);
 $router->get('/admin/clientes', [ClientesController::class, 'index']);
 $router->get('/admin/horarios', [HorariosController::class, 'index']);
 $router->get('/admin/pagos', [PagosController::class, 'index']);
+
 $router->get('/admin/servicios', [ServiciosController::class, 'index']);
+$router->get('/admin/servicios/crear', [ServiciosController::class, 'create']);
+$router->post('/admin/servicios/crear', [ServiciosController::class, 'create']);
+$router->get('/admin/servicios/editar', [ServiciosController::class, 'update']);
+$router->post('/admin/servicios/editar', [ServiciosController::class, 'update']);
+$router->post('/admin/servicios/eliminar', [ServiciosController::class, 'delete']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

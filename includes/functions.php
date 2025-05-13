@@ -33,7 +33,7 @@ function isAuth() : void {
 // comprobar si el usuario es admin
 function isAdmin() : void {
     if(!isset($_SESSION['admin'])) {
-        header('Location: /');
+        header('Location: /cita');
     }
 }
 
