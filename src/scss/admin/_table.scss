@@ -49,6 +49,9 @@
         font-size: 1.4rem;
         font-weight: v.$bold;
         padding: .3rem .5rem;
+        &--ver {
+            color: v.$verde;
+        }
         &--editar {
             color: v.$azul;
         }

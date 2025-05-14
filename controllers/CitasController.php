@@ -7,7 +7,7 @@ use MVC\Router;
 class CitasController {
     public static function index(Router $router) {
         isStartedSession();
-        isAuth();
+        isAdmin();
         $router->render('admin/citas/index');
     }
 

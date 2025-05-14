@@ -8,7 +8,7 @@ use MVC\Router;
 class HorariosController {
     public static function index(Router $router) {
         isStartedSession();
-        isAuth();
+        isAdmin();
         $horarios = Horario::all();
         
         $router->render('admin/horarios/index', [
