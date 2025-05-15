@@ -2,6 +2,8 @@
 
 namespace Model;
 
+use stdClass;
+
 class ActiveRecord {
 
     // Base DE DATOS
@@ -52,12 +54,16 @@ class ActiveRecord {
     // consultas sql personalizadas
     public static function customQuery($query) {
         $resultado = self::$db->query($query);
-        $array = [];
+        $arrayObjetos = [];
         while ($registro = $resultado->fetch_assoc()) {
-            $array[] = $registro;
+            $objeto = new stdClass;
+            foreach ($registro as $key => $value) {
+                $objeto->$key = $value;
+            }
+            $arrayObjetos[] = $objeto;
         }
         $resultado->free();
-        return $array;
+        return $arrayObjetos;
     }
 
     // Crea el objeto en memoria que es igual al de la BD
