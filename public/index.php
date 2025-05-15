@@ -54,6 +54,7 @@ $router->get('/admin/citas', [CitasController::class, 'index']);
 $router->get('/admin/clientes', [ClientesController::class, 'index']);
 $router->get('/admin/horarios', [HorariosController::class, 'index']);
 $router->get('/admin/pagos', [PagosController::class, 'index']);
+$router->get('/admin/pagos/actualizar_qr', [PagosController::class, 'update']);
 
 $router->get('/admin/servicios', [ServiciosController::class, 'index']);
 $router->get('/admin/servicios/crear', [ServiciosController::class, 'create']);

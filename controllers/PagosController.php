@@ -15,4 +15,22 @@ class PagosController {
             'formaPagos' => $formaPagos
         ]);
     }
+
+    public static function update(Router $router) {
+        isStartedSession();
+        isAdmin();
+        $id = $_GET['id'];
+        if (!$id) {
+            header('Location: /admin/servicios');
+            exit;
+        }
+
+        $formaPago = FormaPago::find($id);
+        $alertas = [];
+
+        $router->render('admin/pagos/update', [
+            'alertas' => $alertas,
+            'formaPago' => $formaPago
+        ]);
+    }
 }

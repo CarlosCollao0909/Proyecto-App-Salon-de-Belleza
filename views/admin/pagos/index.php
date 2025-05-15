@@ -25,7 +25,7 @@
                                     <i class="fa-solid fa-qrcode"></i>
                                     Ver QR
                                 </button>
-                                <a href="/admin/pagos/editar?id=<?php echo $formaPago->id; ?>" class="table__accion table__accion--editar">
+                                <a href="/admin/pagos/actualizar_qr?id=<?php echo $formaPago->id; ?>" class="table__accion table__accion--editar">
                                     <i class="fa-solid fa-file-pen"></i>
                                     Actualizar QR
                                 </a>
