@@ -44,14 +44,13 @@ class ServiciosController {
         isStartedSession();
         isAdmin();
 
-        $id = $_GET['id'];
-
-        if (!$id) {
-            header('Location: /admin/servicios');
-            exit;
-        }
+        $id = $_GET['id'] ?? '';
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+        validarRedireccionar($id, '/admin/servicios');
 
         $servicio = Servicio::find($id);
+        validarRedireccionar($servicio, '/admin/servicios');
+        
         $alertas = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
