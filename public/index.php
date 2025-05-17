@@ -12,7 +12,7 @@ use Controllers\HorariosController;
 use MVC\Router;
 
 use Controllers\LoginController;
-use Controllers\PagosController;
+use Controllers\FormasPagosController;
 use Controllers\ServiciosController;
 
 $router = new Router();
@@ -53,8 +53,8 @@ $router->get('/admin/dashboard', [DashboardController::class, 'index']);
 $router->get('/admin/citas', [CitasController::class, 'index']);
 $router->get('/admin/clientes', [ClientesController::class, 'index']);
 $router->get('/admin/horarios', [HorariosController::class, 'index']);
-$router->get('/admin/pagos', [PagosController::class, 'index']);
-$router->get('/admin/pagos/actualizar_qr', [PagosController::class, 'update']);
+$router->get('/admin/formas_pagos', [FormasPagosController::class, 'index']);
+$router->get('/admin/formas_pagos/actualizar_qr', [FormasPagosController::class, 'update']);
 
 $router->get('/admin/servicios', [ServiciosController::class, 'index']);
 $router->get('/admin/servicios/crear', [ServiciosController::class, 'create']);

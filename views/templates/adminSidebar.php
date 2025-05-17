@@ -30,7 +30,7 @@
                 Clientes
             </spam>
         </a>
-        <a href="/admin/pagos" class="dashboard__enlace  <?php echo currentPage('/pagos') ? 'dashboard__enlace--activo' : ''; ?>">
+        <a href="/admin/formas_pagos" class="dashboard__enlace  <?php echo currentPage('/formas_pagos') ? 'dashboard__enlace--activo' : ''; ?>">
             <i class="fa-solid fa-qrcode fa-1x"></i>
             <spam class="dashboard__menu-texto">
                 pagos

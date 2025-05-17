@@ -1,7 +1,7 @@
 <h1 class="nombre-pagina-admin">Actualizar Codigo QR</h1>
 
 <div class="dashboard__contenedor-boton">
-    <a class="dashboard__boton" href="/admin/pagos">
+    <a class="dashboard__boton" href="/admin/formas_pagos">
         <i class="fa-solid fa-circle-arrow-left"></i>
         Volver
     </a>

@@ -21,11 +21,11 @@
                                 QR Asignado
                             </td>
                             <td class="table__td--acciones">
-                                <button class="table__accion table__accion--ver">
+                                <a href="#modal-<?php echo $formaPago->id; ?>" class="table__accion table__accion--ver">
                                     <i class="fa-solid fa-qrcode"></i>
                                     Ver QR
-                                </button>
-                                <a href="/admin/pagos/actualizar_qr?id=<?php echo $formaPago->id; ?>" class="table__accion table__accion--editar">
+                                </a>
+                                <a href="/admin/formas_pagos/actualizar_qr?id=<?php echo $formaPago->id; ?>" class="table__accion table__accion--editar">
                                     <i class="fa-solid fa-file-pen"></i>
                                     Actualizar QR
                                 </a>
@@ -46,3 +46,16 @@
             <p class="text-center">No hay formas de pago registradas</p>
     <?php endif; ?>
 </div>
+
+<!-- Ventana Modal -->
+<?php foreach($formaPagos as $formaPago): ?>
+    <?php if($formaPago->imagenQR != 'No corresponde'): ?>
+        <div id="modal-<?php echo $formaPago->id; ?>" class="modal">
+            <div class="modal__contenido">
+                <a href="#" class="modal__cerrar">&times;</a>
+                <h2 class="modal__titulo">Código QR Asignado</h2>
+                <img loading="lazy" class="modal__imagen" src="/images/QR/<?php echo $formaPago->imagenQR; ?>" alt="Código QR">
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endforeach; ?>
