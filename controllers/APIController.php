@@ -49,8 +49,8 @@ class APIController {
             
             if ($_FILES['imagenComprobante']['tmp_name']) {
                 $manager = new Image(GdDriver::class);
-                $imagen = $manager->read($_FILES['imagenComprobante']['tmp_name'])->cover(800, 600);
-                $comprobantePago->setImagenComprobante($nombreImagen);
+                $imagen = $manager->read($_FILES['imagenComprobante']['tmp_name'])->toPng(indexed: true);
+                $comprobantePago->setImagenComprobante($nombreImagen, 60);
             }
 
             //comprobar si la carpeta existe

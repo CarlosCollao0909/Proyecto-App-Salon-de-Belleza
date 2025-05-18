@@ -1,7 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    iniciarApp();
+});
+
+const iniciarApp = () => {
     mostrarAlerta();
     mostrarConfirmacionEliminar();
-});
+    iniciarDatatables('myTable');
+}
 
 const limpiarParametroURL = (parametro) => {
     const url = new URL(window.location.href);
@@ -38,6 +43,15 @@ const mostrarAlerta = () => {
         }).then(() => {
             limpiarParametroURL('servicio_eliminado');
         });
+    } else if (parametroURL.get('forma_pago_actualizada') === '1') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Forma de pago actualizada',
+            text: 'La forma de pago fue actualizada correctamente.',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            limpiarParametroURL('forma_pago_actualizada');
+        });
     }
 }
 
@@ -66,26 +80,28 @@ const mostrarConfirmacionEliminar = () => {
     });
 }
 
-$(document).ready(function () {
-    $('#myTable').DataTable({
-        columns: [
-            {
-                type: 'string',
+const iniciarDatatables = (tablaID) => {
+    $(document).ready(function () {
+        $(`#${tablaID}`).DataTable({
+            columns: [
+                {
+                    type: 'string',
+                },
+                {
+                    type: 'string',
+                },
+                {
+                    type: 'string',
+                }
+            ],
+            responsive: true,
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.3.0/i18n/es-ES.json',
+                lengthLabels: {
+                    '-1': 'Todos'
+                }
             },
-            {
-                type: 'string',
-            },
-            {
-                type: 'string',
-            }
-        ],
-        responsive: true,
-        language: {
-            url: 'https://cdn.datatables.net/plug-ins/2.3.0/i18n/es-ES.json',
-            lengthLabels: {
-                '-1': 'Todos'
-            }
-        },
-        lengthMenu: [5, 10, 15, 25, 30, -1]
+            lengthMenu: [5, 10, 15, 25, 30, -1]
+        });
     });
-});
+}

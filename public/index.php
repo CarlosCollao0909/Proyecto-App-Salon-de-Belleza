@@ -55,6 +55,7 @@ $router->get('/admin/clientes', [ClientesController::class, 'index']);
 $router->get('/admin/horarios', [HorariosController::class, 'index']);
 $router->get('/admin/formas_pagos', [FormasPagosController::class, 'index']);
 $router->get('/admin/formas_pagos/actualizar_qr', [FormasPagosController::class, 'update']);
+$router->post('/admin/formas_pagos/actualizar_qr', [FormasPagosController::class, 'update']);
 
 $router->get('/admin/servicios', [ServiciosController::class, 'index']);
 $router->get('/admin/servicios/crear', [ServiciosController::class, 'create']);

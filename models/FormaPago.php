@@ -13,6 +13,17 @@ class FormaPago extends ActiveRecord {
     public function __construct($args = []) {
         $this->id = $args['id'] ?? null;
         $this->tipo = $args['tipo'] ?? '';
-        $this->imagenQR = $args['imagenQR'] ?? 'N/A';
+        $this->imagenQR = $args['imagenQR'] ?? '';
+    }
+
+    public function validar() {
+        if (!$this->imagenQR) {
+            self::$alertas['error'][] = 'La imagen del código QR es obligatoria';
+        }
+        return self::$alertas;
+    }
+
+    public function setImagenQR($imagenQR) {
+        $this->imagenQR = $imagenQR;
     }
 }
