@@ -1,6 +1,8 @@
 let paso = 1;
 const pasoInicial = 1;
 const pasoFinal = 4;
+let intervaloHorarios = null;
+let intervaloPrecioServicio = null;
 
 //objeto para almacenar los datos de la cita
 const cita = {
@@ -250,6 +252,16 @@ const seleccionarFecha = () => {
             // console.log(e.target.value);
             cita.fecha = e.target.value;
             consultarAPIHorarios(); //consulta la API para obtener los horarios
+
+            // limpiar intervalo
+            if (intervaloHorarios) {
+                clearInterval(intervaloHorarios);
+            }
+
+            intervaloHorarios = setInterval(() => {
+                consultarAPIHorarios();
+            }, 15000);
+
         }
     });
 
@@ -332,8 +344,15 @@ const mostrarOcultarFormaPago = () => {
                 } else {
                     parrafoIndicativo.textContent = 'Escanea el codigo QR desde tu aplicacion del banco para pagar el costo del servicio: ';
                     const span = document.createElement('SPAN');
-                    // TODO: ver la manera de actualizar el precio si el servicio cambia
                     span.textContent = `Bs. ${cita.servicio.precio}`;
+                    // TODO: ver la manera de actualizar el precio si el servicio cambia
+                    if (intervaloPrecioServicio) {
+                        clearInterval(intervaloPrecioServicio);
+                    }
+                    intervaloPrecioServicio = setInterval(() => {
+                        span.textContent = `Bs. ${cita.servicio.precio}`;
+                    }, 3000);
+
                     parrafoIndicativo.appendChild(span);
                     infoDiv.appendChild(parrafoIndicativo);
 
