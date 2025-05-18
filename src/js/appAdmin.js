@@ -7,6 +7,7 @@ const iniciarApp = () => {
     mostrarConfirmacionEliminar();
     iniciarDatatables('myTable');
     cambiarEstadoBotones();
+    mostrarVistaPreviaQR();
 }
 
 const limpiarParametroURL = (parametro) => {
@@ -133,7 +134,7 @@ const cambiarEstadoHorarios = async (boton) => {
 
         const resultado = await respuesta.json();
 
-        if(resultado.resultado) {
+        if (resultado.resultado) {
             const icono = boton.querySelector('i');
             boton.dataset.estado = estadoNuevo;
             boton.textContent = estadoNuevo === "1" ? "Deshabilitar" : "Habilitar";
@@ -167,5 +168,44 @@ const cambiarEstadoHorarios = async (boton) => {
             text: 'No se pudo cambiar el estado del horario.',
             confirmButtonText: 'OK'
         });
+    }
+}
+
+const mostrarVistaPreviaQR = () => {
+    const inputImagenQR = document.querySelector('#imagenQR');
+    const imagenPreview = document.querySelector('.formulario-admin__imagen');
+    const preview = document.querySelector('#preview');
+
+    // Evento para cuando se selecciona un archivo
+    inputImagenQR.addEventListener('change', function () {
+        const archivoSeleccionado = this.files[0];
+
+        if (archivoSeleccionado) {
+            // objeto FileReader
+            const fileReader = new FileReader();
+
+            // Configurar el evento para cuando termine de leer
+            fileReader.addEventListener('load', function () {
+                // Establecer la fuente de la imagen como la URL de datos
+                imagenPreview.src = this.result;
+
+                // Mostrar la imagen (en caso de que estuviera oculta)
+                imagenPreview.style.display = 'block';
+                preview.style.display = 'none';
+            });
+
+            // Leer el archivo como URL de datos
+            fileReader.readAsDataURL(archivoSeleccionado);
+        } else {
+            // Si no hay archivo seleccionado, ocultar la imagen
+            imagenPreview.src = '';
+            imagenPreview.style.display = 'none';
+            preview.style.display = 'block';
+        }
+    });
+
+    // Comprobación inicial: si la imagen ya tiene un src (por ejemplo, al editar)
+    if (!imagenPreview.getAttribute('src') || imagenPreview.getAttribute('src') === '') {
+        imagenPreview.style.display = 'none';
     }
 }
