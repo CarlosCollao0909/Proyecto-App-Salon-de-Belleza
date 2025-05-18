@@ -23,7 +23,7 @@ class APIController {
             return;
         }
         $citas = Cita::pluckColumn('horarioID', 'fecha', $fecha);
-        $horarios = Horario::all();
+        $horarios = Horario::whereAll('estado', '1');
         
         // filtrar los horarios que no esten ocupados
         $horariosDisponibles = [];
@@ -33,6 +33,41 @@ class APIController {
             }
         }
         echo json_encode($horariosDisponibles);
+    }
+
+    public static function cambiarEstadoHorarios() {
+        //almacenar el id y el estado
+        $id = $_POST['id'] ?? null;
+        $estado = $_POST['estado'] ?? null;
+
+        if (!$id || $estado === null) {
+            echo json_encode([
+                'resultado' => false,
+                'mensaje' => 'Datos incompletos'
+            ]);
+            return;
+        }
+
+        //buscar el horario
+        $horario = Horario::find($id);
+
+        //verificar si el horario existe
+        if (!$horario) {
+            echo json_encode([
+                'resultado' => false,
+                'mensaje' => 'Horario no encontrado'
+            ]);
+            return;
+        }
+
+        //cambiar el estado
+        $horario->estado = $estado;
+        $resultado = $horario->update();
+
+        echo json_encode([
+            'resultado' => $resultado,
+            'mensaje' => $resultado ? 'Estado cambiado correctamente' : 'No se pudo cambiar el estado del horario'
+        ]);
     }
 
     public static function create() {

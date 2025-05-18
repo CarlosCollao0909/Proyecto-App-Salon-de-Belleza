@@ -6,6 +6,7 @@ const iniciarApp = () => {
     mostrarAlerta();
     mostrarConfirmacionEliminar();
     iniciarDatatables('myTable');
+    cambiarEstadoBotones();
 }
 
 const limpiarParametroURL = (parametro) => {
@@ -104,4 +105,67 @@ const iniciarDatatables = (tablaID) => {
             lengthMenu: [5, 10, 15, 25, 30, -1]
         });
     });
+}
+
+const cambiarEstadoBotones = () => {
+    const botones = document.querySelectorAll(".btn-toggle-estado");
+
+    botones.forEach((boton) => {
+        boton.addEventListener("click", () => cambiarEstadoHorarios(boton));
+    });
+}
+
+const cambiarEstadoHorarios = async (boton) => {
+    const horarioID = boton.dataset.id;
+    const estadoActual = boton.dataset.estado; // 0 o 1
+    const estadoNuevo = estadoActual === "0" ? "1" : "0";
+
+    try {
+        const url = '/api/horarios/estado';
+        const datos = new FormData();
+        datos.append('id', horarioID);
+        datos.append('estado', estadoNuevo);
+
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            body: datos
+        });
+
+        const resultado = await respuesta.json();
+
+        if(resultado.resultado) {
+            const icono = boton.querySelector('i');
+            boton.dataset.estado = estadoNuevo;
+            boton.textContent = estadoNuevo === "1" ? "Deshabilitar" : "Habilitar";
+            boton.classList.toggle("table__accion--deshabilitar", estadoNuevo === "1");
+            boton.classList.toggle("table__accion--habilitar", estadoNuevo === "0");
+            boton.prepend(icono);
+
+            //cambiar icono
+            icono.classList.toggle("fa-eye-slash", estadoNuevo === "1");
+            icono.classList.toggle("fa-eye", estadoNuevo === "0");
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Estado cambiado',
+                text: 'El estado del horario fue cambiado correctamente.',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al cambiar el estado',
+                text: resultado.mensaje || 'No se pudo cambiar el estado del horario.',
+                confirmButtonText: 'OK'
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error al cambiar el estado',
+            text: 'No se pudo cambiar el estado del horario.',
+            confirmButtonText: 'OK'
+        });
+    }
 }

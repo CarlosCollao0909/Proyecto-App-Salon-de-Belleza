@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody class="table__tbody">
-                <?php foreach($horarios as $horario): ?>
+                <?php foreach ($horarios as $horario): ?>
                     <tr class="table__tr">
                         <td class="table__td">
                             <?php echo $horario->horaInicio; ?>
@@ -20,19 +20,17 @@
                             <?php echo $horario->horaFin; ?>
                         </td>
                         <td class="table__td--acciones">
-                            <form class="table__formulario" method="POST" action="/admin/servicios/eliminar">
-                                <input type="hidden" name="id" value="<?php echo $horario->id; ?>">
-                                <button type="submit" class="table__accion table__accion--eliminar">
-                                    <i class="fa-solid fa-eye-slash"></i>
-                                    Deshabilitar
-                                </button>
-                            </form>
+                            <button type="button" class="table__accion btn-toggle-estado <?php echo $horario->estado ? 'table__accion--deshabilitar' : 'table__accion--habilitar'; ?>" data-id="<?php echo $horario->id; ?>" data-estado="<?php echo $horario->estado; ?>">
+                                <i class="fa-solid <?php echo $horario->estado ? 'fa-eye-slash' : 'fa-eye' ?>"></i>
+                                <?php echo $horario->estado ? 'Deshabilitar' : 'Habilitar'; ?>
+                            </button>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <?php else: ?>
-            <p class="text-center">No hay servicios registrados</p>
+    <?php else: ?>
+        <p class="text-center">No hay servicios registrados</p>
     <?php endif; ?>
 </div>

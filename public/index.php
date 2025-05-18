@@ -43,9 +43,10 @@ $router->get('/message', [LoginController::class, 'message']);
 $router->get('/cita', [CitaController::class, 'index']);
 $router->get('/historial', [CitasController::class, 'showHistorial']);
 
-//API de citas
+//API
 $router->get('/api/servicios', [APIController::class, 'index']);
 $router->get('/api/horarios', [APIController::class, 'showHorarios']);
+$router->post('/api/horarios/estado', [APIController::class, 'cambiarEstadoHorarios']);
 $router->post('/api/citas', [APIController::class, 'create']);
 
 //area de administracion
