@@ -28,7 +28,10 @@
     &__logo {
         color: v.$blanco !important;
         @include m.logo;
-        &{@include m.texto-fluido(2rem, 3rem);}
+
+        & {
+            @include m.texto-fluido(2rem, 3rem);
+        }
     }
 
     &__grid {
@@ -38,7 +41,7 @@
     }
 
     &__sidebar {
-        background-color: color.adjust(v.$gris-oscuro, $lightness: 10%,);
+        background-color: color.adjust(v.$gris-oscuro, $lightness: 10%, );
         width: 10rem;
         flex-shrink: 0; // Evita que el sidebar se achique
         overflow-y: auto; // Permite scroll en el sidebar si es necesario
@@ -52,7 +55,7 @@
     }
 
     &__enlace {
-        color: color.adjust(v.$gris-medio, $lightness: 40%,);
+        color: color.adjust(v.$gris-medio, $lightness: 40%, );
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -63,7 +66,7 @@
 
         &:hover,
         &--activo {
-            background-color: color.adjust(v.$gris-oscuro, $lightness: 20%,);
+            background-color: color.adjust(v.$gris-oscuro, $lightness: 20%, );
             color: v.$blanco;
             border-radius: .7rem;
             scale: 1.05;
@@ -79,11 +82,12 @@
     &__contenido {
         width: 100%;
         padding: 1rem 1rem 3rem 1rem;
-        flex-grow: 1; 
+        flex-grow: 1;
         overflow-y: auto;
 
         @include m.tablet {
             padding: 1rem 3.5rem 3rem 3.5rem;
+
             &::-webkit-scrollbar {
                 width: 1rem;
             }
@@ -102,6 +106,7 @@
         @include m.botonAdmin(v.$azul-oscuro, v.$blanco);
         text-transform: uppercase;
         font-size: 1.4rem;
+
         @include m.tablet {
             width: auto;
         }
@@ -112,10 +117,48 @@
         background-color: v.$blanco;
         padding: 2rem;
         border-radius: 1rem;
+
+        &--grid {
+            @include m.grid(2, 3rem)
+        }
     }
 
     &__formulario {
         @extend .dashboard__contenedor;
         @include m.contenedor-md;
+    }
+}
+
+.contenedor-cards {
+    margin: 1rem;
+    @include m.grid(4, 2rem);
+
+    .card {
+        border: .2rem solid v.$negro;
+        border-radius: 1rem;
+        padding: 5rem;
+        text-align: center;
+    }
+}
+
+.contenedor-graficas {
+
+    &__fila {
+        margin: 1rem;
+    }
+
+    &__fila1 {
+        @include m.grid(2, 2rem);
+    }
+
+    &__fila2 {
+        @include m.grid(3, 2rem);
+    }
+
+    .grafica {
+        padding: 5rem;
+        border: .2rem solid v.$negro;
+        border-radius: 1rem;
+        text-align: center;
     }
 }

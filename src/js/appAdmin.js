@@ -60,6 +60,8 @@ const mostrarAlerta = () => {
 const mostrarConfirmacionEliminar = () => {
     const forms = document.querySelectorAll('.table__formulario');
 
+    if (forms.length === 0) return;
+
     forms.forEach(form => {
         form.addEventListener('submit', function (e) {
             e.preventDefault(); // Detiene el envío del formulario
@@ -84,6 +86,7 @@ const mostrarConfirmacionEliminar = () => {
 
 const iniciarDatatables = (tablaID) => {
     $(document).ready(function () {
+        if (!$(`#${tablaID}`).length) return; // Verificar si existe
         $(`#${tablaID}`).DataTable({
             columns: [
                 {
@@ -110,6 +113,9 @@ const iniciarDatatables = (tablaID) => {
 
 const cambiarEstadoBotones = () => {
     const botones = document.querySelectorAll(".btn-toggle-estado");
+
+    //validar que existan los botones
+    if (botones.length === 0) return;
 
     botones.forEach((boton) => {
         boton.addEventListener("click", () => cambiarEstadoHorarios(boton));
@@ -175,6 +181,9 @@ const mostrarVistaPreviaQR = () => {
     const inputImagenQR = document.querySelector('#imagenQR');
     const imagenPreview = document.querySelector('.formulario-admin__imagen');
     const preview = document.querySelector('#preview');
+
+    //validar que exista el input tipo file
+    if (!inputImagenQR) return;
 
     // Evento para cuando se selecciona un archivo
     inputImagenQR.addEventListener('change', function () {
