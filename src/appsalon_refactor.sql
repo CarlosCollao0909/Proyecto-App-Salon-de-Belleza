@@ -35,11 +35,11 @@ CREATE TABLE `citas` (
   KEY `citas_horarios_FK` (`horarioID`),
   KEY `citas_servicios_FK` (`servicioID`),
   KEY `citas_formapagos_FK` (`formaPagoID`),
-  CONSTRAINT `citas_formapagos_FK` FOREIGN KEY (`formaPagoID`) REFERENCES `formapagos` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
+  CONSTRAINT `citas_formapagos_FK` FOREIGN KEY (`formaPagoID`) REFERENCES `formaspagos` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
   CONSTRAINT `citas_horarios_FK` FOREIGN KEY (`horarioID`) REFERENCES `horarios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
   CONSTRAINT `citas_servicios_FK` FOREIGN KEY (`servicioID`) REFERENCES `servicios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
   CONSTRAINT `citas_usuarios_FK` FOREIGN KEY (`usuarioID`) REFERENCES `usuarios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,18 +48,18 @@ CREATE TABLE `citas` (
 
 LOCK TABLES `citas` WRITE;
 /*!40000 ALTER TABLE `citas` DISABLE KEYS */;
-INSERT INTO `citas` VALUES (1,'2025-05-01','Confirmada',1,2,2,1),(2,'2025-05-02','Confirmada',9,2,7,2),(3,'2025-05-03','Confirmada',5,3,11,1),(4,'2025-05-22','Confirmada',4,3,1,1),(5,'2025-05-05','Confirmada',4,2,2,1);
+INSERT INTO `citas` VALUES (1,'2025-05-01','Confirmada',1,2,2,1),(2,'2025-05-02','Confirmada',9,2,7,2),(3,'2025-05-03','Confirmada',5,3,11,1),(4,'2025-05-22','Confirmada',4,3,1,1),(5,'2025-05-05','Confirmada',4,2,2,1),(6,'2025-05-05','Confirmada',2,3,1,1),(7,'2025-05-08','Confirmada',1,2,1,1),(8,'2025-05-08','Confirmada',7,2,1,2),(9,'2025-05-08','Confirmada',4,2,1,2),(10,'2025-05-07','Confirmada',6,2,1,2),(11,'2025-05-09','Confirmada',4,2,1,1),(12,'2025-05-09','Confirmada',5,2,2,1),(13,'2025-05-09','Confirmada',6,2,2,1),(14,'2025-05-09','Confirmada',7,2,3,1),(15,'2025-05-09','Confirmada',2,2,10,1),(16,'2025-05-09','Confirmada',8,2,1,1),(17,'2025-05-09','Confirmada',3,2,3,1),(18,'2025-05-09','Confirmada',9,2,3,1),(19,'2025-05-09','Confirmada',1,2,2,1),(20,'2025-06-30','Confirmada',8,2,12,1),(21,'2025-07-15','Confirmada',3,2,4,1),(22,'2025-07-17','Confirmada',1,2,3,1),(23,'2025-07-20','Confirmada',4,2,6,2),(24,'2025-07-20','Confirmada',4,2,6,2),(25,'2025-05-08','Confirmada',5,2,1,1),(26,'2025-05-08','Confirmada',6,2,1,2),(27,'2025-05-08','Confirmada',3,2,12,2),(28,'2025-05-08','Confirmada',3,2,12,2),(29,'2025-05-08','Confirmada',9,2,3,2),(30,'2025-05-08','Confirmada',2,3,7,2),(31,'2025-05-10','Confirmada',6,2,9,2),(32,'2025-05-15','Confirmada',6,2,6,1),(33,'2025-05-22','Confirmada',3,2,1,1),(34,'2025-05-22','Confirmada',3,2,1,1),(35,'2025-05-19','Confirmada',8,2,2,2),(36,'2025-05-19','Confirmada',6,3,7,2);
 /*!40000 ALTER TABLE `citas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `comprobantepagos`
+-- Table structure for table `comprobantespagos`
 --
 
-DROP TABLE IF EXISTS `comprobantepagos`;
+DROP TABLE IF EXISTS `comprobantespagos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `comprobantepagos` (
+CREATE TABLE `comprobantespagos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `imagenComprobante` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `fechaSubida` timestamp NULL DEFAULT NULL,
@@ -67,26 +67,27 @@ CREATE TABLE `comprobantepagos` (
   PRIMARY KEY (`id`),
   KEY `comprobantepagos_citas_FK` (`citaID`),
   CONSTRAINT `comprobantepagos_citas_FK` FOREIGN KEY (`citaID`) REFERENCES `citas` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `comprobantepagos`
+-- Dumping data for table `comprobantespagos`
 --
 
-LOCK TABLES `comprobantepagos` WRITE;
-/*!40000 ALTER TABLE `comprobantepagos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comprobantepagos` ENABLE KEYS */;
+LOCK TABLES `comprobantespagos` WRITE;
+/*!40000 ALTER TABLE `comprobantespagos` DISABLE KEYS */;
+INSERT INTO `comprobantespagos` VALUES (1,'prueba.jpg','2025-05-07 04:00:00',24),(2,'c8d76a5421cec88f4d9be646d15c5f43.jpg','2025-05-07 23:58:25',26),(3,'dfb00cbc05c231f253119273315c8621.jpg','2025-05-08 00:10:21',28),(4,'f9336cf261d07bb3fdd981581bd2f4ca.jpg','2025-05-08 00:13:02',29),(5,'0bd742c0ace823c92d8b4d88a1c14470.jpg','2025-05-08 00:16:21',30),(6,'2d37fd5fb17a3dff775405420144e3c1.jpg','2025-05-08 15:31:23',31),(7,'e38ccc18c215ed897d1bb6401abab370.jpg','2025-05-17 17:16:06',35),(8,'03dd95c940b374025905d8902459b7a4.jpg','2025-05-17 20:28:05',36);
+/*!40000 ALTER TABLE `comprobantespagos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `formapagos`
+-- Table structure for table `formaspagos`
 --
 
-DROP TABLE IF EXISTS `formapagos`;
+DROP TABLE IF EXISTS `formaspagos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `formapagos` (
+CREATE TABLE `formaspagos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tipo` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `imagenQR` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -95,13 +96,13 @@ CREATE TABLE `formapagos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `formapagos`
+-- Dumping data for table `formaspagos`
 --
 
-LOCK TABLES `formapagos` WRITE;
-/*!40000 ALTER TABLE `formapagos` DISABLE KEYS */;
-INSERT INTO `formapagos` VALUES (1,'Efectivo','No corresponde'),(2,'QR',NULL);
-/*!40000 ALTER TABLE `formapagos` ENABLE KEYS */;
+LOCK TABLES `formaspagos` WRITE;
+/*!40000 ALTER TABLE `formaspagos` DISABLE KEYS */;
+INSERT INTO `formaspagos` VALUES (1,'Efectivo','No corresponde'),(2,'QR','441d20655b872564c4585ed1fa6b2efc.png');
+/*!40000 ALTER TABLE `formaspagos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -115,6 +116,7 @@ CREATE TABLE `horarios` (
   `id` int NOT NULL AUTO_INCREMENT,
   `horaInicio` time DEFAULT NULL,
   `horaFin` time DEFAULT NULL,
+  `estado` tinyint DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -125,7 +127,7 @@ CREATE TABLE `horarios` (
 
 LOCK TABLES `horarios` WRITE;
 /*!40000 ALTER TABLE `horarios` DISABLE KEYS */;
-INSERT INTO `horarios` VALUES (1,'09:00:00','10:00:00'),(2,'10:00:00','11:00:00'),(3,'11:00:00','12:00:00'),(4,'15:00:00','16:00:00'),(5,'16:00:00','17:00:00'),(6,'17:00:00','18:00:00'),(7,'18:00:00','19:00:00'),(8,'19:00:00','20:00:00'),(9,'20:00:00','21:00:00');
+INSERT INTO `horarios` VALUES (1,'09:00:00','10:00:00',1),(2,'10:00:00','11:00:00',1),(3,'11:00:00','12:00:00',1),(4,'15:00:00','16:00:00',1),(5,'16:00:00','17:00:00',1),(6,'17:00:00','18:00:00',1),(7,'18:00:00','19:00:00',1),(8,'19:00:00','20:00:00',1),(9,'20:00:00','21:00:00',1);
 /*!40000 ALTER TABLE `horarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +143,7 @@ CREATE TABLE `servicios` (
   `nombre` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `precio` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +152,7 @@ CREATE TABLE `servicios` (
 
 LOCK TABLES `servicios` WRITE;
 /*!40000 ALTER TABLE `servicios` DISABLE KEYS */;
-INSERT INTO `servicios` VALUES (1,'Corte de Cabello Mujer',90.00),(2,'Corte de Cabello Hombre',80.00),(3,'Corte de Cabello Niño',60.00),(4,'Peinado Mujer',80.00),(5,'Peinado Hombre',60.00),(6,'Peinado Niño',60.00),(7,'Corte de Barba',60.00),(8,'Tinte Mujer',300.00),(9,'Uñas',400.00),(10,'Lavado de Cabello',50.00),(11,'Tratamiento Capilar',150.00),(12,'Tinte Hombre',250.00);
+INSERT INTO `servicios` VALUES (1,'Corte de Cabello Mujer',90.00),(2,'Corte de Cabello Hombre',80.00),(3,'Corte de Cabello Niño',60.00),(4,'Peinado Mujer',80.00),(5,'Peinado Hombre',60.00),(6,'Peinado Niño',60.00),(7,'Corte de Barba',50.00),(8,'Tinte Mujer',300.00),(9,'Uñas',400.00),(10,'Lavado de Cabello',50.00),(11,'Tratamiento Capilar',150.00),(12,'Tinte Hombre',250.00),(13,'Alizado de cabello',150.00),(14,'Planchado de cabello Mujer',90.00),(15,'Permanente Mujer',200.00),(16,'Peinado Novia',230.00),(20,'Permanente Hombre',150.00);
 /*!40000 ALTER TABLE `servicios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,7 +174,7 @@ CREATE TABLE `usuarios` (
   `confirmado` tinyint DEFAULT NULL,
   `token` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,4 +200,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-02 12:16:31
+-- Dump completed on 2025-05-21 14:21:37
