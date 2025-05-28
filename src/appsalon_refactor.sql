@@ -39,7 +39,7 @@ CREATE TABLE `citas` (
   CONSTRAINT `citas_horarios_FK` FOREIGN KEY (`horarioID`) REFERENCES `horarios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
   CONSTRAINT `citas_servicios_FK` FOREIGN KEY (`servicioID`) REFERENCES `servicios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
   CONSTRAINT `citas_usuarios_FK` FOREIGN KEY (`usuarioID`) REFERENCES `usuarios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `citas` (
 
 LOCK TABLES `citas` WRITE;
 /*!40000 ALTER TABLE `citas` DISABLE KEYS */;
-INSERT INTO `citas` VALUES (1,'2025-05-01','Confirmada',1,2,2,1),(2,'2025-05-02','Confirmada',9,2,7,2),(3,'2025-05-03','Confirmada',5,3,11,1),(4,'2025-05-22','Confirmada',4,3,1,1),(5,'2025-05-05','Confirmada',4,2,2,1),(6,'2025-05-05','Confirmada',2,3,1,1),(7,'2025-05-08','Confirmada',1,2,1,1),(8,'2025-05-08','Confirmada',7,2,1,2),(9,'2025-05-08','Confirmada',4,2,1,2),(10,'2025-05-07','Confirmada',6,2,1,2),(11,'2025-05-09','Confirmada',4,2,1,1),(12,'2025-05-09','Confirmada',5,2,2,1),(13,'2025-05-09','Confirmada',6,2,2,1),(14,'2025-05-09','Confirmada',7,2,3,1),(15,'2025-05-09','Confirmada',2,2,10,1),(16,'2025-05-09','Confirmada',8,2,1,1),(17,'2025-05-09','Confirmada',3,2,3,1),(18,'2025-05-09','Confirmada',9,2,3,1),(19,'2025-05-09','Confirmada',1,2,2,1),(20,'2025-06-30','Confirmada',8,2,12,1),(21,'2025-07-15','Confirmada',3,2,4,1),(22,'2025-07-17','Confirmada',1,2,3,1),(23,'2025-07-20','Confirmada',4,2,6,2),(24,'2025-07-20','Confirmada',4,2,6,2),(25,'2025-05-08','Confirmada',5,2,1,1),(26,'2025-05-08','Confirmada',6,2,1,2),(27,'2025-05-08','Confirmada',3,2,12,2),(28,'2025-05-08','Confirmada',3,2,12,2),(29,'2025-05-08','Confirmada',9,2,3,2),(30,'2025-05-08','Confirmada',2,3,7,2),(31,'2025-05-10','Confirmada',6,2,9,2),(32,'2025-05-15','Confirmada',6,2,6,1),(33,'2025-05-22','Confirmada',3,2,1,1),(34,'2025-05-22','Confirmada',3,2,1,1),(35,'2025-05-19','Confirmada',8,2,2,2),(36,'2025-05-19','Confirmada',6,3,7,2);
+INSERT INTO `citas` VALUES (1,'2025-04-01','finalizada',1,2,2,1),(2,'2025-04-02','finalizada',9,2,7,2),(3,'2025-04-03','finalizada',5,3,11,1),(4,'2025-04-22','finalizada',4,3,1,1),(5,'2025-03-05','finalizada',4,2,2,1),(6,'2025-03-05','finalizada',2,3,1,1),(7,'2025-03-08','finalizada',1,2,1,1),(8,'2025-03-08','finalizada',7,2,1,2),(9,'2025-02-08','finalizada',4,2,1,2),(10,'2025-02-08','finalizada',6,2,1,2),(11,'2025-02-08','finalizada',4,2,1,1),(12,'2025-02-08','finalizada',5,2,2,1),(13,'2025-02-08','finalizada',6,2,2,1),(14,'2025-02-08','finalizada',7,2,3,1),(15,'2025-02-08','finalizada',2,2,10,1),(16,'2025-02-08','finalizada',8,2,1,1),(17,'2025-05-09','finalizada',3,2,3,1),(18,'2025-05-09','finalizada',9,2,3,1),(19,'2025-05-09','finalizada',1,2,2,1),(20,'2025-06-30','confirmada',8,2,12,1),(21,'2025-07-15','confirmada',3,2,4,1),(22,'2025-07-17','confirmada',1,2,3,1),(23,'2025-07-20','confirmada',4,2,6,2),(24,'2025-07-20','confirmada',4,2,6,2),(25,'2025-05-08','finalizada',5,2,1,1),(26,'2025-05-08','finalizada',6,2,1,2),(27,'2025-05-08','finalizada',3,2,12,2),(28,'2025-05-08','finalizada',3,2,12,2),(29,'2025-05-08','finalizada',9,2,3,2),(30,'2025-05-08','finalizada',2,3,7,2),(31,'2025-05-10','finalizada',6,2,9,2),(32,'2025-05-15','finalizada',6,2,6,1),(33,'2025-05-22','finalizada',3,2,1,1),(34,'2025-05-22','finalizada',3,2,1,1),(35,'2025-05-19','finalizada',8,2,2,2),(36,'2025-05-19','finalizada',6,3,7,2),(37,'2025-05-30','confirmada',6,2,10,1),(38,'2025-05-26','finalizada',7,2,1,1),(39,'2025-05-26','finalizada',7,2,1,1),(40,'2025-05-29','confirmada',3,2,10,1),(41,'2025-05-28','finalizada',3,2,2,1);
 /*!40000 ALTER TABLE `citas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,4 +200,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-21 14:21:37
+-- Dump completed on 2025-05-28 16:21:17
