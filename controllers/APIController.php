@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use Intervention\Image\ImageManager as Image;
+use Model\AdminCita;
 use Model\Cita;
 use Model\ComprobantePago;
 use Model\Horario;
@@ -106,5 +107,25 @@ class APIController {
         ];
 
         echo json_encode($respuesta); 
+    }
+
+    public static function getCitas() {
+        $fecha = $_GET['fecha'] ?? '';
+
+        if ($fecha) {
+            //validar la fecha
+            $fechas = explode('-', $fecha);
+
+            if(count($fechas) !== 3 || !checkdate( $fechas[1], $fechas[2], $fechas[0]) ) {
+                echo json_encode(['error' => 'Fecha no valida']);
+                return;
+            }
+
+            $citas = AdminCita::obtenerCitasPorFecha($fecha);
+        } else {
+            $citas = AdminCita::obtenerTodasCitas();
+        }
+
+        echo json_encode($citas);
     }
 }

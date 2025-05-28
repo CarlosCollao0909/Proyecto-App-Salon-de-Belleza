@@ -2,9 +2,9 @@
 
 <div class="dashboard__contenedor dashboard__contenedor--grid">
     <div class="contenedor-calendario">
-        aqui va el calendario
+        <div id="calendario" style="width: 100%"></div>
     </div>
     <div class="contenedor-citas">
-        aqui van las citas
+        <div id="citas"></div>
     </div>
 </div>

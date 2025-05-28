@@ -52,11 +52,11 @@ class ActiveRecord {
     }
 
     // consultas sql personalizadas
-    public static function customQuery($query) {
+    public static function customQuery($query, $modelo = false) {
         $resultado = self::$db->query($query);
         $arrayObjetos = [];
         while ($registro = $resultado->fetch_assoc()) {
-            $objeto = new stdClass;
+            $objeto = $modelo ? new static : new stdClass;
             foreach ($registro as $key => $value) {
                 $objeto->$key = $value;
             }

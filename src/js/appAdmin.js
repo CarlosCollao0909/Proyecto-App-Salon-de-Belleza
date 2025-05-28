@@ -8,6 +8,8 @@ const iniciarApp = () => {
     iniciarDatatables('myTable');
     cambiarEstadoBotones();
     mostrarVistaPreviaQR();
+    irArriba();
+    mostrarFullCalendar();
 }
 
 const limpiarParametroURL = (parametro) => {
@@ -53,6 +55,15 @@ const mostrarAlerta = () => {
             confirmButtonText: 'OK'
         }).then(() => {
             limpiarParametroURL('forma_pago_actualizada');
+        });
+    } else if (parametroURL.get('cita_actualizada') === '1') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Cita actualizada',
+            text: 'El estado de la cita fue actualizado correctamente.',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            limpiarParametroURL('cita_actualizada');
         });
     }
 }
@@ -218,3 +229,235 @@ const mostrarVistaPreviaQR = () => {
         imagenPreview.style.display = 'none';
     }
 }
+
+const irArriba = () => {
+    const btnIrArriba = document.querySelector('.ir-arriba');
+    const contenedorScroll = document.querySelector('.dashboard__contenido'); // Ajusta al contenedor que hace scroll
+
+    btnIrArriba.addEventListener('click', () => {
+        console.log('Subiendo...');
+        contenedorScroll.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    contenedorScroll.addEventListener('scroll', () => {
+        if (contenedorScroll.scrollTop > 100) {
+            btnIrArriba.style.display = 'block';
+        } else {
+            btnIrArriba.style.display = 'none';
+        }
+    });
+};
+
+
+const mostrarFullCalendar = () => {
+    const calendario = document.querySelector('#calendario');
+    if (!calendario) return;
+
+    let calendar = new FullCalendar.Calendar(calendario, {
+        initialView: 'dayGridMonth',
+        height: 'auto',
+        showNonCurrentDates: false,
+        fixedWeekCount: false,
+        headerToolbar: {
+            left: 'dayGridMonth,timeGridWeek',
+            center: 'title',
+            right: 'prev,next'
+        },
+        buttonText: {
+            month: 'Mes',
+            week: 'Semana',
+            day: 'Día'
+        },
+        locale: 'es',
+        selectable: true,
+        selectMirror: true,
+        unselectAuto: true,
+        dayMaxEvents: 1,
+        moreLinkClick: 'popover',
+        moreLinkText: (num) => `+${num} más`,
+        dateClick: (info) => {
+            const fechaSeleccionada = encodeURIComponent(info.dateStr);
+            consultarAPICitasPorDia(fechaSeleccionada);
+        },
+        // Función para personalizar la apariencia de los eventos
+        eventDidMount: function(info) {
+            const fechaCita = new Date(info.event.start);
+            const fechaHoy = new Date();
+            fechaHoy.setHours(0, 0, 0, 0);
+            
+            // Remover colores por defecto
+            info.el.style.backgroundColor = 'transparent';
+            info.el.style.borderColor = 'transparent';
+            
+            // Aplicar clases CSS según si la cita es pasada o futura
+            if (fechaCita < fechaHoy) {
+                info.el.style.backgroundColor = '#f93a3a'; 
+                info.el.style.color = '#FFFFFF';
+            } else {
+                info.el.style.backgroundColor = '#66cc33'; 
+                info.el.style.color = '#FFFFFF';
+            }
+        }
+    });
+    
+    calendar.render();
+
+    // Agregar leyenda después de renderizar el calendario
+    agregarLeyenda();
+
+    // Mostrar las citas del día actual por defecto
+    const fechaActual = new Date().toLocaleDateString('en-CA');
+    consultarAPICitasPorDia(fechaActual);
+
+    // Consultar todas las citas al cargar el calendario
+    consultarAPICitas(calendar);
+}
+
+// Función para agregar la leyenda de colores
+const agregarLeyenda = () => {
+    const contenedorCalendario = document.querySelector('.contenedor-calendario');
+    if (!contenedorCalendario) return;
+    
+    // Verificar si ya existe la leyenda
+    if (document.querySelector('.calendario-leyenda')) return;
+    
+    const leyenda = document.createElement('div');
+    leyenda.className = 'calendario-leyenda';
+    leyenda.innerHTML = `
+        <div class="calendario-leyenda__item">
+            <div class="color-indicator color-indicator--pasado"></div>
+            <span>Citas Pasadas</span>
+        </div>
+        <div class="calendario-leyenda__item">
+            <div class="color-indicator color-indicator--futuro"></div>
+            <span>Citas Futuras</span>
+        </div>
+    `;
+    
+    contenedorCalendario.appendChild(leyenda);
+}
+
+const consultarAPICitas = async (calendar) => {
+    try {
+        const url = 'http://localhost:3000/api/citas_admin';
+        const resultado = await fetch(url);
+        const citas = await resultado.json();
+        console.log('Citas obtenidas:', citas);
+
+        if (calendar) {
+            const eventos = citas.map(cita => ({
+                title: cita.cliente,
+                start: cita.fecha,
+                allDay: true,
+                // No definir color aquí, se manejará en eventDidMount
+            }));
+            calendar.removeAllEvents();
+            calendar.addEventSource(eventos);
+
+            console.log('Eventos añadidos al calendario:', eventos);
+        }
+
+    } catch (error) {
+        console.error('Error al consultar la API de citas:', error);
+    }
+}
+
+const consultarAPICitasPorDia = async (fecha) => {
+    try {
+        const url = `http://localhost:3000/api/citas_admin?fecha=${fecha}`;
+        const resultado = await fetch(url);
+        const citas = await resultado.json();
+        console.log('Citas obtenidas para la fecha:', fecha, citas);
+
+        mostrarCitas(citas);
+    } catch (error) {
+        console.error('Error al consultar la API de citas por día:', error);
+    }
+}
+
+const mostrarCitas = (citas) => {
+    const contenedor = document.querySelector('#citas');
+    contenedor.innerHTML = '';
+
+    if (!citas || citas.length === 0) {
+        contenedor.innerHTML = `
+            <div class="no-citas">
+                <div class="no-citas__icon">📅</div>
+                <h3 class="no-citas__mensaje">No se encontraron citas para la fecha seleccionada.</h3>
+            </div>`;
+        return;
+    }
+
+    // Agregar header
+    const header = document.createElement('h3');
+    header.className = 'citas-header';
+    header.textContent = 'Citas de la fecha seleccionada';
+    contenedor.appendChild(header);
+
+    citas.forEach(cita => {
+        const citaCard = document.createElement('div');
+        citaCard.className = 'cita-card';
+        
+        citaCard.innerHTML = `
+            <div class="cita-card__header">
+                <div class="cita-card__cliente">${cita.cliente}</div>
+                <div class="cita-card__horario">${cita.horario}</div>
+            </div>
+            
+            <div class="cita-card__detalles">
+                <div class="cita-card__detalle-item">
+                    <span class="label">Servicio</span>
+                    <span class="valor">${cita.servicio}</span>
+                </div>
+                
+                <div class="cita-card__detalle-item">
+                    <span class="label">Precio</span>
+                    <span class="valor valor--precio">Bs. ${cita.precio}</span>
+                </div>
+                
+                <div class="cita-card__detalle-item">
+                    <span class="label">Estado</span>
+                    <span class="valor">
+                        <span class="cita-card__estado cita-card__estado--${cita.estado}">${cita.estado}</span>
+                    </span>
+                </div>
+                
+                <div class="cita-card__detalle-item">
+                    <span class="label">Forma de pago</span>
+                    <span class="valor">${cita.formaPago}</span>
+                </div>
+                
+                <div class="cita-card__detalle-item">
+                    <span class="label">Email</span>
+                    <span class="valor">${cita.email}</span>
+                </div>
+                
+                <div class="cita-card__detalle-item">
+                    <span class="label">Teléfono</span>
+                    <span class="valor">${cita.telefono}</span>
+                </div>
+            </div>
+            
+            ${cita.comprobantePago ? `
+                <div class="cita-card__comprobante">
+                    <p><strong>Comprobante:</strong></p>
+                    <img src="/images/comprobantes/${cita.comprobantePago}" alt="Comprobante de pago">
+                </div>
+            ` : ''}
+
+            ${cita.estado === 'confirmada' ? `
+                <div class="cita-card__accion">
+                    <form action="/admin/citas/editar" method="POST">
+                        <input type="hidden" name="id" value="${cita.id}">
+                        <button type="submit" class="cita-card__boton">Marcar como Finalizada</button>
+                    </form>
+                </div>
+            `: ''}
+        `;
+        
+        contenedor.appendChild(citaCard);
+    });
+};

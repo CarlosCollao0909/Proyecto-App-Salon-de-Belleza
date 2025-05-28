@@ -2,6 +2,21 @@
 @use 'base/mixins' as m;
 @use 'sass:color';
 
+.ir-arriba {
+    display: none;
+    background-color: v.$azul-oscuro;
+    font-size: 3rem;
+    color: v.$blanco;
+    padding: 1rem;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 2;
+}
+
 .dashboard {
     height: 100vh;
     display: flex;
@@ -89,7 +104,12 @@
             padding: 1rem 3.5rem 3rem 3.5rem;
 
             &::-webkit-scrollbar {
-                width: 1rem;
+                width: .5rem;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: v.$gris-medio;
+                border-radius: 1rem;
             }
         }
     }
@@ -119,7 +139,11 @@
         border-radius: 1rem;
 
         &--grid {
-            @include m.grid(2, 3rem)
+            @include m.grid(1, 2rem);
+
+            @include m.tablet {
+                @include m.grid(2, 3rem)
+            }
         }
     }
 
@@ -161,4 +185,9 @@
         border-radius: 1rem;
         text-align: center;
     }
+}
+
+.contenedor-calendario {
+    margin: 1rem;
+    padding: auto;
 }

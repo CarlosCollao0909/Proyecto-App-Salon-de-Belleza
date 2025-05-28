@@ -48,10 +48,12 @@ $router->get('/api/servicios', [APIController::class, 'index']);
 $router->get('/api/horarios', [APIController::class, 'showHorarios']);
 $router->post('/api/horarios/estado', [APIController::class, 'cambiarEstadoHorarios']);
 $router->post('/api/citas', [APIController::class, 'create']);
+$router->get('/api/citas_admin', [APIController::class, 'getCitas']);
 
 //area de administracion
 $router->get('/admin/dashboard', [DashboardController::class, 'index']);
 $router->get('/admin/citas', [CitasController::class, 'index']);
+$router->post('/admin/citas/editar', [CitasController::class, 'update']);
 $router->get('/admin/clientes', [ClientesController::class, 'index']);
 $router->get('/admin/horarios', [HorariosController::class, 'index']);
 $router->get('/admin/formas_pagos', [FormasPagosController::class, 'index']);
