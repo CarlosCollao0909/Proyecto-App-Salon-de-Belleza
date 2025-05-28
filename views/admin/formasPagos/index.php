@@ -2,7 +2,7 @@
 
 <div class="dashboard__contenedor">
     <?php if (!empty($formaPagos)): ?>
-        <table class="table">
+        <table class="table" id="myTable">
             <thead class="table__thead">
                 <tr>
                     <th scope="col" class="table__th">Tipo</th>

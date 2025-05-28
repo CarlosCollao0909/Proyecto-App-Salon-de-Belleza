@@ -13,6 +13,7 @@ use MVC\Router;
 
 use Controllers\LoginController;
 use Controllers\FormasPagosController;
+use Controllers\ReportesAPIController;
 use Controllers\ServiciosController;
 
 $router = new Router();
@@ -49,6 +50,12 @@ $router->get('/api/horarios', [APIController::class, 'showHorarios']);
 $router->post('/api/horarios/estado', [APIController::class, 'cambiarEstadoHorarios']);
 $router->post('/api/citas', [APIController::class, 'create']);
 $router->get('/api/citas_admin', [APIController::class, 'getCitas']);
+
+$router->get('/api/reportes/ingresos_mensuales', [ReportesAPIController::class, 'ingresosPorMes']);
+$router->get('/api/reportes/ingresos_diarios', [ReportesAPIController::class, 'ingresosPorDia']);
+$router->get('/api/reportes/servicios_solicitados', [ReportesAPIController::class, 'serviciosSolicitados']);
+$router->get('/api/reportes/clientes_frecuentes', [ReportesAPIController::class, 'clientesFrecuentes']);
+$router->get('/api/reportes/horarios_demandados', [ReportesAPIController::class, 'horariosDemandados']);
 
 //area de administracion
 $router->get('/admin/dashboard', [DashboardController::class, 'index']);

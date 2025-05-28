@@ -1,0 +1,201 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+
+// Contenedor de cards
+.contenedor-cards {
+    margin-bottom: 3rem;
+    @include m.grid(1, 1.5rem);
+
+    @include m.tablet {
+        @include m.grid(2, 2rem);
+    }
+
+    @include m.desktop {
+        @include m.grid(4, 2rem);
+    }
+
+    .card {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border: 1px solid #e9ecef;
+        border-radius: 1.2rem;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        &.card-primaria {
+            border-left: 4px solid #007bff;
+
+            .card-numero {
+                color: #007bff;
+            }
+        }
+
+        .card-icono {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+            color: v.$blanco
+        }
+
+        &:hover .card-icono {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+        }
+
+        // Efecto hover
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.15);
+            border-color: #dee2e6;
+        }
+
+        // Efecto de brillo sutil
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        &:hover::before {
+            left: 100%;
+        }
+
+        // Estilos para contenido de la card
+        h3 {
+            font-size: 2rem;
+            font-weight: v.$bold;
+            color: v.$negro;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-numero {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #007bff;
+            margin: 0.5rem 0;
+        }
+
+        .card-descripcion {
+            font-size: 1.4rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+// Contenedor de gráficas
+.contenedor-graficas {
+    margin-top: 2rem;
+
+    &__fila {
+        margin-bottom: 2rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__fila1 {
+        @include m.grid(1, 1.5rem);
+
+        @include m.tablet {
+            @include m.grid(2, 2rem);
+        }
+    }
+
+    &__fila2 {
+        @include m.grid(1, 1.5rem);
+
+        @include m.tablet {
+            @include m.grid(2, 2rem);
+        }
+
+        @include m.desktop {
+            @include m.grid(3, 2rem);
+        }
+    }
+
+    .grafica {
+        background: #ffffff;
+        border: 1px solid #e9ecef;
+        border-radius: 1.2rem;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        // Título de la gráfica
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: v.$negro;
+            margin-bottom: 1rem;
+        }
+
+        // Contenedor para el contenido de la gráfica
+        .grafica-contenido {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 0.5rem;
+            color: #6c757d;
+            font-style: italic;
+        }
+    }
+}
+
+
+// Responsive mejorado
+@include m.tablet {
+    .contenedor-graficas {
+        .grafica {
+            min-height: 350px;
+
+            .grafica-contenido {
+                height: 250px;
+            }
+        }
+    }
+}
+
+@include m.desktop {
+    .contenedor-graficas {
+        .grafica {
+            min-height: 400px;
+
+            .grafica-contenido {
+                height: 300px;
+            }
+        }
+    }
+}

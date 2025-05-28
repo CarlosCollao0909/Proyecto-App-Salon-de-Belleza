@@ -10,6 +10,12 @@ const iniciarApp = () => {
     mostrarVistaPreviaQR();
     irArriba();
     mostrarFullCalendar();
+    // graficos chart.js
+    cargarGraficoMensual();
+    cargarGraficoDiario();
+    cargarGraficoServicios();
+    cargarGraficoClientes();
+    cargarGraficoHorarios();
 }
 
 const limpiarParametroURL = (parametro) => {
@@ -461,3 +467,103 @@ const mostrarCitas = (citas) => {
         contenedor.appendChild(citaCard);
     });
 };
+
+// Funciones para cargar gráficos con Chart.js
+const cargarGraficoMensual = async () => {
+    const res = await fetch('/api/reportes/ingresos_mensuales');
+    const data = await res.json();
+    const labels = data.map(item => item.mes);
+    const valores = data.map(item => item.total_ingresos);
+
+    new Chart(document.getElementById("graficoMensual"), {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Ingresos por mes',
+                data: valores,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }]
+        }
+    });
+}
+
+const cargarGraficoDiario = async () => {
+    const res = await fetch('/api/reportes/ingresos_diarios');
+    const data = await res.json();
+    const labels = data.map(item => item.fecha);
+    const valores = data.map(item => item.total_ingresos);
+
+    new Chart(document.getElementById("graficoDiario"), {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Ingresos por día',
+                data: valores,
+                fill: false,
+                borderColor: 'rgba(255, 99, 132, 0.6)',
+                tension: 0.1
+            }]
+        }
+    });
+}
+
+const cargarGraficoServicios = async () => {
+    const res = await fetch('/api/reportes/servicios_solicitados');
+    const data = await res.json();
+    const labels = data.map(item => item.servicio);
+    const valores = data.map(item => item.cantidad);
+
+    new Chart(document.getElementById("graficoServicios"), {
+        type: 'pie',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Cantidad de veces Solicitado',
+                data: valores,
+                backgroundColor: [
+                    '#FF6384', '#36A2EB', '#FFCE56', '#81C784', '#BA68C8'
+                ]
+            }]
+        }
+    });
+}
+
+const cargarGraficoClientes = async () => {
+    const res = await fetch('/api/reportes/clientes_frecuentes');
+    const data = await res.json();
+    const labels = data.map(item => item.cliente);
+    const valores = data.map(item => item.cantidad_citas);
+
+    new Chart(document.getElementById("graficoClientes"), {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Citas Agendadas por Cliente',
+                data: valores,
+                backgroundColor: 'rgba(255, 206, 86, 0.6)'
+            }]
+        }
+    });
+}
+
+const cargarGraficoHorarios = async () => {
+    const res = await fetch('/api/reportes/horarios_demandados');
+    const data = await res.json();
+    const labels = data.map(item => item.horario);
+    const valores = data.map(item => item.cantidad);
+
+    new Chart(document.getElementById("graficoHorarios"), {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Cantidad de citas por horario',
+                data: valores,
+                backgroundColor: 'rgba(153, 102, 255, 0.6)'
+            }]
+        }
+    });
+}

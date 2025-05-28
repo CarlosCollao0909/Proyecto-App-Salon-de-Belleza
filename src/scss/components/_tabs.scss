@@ -3,7 +3,12 @@
 @use 'sass:color';
 
 .tabs {
+
     @include m.tablet {
+        @include m.grid(2, .5rem);
+    }
+
+    @include m.desktop {
         width: auto;
         display: flex;
         margin-bottom: 0;
