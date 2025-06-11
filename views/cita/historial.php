@@ -1,6 +1,8 @@
 <h1 class="nombre-pagina">Historial de Citas</h1>
 
-<a href="/cita" class="historial"><p>¿Deseas crear una nueva cita?</p></a>
+<a href="/cita" class="historial">
+    <p>¿Deseas crear una nueva cita?</p>
+</a>
 
 <div class="barra">
     <p>Hola! <?php echo $nombre ?? ''; ?></p>
@@ -24,10 +26,14 @@
         <div class="card-historial__estado">
             <span>Estado de la cita: </span> <?php echo $cita->estado; ?>
         </div>
-        <?php if ($cita->fecha > date('Y-m-d', strtotime('-2 day'))): ?>
+        <?php if ($cita->fecha > date('Y-m-d', strtotime('-2 day')) && ($cita->estado != 'cancelada')): ?>
             <div class="card-historial__acciones">
-                <?php echo (date($cita->fecha) < date('Y-m-d', strtotime('-2 day'))); ?>
-                <a href="/cita/cancelar?id=<?php echo $cita->id; ?>" class="dashboard__boton">Cancelar Cita</a>
+                <form class="table__formulario" method="POST" action="/cita/cancelar">
+                    <input type="hidden" name="id" value="<?php echo $cita->id; ?>">
+                    <button type="submit" class="boton--cancelar">
+                        Cancelar
+                    </button>
+                </form>
             </div>
         <?php endif; ?>
     </div>

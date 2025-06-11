@@ -42,7 +42,8 @@ $router->get('/message', [LoginController::class, 'message']);
 
 //area privada
 $router->get('/cita', [CitaController::class, 'index']);
-$router->get('/historial', [CitasController::class, 'showHistorial']);
+$router->get('/historial', [CitaController::class, 'showHistorial']);
+$router->post('/cita/cancelar', [CitaController::class, 'update']);
 
 //API
 $router->get('/api/servicios', [APIController::class, 'index']);

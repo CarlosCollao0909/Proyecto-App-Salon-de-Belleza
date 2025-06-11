@@ -18,7 +18,7 @@ class Cita extends ActiveRecord {
     public function __construct($args = []) {
         $this->id = $args['id'] ?? null;
         $this->fecha = $args['fecha'] ?? '';
-        $this->estado = $args['estado'] ?? 'Confirmada';
+        $this->estado = $args['estado'] ?? 'confirmada';
         $this->horarioID = $args['horarioID'] ?? '';
         $this->usuarioID = $args['usuarioID'] ?? '';
         $this->servicioID = $args['servicioID'] ?? '';

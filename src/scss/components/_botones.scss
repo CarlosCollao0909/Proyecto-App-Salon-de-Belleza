@@ -4,3 +4,11 @@
 .boton {
     @include m.boton(v.$azul, v.$blanco);
 }
+
+.boton--cancelar {
+    all: unset;
+    @include m.botonAdmin(v.$rojo, v.$blanco);
+    text-transform: uppercase;
+    width: auto;
+    padding: 1rem 1.5rem;
+}
