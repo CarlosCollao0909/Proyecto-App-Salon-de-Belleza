@@ -121,4 +121,24 @@ class Reporte extends ActiveRecord {
         $resultado = self::customQuery($query);
         return $resultado;
     }
+
+    public static function obtenerHistorialPorCliente($clienteID) {
+        $query = "SELECT 
+            c.id,
+            c.fecha,
+            s.nombre AS servicio,
+            s.precio,
+            c.estado
+        FROM 
+            citas c
+        JOIN 
+            servicios s ON c.servicioID = s.id
+        WHERE 
+            c.usuarioID = '$clienteID'
+        ORDER BY 
+            c.fecha DESC;";
+
+        $resultado = self::customQuery($query);
+        return $resultado;
+    }
 }

@@ -1,9 +1,9 @@
 <aside class="dashboard__sidebar">
     <nav class="dashboard__menu">
         <a href="/admin/dashboard" class="dashboard__enlace <?php echo currentPage('/dashboard') ? 'dashboard__enlace--activo' : ''; ?>">
-            <i class="fa-solid fa-house fa-1x"></i>
+            <i class="fa-solid fa-chart-simple fa-1x"></i>
             <spam class="dashboard__menu-texto">
-                Inicio
+                Reportes
             </spam>
         </a>
         <a href="/admin/citas" class="dashboard__enlace  <?php echo currentPage('/citas') ? 'dashboard__enlace--activo' : ''; ?>">

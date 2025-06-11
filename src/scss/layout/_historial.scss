@@ -1,0 +1,11 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.card-historial {
+    padding: 2rem;
+    border-bottom: .1rem solid v.$gris-claro;
+    
+    span {
+        font-weight: v.$bold;
+    }
+}

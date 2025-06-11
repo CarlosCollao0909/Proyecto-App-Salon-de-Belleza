@@ -84,6 +84,5 @@
 $script = "
         <script src='build/js/appCliente.js'></script>
         <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-        <script src='https://kit.fontawesome.com/6a521e9758.js' crossorigin='anonymous'></script>
     ";
 ?>
