@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: localhost    Database: appsalon_refactor
 -- ------------------------------------------------------
--- Server version	8.0.40
+-- Server version	8.0.41
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `citas`;
 CREATE TABLE `citas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `fecha` date DEFAULT NULL,
-  `estado` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `estado` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `horarioID` int DEFAULT NULL,
   `usuarioID` int DEFAULT NULL,
   `servicioID` int DEFAULT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `citas` (
   CONSTRAINT `citas_horarios_FK` FOREIGN KEY (`horarioID`) REFERENCES `horarios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
   CONSTRAINT `citas_servicios_FK` FOREIGN KEY (`servicioID`) REFERENCES `servicios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT,
   CONSTRAINT `citas_usuarios_FK` FOREIGN KEY (`usuarioID`) REFERENCES `usuarios` (`id`) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `citas` (
 
 LOCK TABLES `citas` WRITE;
 /*!40000 ALTER TABLE `citas` DISABLE KEYS */;
-INSERT INTO `citas` VALUES (1,'2025-04-01','finalizada',1,2,2,1),(2,'2025-04-02','finalizada',9,2,7,2),(3,'2025-04-03','finalizada',5,3,11,1),(4,'2025-04-22','finalizada',4,3,1,1),(5,'2025-03-05','finalizada',4,2,2,1),(6,'2025-03-05','finalizada',2,3,1,1),(7,'2025-03-08','finalizada',1,2,1,1),(8,'2025-03-08','finalizada',7,2,1,2),(9,'2025-02-08','finalizada',4,2,1,2),(10,'2025-02-08','finalizada',6,2,1,2),(11,'2025-02-08','finalizada',4,2,1,1),(12,'2025-02-08','finalizada',5,2,2,1),(13,'2025-02-08','finalizada',6,2,2,1),(14,'2025-02-08','finalizada',7,2,3,1),(15,'2025-02-08','finalizada',2,2,10,1),(16,'2025-02-08','finalizada',8,2,1,1),(17,'2025-05-09','finalizada',3,2,3,1),(18,'2025-05-09','finalizada',9,2,3,1),(19,'2025-05-09','finalizada',1,2,2,1),(20,'2025-06-30','confirmada',8,2,12,1),(21,'2025-07-15','confirmada',3,2,4,1),(22,'2025-07-17','confirmada',1,2,3,1),(23,'2025-07-20','confirmada',4,2,6,2),(24,'2025-07-20','confirmada',4,2,6,2),(25,'2025-05-08','finalizada',5,2,1,1),(26,'2025-05-08','finalizada',6,2,1,2),(27,'2025-05-08','finalizada',3,2,12,2),(28,'2025-05-08','finalizada',3,2,12,2),(29,'2025-05-08','finalizada',9,2,3,2),(30,'2025-05-08','finalizada',2,3,7,2),(31,'2025-05-10','finalizada',6,2,9,2),(32,'2025-05-15','finalizada',6,2,6,1),(33,'2025-05-22','finalizada',3,2,1,1),(34,'2025-05-22','finalizada',3,2,1,1),(35,'2025-05-19','finalizada',8,2,2,2),(36,'2025-05-19','finalizada',6,3,7,2),(37,'2025-05-30','confirmada',6,2,10,1),(38,'2025-05-26','finalizada',7,2,1,1),(39,'2025-05-26','finalizada',7,2,1,1),(40,'2025-05-29','confirmada',3,2,10,1),(41,'2025-05-28','finalizada',3,2,2,1);
+INSERT INTO `citas` VALUES (1,'2025-04-01','finalizada',1,2,2,1),(2,'2025-04-02','finalizada',9,2,7,2),(3,'2025-04-03','finalizada',5,3,11,1),(4,'2025-04-22','finalizada',4,3,1,1),(5,'2025-03-05','finalizada',4,2,2,1),(6,'2025-03-05','finalizada',2,3,1,1),(7,'2025-03-08','finalizada',1,2,1,1),(8,'2025-03-08','finalizada',7,2,1,2),(9,'2025-02-08','finalizada',4,2,1,2),(10,'2025-02-08','finalizada',6,2,1,2),(11,'2025-02-08','finalizada',4,2,1,1),(12,'2025-02-08','finalizada',5,2,2,1),(13,'2025-02-08','finalizada',6,2,2,1),(14,'2025-02-08','finalizada',7,2,3,1),(15,'2025-02-08','finalizada',2,2,10,1),(16,'2025-02-08','finalizada',8,2,1,1),(17,'2025-05-09','finalizada',3,2,3,1),(18,'2025-05-09','finalizada',9,2,3,1),(19,'2025-05-09','finalizada',1,2,2,1),(20,'2025-06-30','confirmada',8,2,12,1),(21,'2025-07-15','confirmada',3,2,4,1),(22,'2025-07-17','confirmada',1,2,3,1),(23,'2025-07-20','confirmada',4,2,6,2),(24,'2025-07-20','confirmada',4,2,6,2),(25,'2025-05-08','finalizada',5,2,1,1),(26,'2025-05-08','finalizada',6,2,1,2),(27,'2025-05-08','finalizada',3,2,12,2),(28,'2025-05-08','finalizada',3,2,12,2),(29,'2025-05-08','finalizada',9,2,3,2),(30,'2025-05-08','finalizada',2,3,7,2),(31,'2025-05-10','finalizada',6,2,9,2),(32,'2025-05-15','finalizada',6,2,6,1),(33,'2025-05-22','finalizada',3,2,1,1),(34,'2025-05-22','finalizada',3,2,1,1),(35,'2025-05-19','finalizada',8,2,2,2),(36,'2025-05-19','finalizada',6,3,7,2),(37,'2025-05-30','finalizada',6,2,10,1),(38,'2025-05-26','finalizada',7,2,1,1),(39,'2025-05-26','finalizada',7,2,1,1),(40,'2025-05-29','confirmada',3,2,10,1),(41,'2025-05-28','finalizada',3,2,2,1),(42,'2025-05-30','Confirmada',2,3,2,1),(43,'2025-06-05','Confirmada',4,3,3,1);
 /*!40000 ALTER TABLE `citas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +61,7 @@ DROP TABLE IF EXISTS `comprobantespagos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comprobantespagos` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `imagenComprobante` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `imagenComprobante` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `fechaSubida` timestamp NULL DEFAULT NULL,
   `citaID` int DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -89,8 +89,8 @@ DROP TABLE IF EXISTS `formaspagos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `formaspagos` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `imagenQR` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tipo` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `imagenQR` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -101,7 +101,7 @@ CREATE TABLE `formaspagos` (
 
 LOCK TABLES `formaspagos` WRITE;
 /*!40000 ALTER TABLE `formaspagos` DISABLE KEYS */;
-INSERT INTO `formaspagos` VALUES (1,'Efectivo','No corresponde'),(2,'QR','441d20655b872564c4585ed1fa6b2efc.png');
+INSERT INTO `formaspagos` VALUES (1,'Efectivo','No corresponde'),(2,'QR','9b858d265d6afebbc7a7a5fb79512297.png');
 /*!40000 ALTER TABLE `formaspagos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +127,7 @@ CREATE TABLE `horarios` (
 
 LOCK TABLES `horarios` WRITE;
 /*!40000 ALTER TABLE `horarios` DISABLE KEYS */;
-INSERT INTO `horarios` VALUES (1,'09:00:00','10:00:00',1),(2,'10:00:00','11:00:00',1),(3,'11:00:00','12:00:00',1),(4,'15:00:00','16:00:00',1),(5,'16:00:00','17:00:00',1),(6,'17:00:00','18:00:00',1),(7,'18:00:00','19:00:00',1),(8,'19:00:00','20:00:00',1),(9,'20:00:00','21:00:00',1);
+INSERT INTO `horarios` VALUES (1,'09:00:00','10:00:00',0),(2,'10:00:00','11:00:00',0),(3,'11:00:00','12:00:00',1),(4,'15:00:00','16:00:00',1),(5,'16:00:00','17:00:00',1),(6,'17:00:00','18:00:00',1),(7,'18:00:00','19:00:00',1),(8,'19:00:00','20:00:00',1),(9,'20:00:00','21:00:00',1);
 /*!40000 ALTER TABLE `horarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +140,7 @@ DROP TABLE IF EXISTS `servicios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `servicios` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nombre` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `precio` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -152,7 +152,7 @@ CREATE TABLE `servicios` (
 
 LOCK TABLES `servicios` WRITE;
 /*!40000 ALTER TABLE `servicios` DISABLE KEYS */;
-INSERT INTO `servicios` VALUES (1,'Corte de Cabello Mujer',90.00),(2,'Corte de Cabello Hombre',80.00),(3,'Corte de Cabello Niño',60.00),(4,'Peinado Mujer',80.00),(5,'Peinado Hombre',60.00),(6,'Peinado Niño',60.00),(7,'Corte de Barba',50.00),(8,'Tinte Mujer',300.00),(9,'Uñas',400.00),(10,'Lavado de Cabello',50.00),(11,'Tratamiento Capilar',150.00),(12,'Tinte Hombre',250.00),(13,'Alizado de cabello',150.00),(14,'Planchado de cabello Mujer',90.00),(15,'Permanente Mujer',200.00),(16,'Peinado Novia',230.00),(20,'Permanente Hombre',150.00);
+INSERT INTO `servicios` VALUES (1,'Corte de Cabello Mujer',90.00),(2,'Corte de Cabello Hombre',80.00),(3,'Corte de Cabello Niño',60.00),(4,'Peinado Mujer',80.00),(5,'Peinado Hombre',60.00),(6,'Peinado Niño',60.00),(7,'Corte de Barba',50.00),(8,'Tinte Mujer',300.00),(9,'Uñas',400.00),(10,'Lavado de Cabello',50.00),(11,'Tratamiento Capilar',150.00),(12,'Tinte Hombre',250.00),(13,'Alizado de cabello',160.00),(14,'Planchado de cabello Mujer',90.00),(15,'Permanente Mujer',200.00),(16,'Peinado Novia',230.00),(20,'Permanente Hombre',150.00);
 /*!40000 ALTER TABLE `servicios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,14 +165,14 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `apellido` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `email` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `telefono` varchar(8) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nombre` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `apellido` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `telefono` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `admin` tinyint DEFAULT NULL,
   `confirmado` tinyint DEFAULT NULL,
-  `token` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `token` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -183,7 +183,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Juan Carlos','Collao Mamani','carloscollao3@gmail.com','$2y$10$73ifbBYHLI48BUenrETYUOGCvP2IEEQ0VbXW7uAqT/Jtqn7skEUEi','69575687',1,1,''),(2,'test','test','test@test.com','$2y$10$i47DLu2fBWaT..ZAS7VoFesBYhr4DLY0zkWfH5cUGRgwART7N2z9.','12345678',0,1,''),(3,'Juan','Test2','juan@test.com','$2y$10$E90FH.zrlFi1G7qYpKjPuujjtvVaO7BFTO.a0Dxr0IBqHFFUL0Qyu','69575687',0,1,'');
+INSERT INTO `usuarios` VALUES (1,'Juan Carlos','Collao Mamani','carloscollao3@gmail.com','$2y$10$Z/0pRfmeb3eBAoDxxhP7w.ReiHqL21nGbZqiuQGdu9CRd2Y3LrDce','69575687',1,1,''),(2,'María','Saavedra','maria@test.com','$2y$10$i47DLu2fBWaT..ZAS7VoFesBYhr4DLY0zkWfH5cUGRgwART7N2z9.','12345678',0,1,''),(3,'Juan','Perez','juan@test.com','$2y$10$E90FH.zrlFi1G7qYpKjPuujjtvVaO7BFTO.a0Dxr0IBqHFFUL0Qyu','69575687',0,1,'');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,4 +200,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-28 16:21:17
+-- Dump completed on 2025-06-11  8:39:23
