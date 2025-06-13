@@ -8,7 +8,7 @@ use MVC\Router;
 class DashboardController {
     public static function index(Router $router) {
         isStartedSession();
-        isAuth();
+        isAdmin();
 
         $ingresosMes = Reporte::obtenerIngresoTotalMes();
         $clientesRegistrados = Reporte::obtenerClientesRegistrados();

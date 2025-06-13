@@ -13,6 +13,7 @@ use MVC\Router;
 
 use Controllers\LoginController;
 use Controllers\FormasPagosController;
+use Controllers\Pagina404Controller;
 use Controllers\ReportesAPIController;
 use Controllers\ServiciosController;
 
@@ -74,6 +75,9 @@ $router->post('/admin/servicios/crear', [ServiciosController::class, 'create']);
 $router->get('/admin/servicios/editar', [ServiciosController::class, 'update']);
 $router->post('/admin/servicios/editar', [ServiciosController::class, 'update']);
 $router->post('/admin/servicios/eliminar', [ServiciosController::class, 'delete']);
+
+//error 404
+$router->get('/error/404', [Pagina404Controller::class, 'index']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
