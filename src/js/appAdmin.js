@@ -475,6 +475,8 @@ const cargarGraficoMensual = async () => {
     const labels = data.map(item => item.mes);
     const valores = data.map(item => item.total_ingresos);
 
+    if (!document.getElementById("graficoMensual")) return; // Verificar si el elemento existe
+
     new Chart(document.getElementById("graficoMensual"), {
         type: 'bar',
         data: {
@@ -493,6 +495,8 @@ const cargarGraficoDiario = async () => {
     const data = await res.json();
     const labels = data.map(item => item.fecha);
     const valores = data.map(item => item.total_ingresos);
+
+    if (!document.getElementById("graficoDiario")) return; // Verificar si el elemento existe
 
     new Chart(document.getElementById("graficoDiario"), {
         type: 'line',
@@ -515,6 +519,8 @@ const cargarGraficoServicios = async () => {
     const labels = data.map(item => item.servicio);
     const valores = data.map(item => item.cantidad);
 
+    if (!document.getElementById("graficoServicios")) return; // Verificar si el elemento existe
+
     new Chart(document.getElementById("graficoServicios"), {
         type: 'pie',
         data: {
@@ -536,6 +542,8 @@ const cargarGraficoClientes = async () => {
     const labels = data.map(item => item.cliente);
     const valores = data.map(item => item.cantidad_citas);
 
+    if (!document.getElementById("graficoClientes")) return; // Verificar si el elemento existe
+
     new Chart(document.getElementById("graficoClientes"), {
         type: 'bar',
         data: {
@@ -554,6 +562,8 @@ const cargarGraficoHorarios = async () => {
     const data = await res.json();
     const labels = data.map(item => item.horario);
     const valores = data.map(item => item.cantidad);
+
+    if (!document.getElementById("graficoHorarios")) return; // Verificar si el elemento existe
 
     new Chart(document.getElementById("graficoHorarios"), {
         type: 'bar',
