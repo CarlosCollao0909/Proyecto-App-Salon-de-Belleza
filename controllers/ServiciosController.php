@@ -9,7 +9,7 @@ class ServiciosController {
     public static function index(Router $router) {
         isStartedSession();
         isAdmin();
-        $servicios = Servicio::all();
+        $servicios = Servicio::whereAll('estado', '1');
         $router->render('admin/servicios/index', [
             'servicios' => $servicios
         ]);
@@ -77,7 +77,8 @@ class ServiciosController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $servicio = Servicio::find($id);
-            $resultado = $servicio->delete();
+            $servicio->estado = '0'; // Cambiar el estado a inactivo
+            $resultado = $servicio->update();
             if ($resultado) {
                 header('Location: /admin/servicios?servicio_eliminado=1');
                 exit;

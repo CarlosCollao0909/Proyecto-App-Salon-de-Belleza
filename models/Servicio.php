@@ -5,18 +5,20 @@ namespace Model;
 class Servicio extends ActiveRecord {
     //db
     protected static $tabla = 'servicios';
-    protected static $columnasDB = ['id', 'nombre', 'precio'];
+    protected static $columnasDB = ['id', 'nombre', 'precio', 'estado'];
 
     //atributos
     public $id;
     public $nombre;
     public $precio;
+    public $estado;
 
     //constructor
     public function __construct($args = []) {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->precio = $args['precio'] ?? '';
+        $this->estado = $args['estado'] ?? '1';
     }
 
     //validacion
