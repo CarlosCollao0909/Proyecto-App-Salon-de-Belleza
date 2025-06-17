@@ -1,4 +1,4 @@
-<h1 class="nombre-pagina-admin">Editar Servicio</h1>
+<h1 class="nombre-pagina">Editar Servicio</h1>
 
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/servicios">

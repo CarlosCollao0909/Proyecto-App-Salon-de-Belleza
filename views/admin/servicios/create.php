@@ -1,4 +1,4 @@
-<h1 class="nombre-pagina-admin">Registrar Nuevo Servicio</h1>
+<h1 class="nombre-pagina">Registrar Nuevo Servicio</h1>
 
 <div class="dashboard__contenedor-boton">
     <a class="dashboard__boton" href="/admin/servicios">

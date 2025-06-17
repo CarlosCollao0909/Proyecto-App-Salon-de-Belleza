@@ -30,7 +30,8 @@ class Reporte extends ActiveRecord {
 
     public static function obtenerTotalServicios() {
         $query = "SELECT COUNT(*) as total_servicios
-        FROM servicios;";
+        FROM servicios
+        WHERE estado = '1';";
         $resultado = self::customQuery($query);
         return array_shift($resultado);
     }

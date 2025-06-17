@@ -380,13 +380,13 @@ const consultarAPICitasPorDia = async (fecha) => {
         const citas = await resultado.json();
         console.log('Citas obtenidas para la fecha:', fecha, citas);
 
-        mostrarCitas(citas);
+        mostrarCitas(citas, fecha);
     } catch (error) {
         console.error('Error al consultar la API de citas por día:', error);
     }
 }
 
-const mostrarCitas = (citas) => {
+const mostrarCitas = (citas, fecha) => {
     const contenedor = document.querySelector('#citas');
     contenedor.innerHTML = '';
 
@@ -402,7 +402,7 @@ const mostrarCitas = (citas) => {
     // Agregar header
     const header = document.createElement('h3');
     header.className = 'citas-header';
-    header.textContent = 'Citas de la fecha seleccionada';
+    header.textContent = `Citas para la fecha: ${fecha}`;
     contenedor.appendChild(header);
 
     citas.forEach(cita => {
@@ -477,17 +477,29 @@ const cargarGraficoMensual = async () => {
     const labels = data.map(item => item.mes);
     const valores = data.map(item => item.total_ingresos);
 
-    if (!document.getElementById("graficoMensual")) return; // Verificar si el elemento existe
-
-    new Chart(document.getElementById("graficoMensual"), {
+    if (!document.getElementById("graficoMensual")) return;    new Chart(document.getElementById("graficoMensual"), {
         type: 'bar',
         data: {
             labels,
             datasets: [{
                 label: 'Ingresos por mes',
                 data: valores,
-                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                backgroundColor: 'rgba(66, 133, 244, 0.7)',
+                borderColor: 'rgba(66, 133, 244, 1)',
+                borderWidth: 1
             }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
     });
 }
@@ -498,19 +510,34 @@ const cargarGraficoDiario = async () => {
     const labels = data.map(item => item.fecha);
     const valores = data.map(item => item.total_ingresos);
 
-    if (!document.getElementById("graficoDiario")) return; // Verificar si el elemento existe
-
-    new Chart(document.getElementById("graficoDiario"), {
+    if (!document.getElementById("graficoDiario")) return;    new Chart(document.getElementById("graficoDiario"), {
         type: 'line',
         data: {
             labels,
             datasets: [{
                 label: 'Ingresos por día',
                 data: valores,
-                fill: false,
-                borderColor: 'rgba(255, 99, 132, 0.6)',
-                tension: 0.1
+                fill: {
+                    target: 'origin',
+                    above: 'rgba(52, 168, 83, 0.1)'
+                },
+                borderColor: 'rgba(52, 168, 83, 0.8)',
+                tension: 0.3,
+                pointRadius: 5,
+                pointBackgroundColor: 'rgba(52, 168, 83, 1)'
             }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
     });
 }
@@ -521,7 +548,7 @@ const cargarGraficoServicios = async () => {
     const labels = data.map(item => item.servicio);
     const valores = data.map(item => item.cantidad);
 
-    if (!document.getElementById("graficoServicios")) return; // Verificar si el elemento existe
+    if (!document.getElementById("graficoServicios")) return;
 
     new Chart(document.getElementById("graficoServicios"), {
         type: 'pie',
@@ -531,8 +558,17 @@ const cargarGraficoServicios = async () => {
                 label: 'Cantidad de veces Solicitado',
                 data: valores,
                 backgroundColor: [
-                    '#FF6384', '#36A2EB', '#FFCE56', '#81C784', '#BA68C8'
-                ]
+                    'rgba(66, 133, 244, 0.8)',
+                    'rgba(219, 68, 55, 0.8)',
+                    'rgba(244, 180, 0, 0.8)',
+                    'rgba(52, 168, 83, 0.8)',
+                    'rgba(156, 39, 176, 0.8)',
+                    'rgba(3, 169, 244, 0.8)',
+                    'rgba(255, 152, 0, 0.8)',
+                    'rgba(0, 150, 136, 0.8)'
+                ],
+                borderColor: 'white',
+                borderWidth: 2
             }]
         }
     });
@@ -544,17 +580,29 @@ const cargarGraficoClientes = async () => {
     const labels = data.map(item => item.cliente);
     const valores = data.map(item => item.cantidad_citas);
 
-    if (!document.getElementById("graficoClientes")) return; // Verificar si el elemento existe
-
-    new Chart(document.getElementById("graficoClientes"), {
+    if (!document.getElementById("graficoClientes")) return;    new Chart(document.getElementById("graficoClientes"), {
         type: 'bar',
         data: {
             labels,
             datasets: [{
                 label: 'Citas Agendadas por Cliente',
                 data: valores,
-                backgroundColor: 'rgba(255, 206, 86, 0.6)'
+                backgroundColor: 'rgba(219, 68, 55, 0.7)',
+                borderColor: 'rgba(219, 68, 55, 1)',
+                borderWidth: 1
             }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
     });
 }
@@ -565,17 +613,29 @@ const cargarGraficoHorarios = async () => {
     const labels = data.map(item => item.horario);
     const valores = data.map(item => item.cantidad);
 
-    if (!document.getElementById("graficoHorarios")) return; // Verificar si el elemento existe
-
-    new Chart(document.getElementById("graficoHorarios"), {
+    if (!document.getElementById("graficoHorarios")) return;    new Chart(document.getElementById("graficoHorarios"), {
         type: 'bar',
         data: {
             labels,
             datasets: [{
                 label: 'Cantidad de citas por horario',
                 data: valores,
-                backgroundColor: 'rgba(153, 102, 255, 0.6)'
+                backgroundColor: 'rgba(244, 180, 0, 0.7)',
+                borderColor: 'rgba(244, 180, 0, 1)',
+                borderWidth: 1
             }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
     });
 }

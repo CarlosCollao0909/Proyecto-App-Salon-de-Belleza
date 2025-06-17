@@ -31,7 +31,7 @@
         <form class="formulario">
             <div class="campo">
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" placeholder="Tu Nombre" name="nombre" value="<?php echo $nombre; ?>" disabled>
+                <input type="text" id="nombre" placeholder="Tu Nombre" name="nombre" value="<?php echo strtolower($nombre); ?>" disabled>
             </div>
             <div class="campo">
                 <label for="fecha">Fecha</label>

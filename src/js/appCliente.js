@@ -403,7 +403,7 @@ const mostrarResumen = () => {
 
     //validar campos vacios (object.values) muestra y accede a los campos del objeto
     if (Object.values(cita).includes('') || Object.values(cita.servicio).includes('') || Object.values(cita.horario).includes('')) {
-        mostrarAlerta('Faltan datos de los servicios, fecha, horario o forma de pago', 'error', '.contenido-resumen', false);
+        mostrarAlerta('Faltan datos del servicio, fecha, horario o forma de pago', 'error', '.contenido-resumen', false);
         return;
     }
 
@@ -458,7 +458,7 @@ const mostrarResumen = () => {
         <div class="resumen-icono resumen-icono-usuario"></div>
         <div class="resumen-info">
             <span class="resumen-etiqueta">Nombre:</span>
-            <p class="resumen-valor">${nombre}</p>
+            <p class="resumen-valor">${nombre.toLowerCase()}</p>
         </div>
     `;
 
@@ -502,7 +502,7 @@ const mostrarResumen = () => {
         <div class="resumen-icono resumen-icono-tijeras"></div>
         <div class="resumen-info">
             <span class="resumen-etiqueta">Servicio:</span>
-            <p class="resumen-valor">${servicio.nombre}</p>
+            <p class="resumen-valor">${(servicio.nombre).toLowerCase()}</p>
         </div>
     `;
 
