@@ -14,6 +14,9 @@
         <div class="app">
             <?php echo $contenido; ?>
         </div>
+        <a class="ir-arriba" href="javascript:void(0)" title="Volver arriba">
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
     </div>
 
     <?php echo $script ?? ''; ?>

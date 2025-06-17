@@ -5,7 +5,7 @@
 </a>
 
 <div class="barra">
-    <p>Hola! <?php echo $nombre ?? ''; ?></p>
+    <p class="barra__saludo">Hola! <?php echo strtolower($nombre) ?? ''; ?></p>
     <a class="logout-icon" href="/logout">
         <i class="fa-solid fa-right-from-bracket fa-2x"></i>
         Cerrar Sesión
@@ -18,13 +18,13 @@
             <span>Fecha: </span> <?php echo $cita->fecha; ?>
         </div>
         <div class="card-historial__servicio">
-            <span>Servicio: </span> <?php echo $cita->servicio; ?>
+            <span>Servicio: </span> <?php echo strtolower($cita->servicio); ?>
         </div>
         <div class="card-historial__precio">
             <span>Precio: </span> <?php echo $cita->precio; ?>
         </div>
         <div class="card-historial__estado">
-            <span>Estado de la cita: </span> <?php echo $cita->estado; ?>
+            <span>Estado de la cita: </span> <?php echo ucfirst($cita->estado); ?>
         </div>
         <?php if ($cita->fecha > date('Y-m-d', strtotime('-2 day')) && ($cita->estado != 'cancelada')): ?>
             <div class="card-historial__acciones">
@@ -38,3 +38,5 @@
         <?php endif; ?>
     </div>
 <?php endforeach; ?>
+
+<?php $script = '<script src="build/js/appCuenta.js"></script>' ?>

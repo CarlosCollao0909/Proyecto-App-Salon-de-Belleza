@@ -418,7 +418,7 @@ const mostrarCitas = (citas) => {
             <div class="cita-card__detalles">
                 <div class="cita-card__detalle-item">
                     <span class="label">Servicio</span>
-                    <span class="valor">${cita.servicio}</span>
+                    <span class="valor valor--capitalize">${(cita.servicio).toLowerCase()}</span>
                 </div>
                 
                 <div class="cita-card__detalle-item">
@@ -435,7 +435,7 @@ const mostrarCitas = (citas) => {
                 
                 <div class="cita-card__detalle-item">
                     <span class="label">Forma de pago</span>
-                    <span class="valor">${cita.formaPago}</span>
+                    <span class="valor valor--capitalize">${(cita.formaPago).toLowerCase()}</span>
                 </div>
                 
                 <div class="cita-card__detalle-item">

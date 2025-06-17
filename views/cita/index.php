@@ -4,7 +4,7 @@
 <a href="/historial" class="historial"><p>¿Ya tienes una cita? Ir al Historial</p></a>
 
 <div class="barra">
-    <p>Hola! <?php echo $nombre ?? ''; ?></p>
+    <p class="barra__saludo">Hola! <?php echo strtolower($nombre) ?? ''; ?></p>
     <a class="logout-icon" href="/logout">
         <i class="fa-solid fa-right-from-bracket fa-2x"></i>
         Cerrar Sesión

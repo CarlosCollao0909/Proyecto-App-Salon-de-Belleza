@@ -33,6 +33,10 @@
             text-align: center;
         }
 
+        .nombre-servicio {
+            text-transform: capitalize;
+        }
+
         .precio-servicio {
             color: v.$azul;
             font-weight: v.$bold;

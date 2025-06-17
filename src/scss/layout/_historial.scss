@@ -2,10 +2,56 @@
 @use 'base/mixins' as m;
 
 .card-historial {
-    padding: 2rem;
-    border-bottom: .1rem solid v.$gris-claro;
-    
+    background: v.$gris-oscuro;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid v.$azul-oscuro;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-3px);
+    }
+
+    > div {
+        margin-bottom: 1.2rem;
+        font-size: 1.5rem;
+    }
+
     span {
         font-weight: v.$bold;
+        display: inline-block;
+        min-width: 12rem;
+    }
+
+    &__servicio {
+        text-transform: capitalize;
+    }
+
+    &__precio::after {
+        content: ' Bs';
+        opacity: 0.7;
+    }
+
+    &__acciones {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #eee;
+    }
+}
+
+.boton--cancelar {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+        background: #c0392b;
     }
 }

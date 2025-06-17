@@ -16,9 +16,9 @@
                         <td class="table__td">
                             <?php echo $formaPago->tipo; ?>
                         </td>
-                        <?php if($formaPago->imagenQR != 'No corresponde'): ?>
+                        <?php if($formaPago->imagenQR != 'NO CORRESPONDE'): ?>
                             <td class="table__td">
-                                QR Asignado
+                                ASIGNADO
                             </td>
                             <td class="table__td--acciones">
                                 <a href="#modal-<?php echo $formaPago->id; ?>" class="table__accion table__accion--ver">

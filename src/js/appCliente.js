@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const iniciarApp = () => {
-    mostrarConfirmacionCancelar(); //muestra la alerta de confirmacion al cancelar la cita
     mostrarSeccion(); //muestra y oculta las secciones
     tabs(); //cambia la seccion cuando se presionen los tabs
     botonesPaginador(); //agrega o quita los botones del paginador
@@ -129,7 +128,7 @@ const mostrarServicios = (servicios) => {
 
         const nombreServicio = document.createElement('P');
         nombreServicio.classList.add('nombre-servicio');
-        nombreServicio.textContent = nombre;
+        nombreServicio.textContent = nombre.toLowerCase();
 
         const precioServicio = document.createElement('P');
         precioServicio.classList.add('precio-servicio');
@@ -589,32 +588,4 @@ const reservarCita = async () => {
     }
 
     // console.log([...datos]);
-}
-
-// alerta para cancelar la cita
-const mostrarConfirmacionCancelar = () => {
-    const forms = document.querySelectorAll('.table__formulario');
-
-    if (forms.length === 0) return;
-
-    forms.forEach(form => {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault(); // Detiene el envío del formulario
-
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡Esta acción no se puede deshacer!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sí, cancelar cita',
-                cancelButtonText: 'No, volver'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit(); // Envío manual solo si se confirma
-                }
-            });
-        });
-    });
 }

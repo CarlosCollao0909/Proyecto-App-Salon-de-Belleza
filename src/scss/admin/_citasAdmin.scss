@@ -252,6 +252,10 @@
                 &--precio {
                     font-weight: v.$bold;
                 }
+
+                &--capitalize {
+                    text-transform: capitalize;
+                }
             }
         }
         
