@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <script src="build/js/appCliente.js"></script>
+    <?php echo $script ?? ''; ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

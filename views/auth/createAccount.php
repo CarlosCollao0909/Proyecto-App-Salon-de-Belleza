@@ -36,3 +36,5 @@
     <a href="/">¿Ya tienes una cuenta? Iniciar Sesión</a>
     <a href="/forgot-password">¿Olvidaste tu Contraseña?</a>
 </div>
+
+<?php $script = '<script src="build/js/appCuenta.js"></script>' ?>

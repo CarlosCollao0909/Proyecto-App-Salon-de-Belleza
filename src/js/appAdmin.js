@@ -16,6 +16,8 @@ const iniciarApp = () => {
     cargarGraficoServicios();
     cargarGraficoClientes();
     cargarGraficoHorarios();
+    // Validaciones de campos
+    validarCamposServicio();
 }
 
 const limpiarParametroURL = (parametro) => {
@@ -289,26 +291,26 @@ const mostrarFullCalendar = () => {
             consultarAPICitasPorDia(fechaSeleccionada);
         },
         // Función para personalizar la apariencia de los eventos
-        eventDidMount: function(info) {
+        eventDidMount: function (info) {
             const fechaCita = new Date(info.event.start);
             const fechaHoy = new Date();
             fechaHoy.setHours(0, 0, 0, 0);
-            
+
             // Remover colores por defecto
             info.el.style.backgroundColor = 'transparent';
             info.el.style.borderColor = 'transparent';
-            
+
             // Aplicar clases CSS según si la cita es pasada o futura
             if (fechaCita < fechaHoy) {
-                info.el.style.backgroundColor = '#f93a3a'; 
+                info.el.style.backgroundColor = '#f93a3a';
                 info.el.style.color = '#FFFFFF';
             } else {
-                info.el.style.backgroundColor = '#66cc33'; 
+                info.el.style.backgroundColor = '#66cc33';
                 info.el.style.color = '#FFFFFF';
             }
         }
     });
-    
+
     calendar.render();
 
     // Agregar leyenda después de renderizar el calendario
@@ -326,10 +328,10 @@ const mostrarFullCalendar = () => {
 const agregarLeyenda = () => {
     const contenedorCalendario = document.querySelector('.contenedor-calendario');
     if (!contenedorCalendario) return;
-    
+
     // Verificar si ya existe la leyenda
     if (document.querySelector('.calendario-leyenda')) return;
-    
+
     const leyenda = document.createElement('div');
     leyenda.className = 'calendario-leyenda';
     leyenda.innerHTML = `
@@ -342,7 +344,7 @@ const agregarLeyenda = () => {
             <span>Citas Futuras</span>
         </div>
     `;
-    
+
     contenedorCalendario.appendChild(leyenda);
 }
 
@@ -406,7 +408,7 @@ const mostrarCitas = (citas) => {
     citas.forEach(cita => {
         const citaCard = document.createElement('div');
         citaCard.className = 'cita-card';
-        
+
         citaCard.innerHTML = `
             <div class="cita-card__header">
                 <div class="cita-card__cliente">${cita.cliente}</div>
@@ -463,7 +465,7 @@ const mostrarCitas = (citas) => {
                 </div>
             `: ''}
         `;
-        
+
         contenedor.appendChild(citaCard);
     });
 };
@@ -574,6 +576,40 @@ const cargarGraficoHorarios = async () => {
                 data: valores,
                 backgroundColor: 'rgba(153, 102, 255, 0.6)'
             }]
+        }
+    });
+}
+
+
+//validaciones campos servicio
+const validarCamposServicio = () => {
+    const nombre = document.getElementById('nombre');
+    const precio = document.getElementById('precio');
+
+    //Limitar nombre a letras y espacios, convertir a mayúsculas
+    nombre.addEventListener('input', function () {
+        this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '').toUpperCase();
+    });
+
+    // Solo permitir números y punto decimal, limitar a 999.99
+    precio.addEventListener('input', function () {
+        // Solo números y un punto
+        this.value = this.value.replace(/[^0-9.]/g, '');
+
+        // Solo un punto decimal
+        const partes = this.value.split('.');
+        if (partes.length > 2) {
+            this.value = partes[0] + '.' + partes[1];
+        }
+
+        // Limitar a dos decimales
+        if (partes[1] && partes[1].length > 2) {
+            this.value = partes[0] + '.' + partes[1].substring(0, 2);
+        }
+
+        // Limitar a 999.99
+        if (parseFloat(this.value) > 999.99) {
+            this.value = '';
         }
     });
 }
