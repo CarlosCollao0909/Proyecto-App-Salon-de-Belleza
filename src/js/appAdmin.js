@@ -350,7 +350,7 @@ const agregarLeyenda = () => {
 
 const consultarAPICitas = async (calendar) => {
     try {
-        const url = 'http://localhost:3000/api/citas_admin';
+        const url = `${location.origin}/api/citas_admin`;
         const resultado = await fetch(url);
         const citas = await resultado.json();
         console.log('Citas obtenidas:', citas);
@@ -375,7 +375,7 @@ const consultarAPICitas = async (calendar) => {
 
 const consultarAPICitasPorDia = async (fecha) => {
     try {
-        const url = `http://localhost:3000/api/citas_admin?fecha=${fecha}`;
+        const url = `${location.origin}/api/citas_admin?fecha=${fecha}`;
         const resultado = await fetch(url);
         const citas = await resultado.json();
         console.log('Citas obtenidas para la fecha:', fecha, citas);

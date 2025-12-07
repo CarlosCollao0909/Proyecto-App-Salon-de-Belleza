@@ -113,7 +113,7 @@ const paginaAnterior = () => {
 
 const consultarAPIServicios = async () => {
     try {
-        const url = 'http://localhost:3000/api/servicios';
+        const url = `${location.origin}/api/servicios`;
         const resultado = await fetch(url);
         const servicios = await resultado.json();
         mostrarServicios(servicios);
@@ -177,7 +177,7 @@ const seleccionarServicio = (servicio) => {
 const consultarAPIHorarios = async () => {
     console.log(cita.fecha)
     try {
-        const url = `http://localhost:3000/api/horarios?fecha=${cita.fecha}`;
+        const url = `${location.origin}/api/horarios?fecha=${cita.fecha}`;
         const resultado = await fetch(url);
         const horarios = await resultado.json();
         mostrarHorarios(horarios);
@@ -556,7 +556,7 @@ const reservarCita = async () => {
 
     try {
         //peticion hacia la api
-        const url = 'http://localhost:3000/api/citas';
+        const url = `${location.origin}/api/citas`;
         const respuesta = await fetch(url, {
             method: 'POST',
             body: datos

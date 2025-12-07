@@ -19,11 +19,11 @@ class Email {
         //Crear el objeto de phpmailer
         $mail = new PHPMailer();
         $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->Host = $_ENV['EMAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = '2ec629ea3474b0';
-        $mail->Password = 'd0f9771be5b9f6';
+        $mail->Port = $_ENV['EMAIL_PORT'];
+        $mail->Username = $_ENV['EMAIL_USER'];
+        $mail->Password = $_ENV['EMAIL_PASS'];
 
         $mail->setFrom('cuentas@appsalon.com');
         $mail->addAddress('cuentas@appsalon.com', 'AppSalon.com');
@@ -40,7 +40,7 @@ class Email {
         $contenido .= "<p style='margin-bottom: 15px;'><strong style='text-transform: capitalize'>Hola " . strtolower($this->nombre) . "</strong></p>";
         $contenido .= "<p style='margin-bottom: 15px;'>Has creado tu cuenta en el Salon de belleza LIZMAR, solo debes confirmarla presionando el siguiente enlace</p>";
         $contenido .= "<p style='text-align: center; margin: 30px 0;'>";
-        $contenido .= "<a href='http://localhost:3000/confirm-account?token=" . $this->token . "' style='background-color: #4a90e2; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;'>Confirmar Cuenta</a>";
+        $contenido .= "<a href='". $_ENV['APP_URL'] . "/confirm-account?token=" . $this->token . "' style='background-color: #4a90e2; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;'>Confirmar Cuenta</a>";
         $contenido .= "</p>";
         $contenido .= "<p style='color: #666666; font-size: 0.9em; margin-top: 30px;'>Si tu no solicitaste este cambio, puedes ignorar el mensaje</p>";
         $contenido .= "</div>";
@@ -56,11 +56,11 @@ class Email {
         //Crear el objeto de phpmailer
         $mail = new PHPMailer();
         $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->Host = $_ENV['EMAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = '2ec629ea3474b0';
-        $mail->Password = 'd0f9771be5b9f6';
+        $mail->Port = $_ENV['EMAIL_PORT'];
+        $mail->Username = $_ENV['EMAIL_USER'];
+        $mail->Password = $_ENV['EMAIL_PASS'];
 
         $mail->setFrom('cuentas@appsalon.com');
         $mail->addAddress('cuentas@appsalon.com', 'AppSalon.com');
@@ -77,7 +77,7 @@ class Email {
         $contenido .= "<p style='margin-bottom: 15px;'><strong style='text-transform: capitalize'>Hola " . strtolower($this->nombre) . "</strong></p>";
         $contenido .= "<p style='margin-bottom: 15px;'>Has solicitado restablecer tu contraseña, sigue el siguiente enlace</p>";
         $contenido .= "<p style='text-align: center; margin: 30px 0;'>";
-        $contenido .= "<a href='http://localhost:3000/reset-password?token=" . $this->token . "' style='background-color: #4a90e2; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;'>Restablecer Contraseña</a>";
+        $contenido .= "<a href='" . $_ENV['APP_URL'] . "/reset-password?token=" . $this->token . "' style='background-color: #4a90e2; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;'>Restablecer Contraseña</a>";
         $contenido .= "</p>";
         $contenido .= "<p style='color: #666666; font-size: 0.9em; margin-top: 30px;'>Si tu no solicitaste este cambio, puedes ignorar el mensaje</p>";
         $contenido .= "</div>";
