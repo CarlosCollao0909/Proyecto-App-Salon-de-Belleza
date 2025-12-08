@@ -4,7 +4,7 @@ namespace Model;
 
 class ComprobantePago extends ActiveRecord {
     //db
-    protected static $tabla = 'comprobantesPagos';
+    protected static $tabla = 'comprobantespagos';
     protected static $columnasDB = ['id', 'imagenComprobante', 'fechaSubida', 'citaID'];
 
     public $id;

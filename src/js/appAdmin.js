@@ -646,6 +646,8 @@ const validarCamposServicio = () => {
     const nombre = document.getElementById('nombre');
     const precio = document.getElementById('precio');
 
+    if (!nombre || !precio) return;
+
     //Limitar nombre a letras y espacios, convertir a mayúsculas
     nombre.addEventListener('input', function () {
         this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '').toUpperCase();
